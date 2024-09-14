@@ -10,7 +10,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import EditNotificationsIcon from '@mui/icons-material/EditNotifications';
 
-const Contacts = () => {
+
+function Blogs() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -172,4 +173,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Blogs

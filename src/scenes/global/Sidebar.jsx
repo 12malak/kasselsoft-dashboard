@@ -186,8 +186,8 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="How we work"
-              to={`/${lang}/pie`}
+              title="Why Choose Us"
+              to={`/${lang}/whychooseus`}
               icon={<HolidayVillageIcon />}
               selected={selected}
               setSelected={setSelected}

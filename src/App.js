@@ -15,7 +15,10 @@ import FAQ from "./scenes/faq";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
-import Contact from "./pages/Contact";
+import Contact from "./pages/Contact/Contact";
+import Add from "./pages/Contact/Add";
+import UpdateContact from "./pages/Contact/UpdateContact";
+import InfContact from "./pages/Contact/InfContact";
 import Blogs from "./pages/Blogs/Blogs";
 import Career from "./pages/Career/Career";
 import About from "./pages/About/About";
@@ -60,7 +63,7 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
            
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/:lang/contact" element={<Contact />} />
 
               {/* Add more routes here */}
               <Route path="/career" element={<Career />} />
@@ -68,7 +71,10 @@ function App() {
               <Route path="/:lang/about" element={<About />} />
               <Route path="/:lang/services" element={<Services />} />
               <Route path="/:lang/home" element={<Home />} />
+              <Route path="/:lang/infContact" element={<InfContact />} />
               <Route path="/:lang/updatemainhome" element={<UpdateMainHome />} />
+              <Route path="/:lang/updateContact" element={<UpdateContact />} />  
+              <Route path="/:lang/add" element={<Add />} />
             
             </Routes>
           </main>

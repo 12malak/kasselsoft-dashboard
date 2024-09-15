@@ -77,7 +77,7 @@ function Home() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const mainhomeRes = await axios.get(`${API_URL}/home/${lang}`);
+        const mainhomeRes = await axios.get(`http://localhost:9090/home/${lang}`);
         setMainHome(mainhomeRes.data);
         console.log(mainhomeRes.data);
       } catch (err) {

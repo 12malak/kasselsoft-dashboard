@@ -4,6 +4,10 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { Alert, MenuItem, Snackbar, Stack } from "@mui/material";
+
+
+
+
 const UpdateMainHome = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 

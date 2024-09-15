@@ -56,6 +56,7 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
+minHeight:"115em",
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },

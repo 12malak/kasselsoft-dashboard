@@ -33,3 +33,12 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -23,10 +23,11 @@ import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
-
+import { useLocation } from "react-router-dom";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+ 
   return (
     <MenuItem
       active={selected === title}
@@ -44,10 +45,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
 const Sidebar = () => {
   const theme = useTheme();
+  const location = useLocation();
+
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const lang = location.pathname.split("/")[1] || "en"; // Get the language from the path, default to 'en'
 
+  
   return (
     <Box
       sx={{
@@ -100,7 +105,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to={`/${lang}`}
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -124,14 +129,14 @@ const Sidebar = () => {
             />
 <Item
               title="Blogs"
-              to="/blogs"
-              icon={<ReceiptOutlinedIcon />}
+              to={`/${lang}/blogs`}
+                            icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Career"
-              to="/career"
+              to={`/${lang}/career`}
               icon={<WorkOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -145,7 +150,7 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="About us"
-              to="/about"
+              to={`/${lang}/about`}
               icon={<ErrorOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -153,14 +158,14 @@ const Sidebar = () => {
           
             <Item
               title="Services"
-              to="/services"
+              to={`/${lang}/services`}
               icon={<EventNoteIcon />}
               selected={selected}
               setSelected={setSelected}
             />
  <Item
               title="Contact"
-              to="/contact"
+              to={`/${lang}/contact`}
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -175,21 +180,21 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Top section"
-              to="/home"
+              to={`/${lang}/home`} 
               icon={<CabinIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="How we work"
-              to="/pie"
+              to={`/${lang}/pie`}
               icon={<HolidayVillageIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Services home"
-              to="/line"
+              to={`/${lang}/line`}
               icon={<OtherHousesIcon />}
               selected={selected}
               setSelected={setSelected}

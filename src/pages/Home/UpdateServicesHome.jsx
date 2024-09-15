@@ -8,7 +8,7 @@ import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 
-const UpdateMainHome = () => {
+const UpdateServicesHome = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const UpdateMainHome = () => {
     if (mainhomeId) {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${API_URL}/home/getbyid/${mainhomeId}`);
+          const response = await axios.get(`${API_URL}/homeservices/getbyid/${mainhomeId}`);
           setMainHome(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
@@ -47,15 +47,13 @@ const UpdateMainHome = () => {
     try {
       const formData = new FormData();
       formData.append("title", values.title);
-      formData.append("subtitle", values.subtitle);
       formData.append("description", values.description);
       if (img) {
         formData.append("img", img);
       }
-      formData.append("button", values.button);
 
       await axios.put(
-        `${API_URL}/home/update/${lang}/${mainhomeId}`,
+        `${API_URL}/homeservices/update/${lang}/${mainhomeId}`,
         formData,
         {
           headers: {
@@ -107,7 +105,6 @@ const UpdateMainHome = () => {
         enableReinitialize={true} // Important to reinitialize when mainHome changes
         initialValues={{
           title: mainHome.title || "",
-          subtitle: mainHome.subtitle || "",
           description: mainHome.description || "",
           button: mainHome.button || "",
         }}
@@ -145,20 +142,7 @@ const UpdateMainHome = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang ==="ar" ? "العنوان الفرعي" :"SubTitle"} 
-
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.subtitle} // Correct usage of Formik values
-                name="subtitle"
-                error={!!touched.subtitle && !!errors.subtitle}
-                helperText={touched.subtitle && errors.subtitle}
-                sx={{ gridColumn: "span 2" }}
-              />
+             
               <TextField
                 fullWidth
                 variant="filled"
@@ -173,19 +157,7 @@ const UpdateMainHome = () => {
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang ==="ar" ? "زر التنقل": "Button"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.button} // Correct usage of Formik values
-                name="button"
-                error={!!touched.button && !!errors.button}
-                helperText={touched.button && errors.button}
-                sx={{ gridColumn: "span 2" }}
-              />
+             
               <TextField
                 sx={{ gridColumn: "span 4" }}
                 label={lang ==="ar" ? "الصورة": "Img"}
@@ -208,9 +180,7 @@ const UpdateMainHome = () => {
 
 const checkoutSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
-  subtitle: yup.string().required("Subtitle is required"),
   description: yup.string().required("Description is required"),
-  button: yup.string().required("Button is required"),
 });
 
-export default UpdateMainHome;
+export default UpdateServicesHome;

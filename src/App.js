@@ -23,6 +23,10 @@ import Services from "./pages/Services/Services";
 import Home from "./pages/Home/Home";
 import { useLocation } from "react-router-dom";
 import UpdateMainHome from "./pages/Home/UpdateMainHome";
+import UpdateServicesHome from "./pages/Home/UpdateServicesHome";
+import WhyChooseUs from "./pages/Home/WhyChooseUs";
+import UpdateWhyChooseUs from "./pages/Home/UpdateWhyChooseUs";
+import UpdateCardHome from "./pages/Home/UpdateCardHome";
 
 const DirectionHandler = () => {
   const location = useLocation();
@@ -69,6 +73,10 @@ function App() {
               <Route path="/:lang/services" element={<Services />} />
               <Route path="/:lang/home" element={<Home />} />
               <Route path="/:lang/updatemainhome" element={<UpdateMainHome />} />
+              <Route path="/:lang/updateserviceshome" element={<UpdateServicesHome />} />
+              <Route path="/:lang/whychooseus" element={<WhyChooseUs />} />
+              <Route path="/:lang/updatewhychooseus" element={<UpdateWhyChooseUs />} />
+              <Route path="/:lang/updatecardhome" element={<UpdateCardHome />} />
             
             </Routes>
           </main>

@@ -6,88 +6,101 @@ import Header from "../../components/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
-const UpdateMainHome = () => {
+const UpdateWhyChooseUs = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
-  const [img, setImg] = useState(null);
-  const [mainhomeId, setMainhomeId] = useState("");
-  const [mainHome, setMainHome] = useState({});
-  const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
+  const [whychooseusId, setwhychooseusId] = useState("");
+  const [whychooseus, setwhychooseus] = useState({});
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
 
-  // Fetch data when mainhomeId changes
+  // Fetch data when whychooseusId changes
   useEffect(() => {
-    if (mainhomeId) {
+    if (whychooseusId) {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${API_URL}/home/getbyid/${mainhomeId}`);
-          setMainHome(response.data[0]);
+          const response = await axios.get(
+            `${API_URL}/homewhychooseus/getbyid/${whychooseusId}`
+          );
+          setwhychooseus(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
       };
       fetchData();
     }
-  }, [mainhomeId]);
+  }, [whychooseusId]);
 
-  // Set mainhomeId from location state
+  // Set whychooseusId from location state
   useEffect(() => {
     if (location.state && location.state.id) {
-      setMainhomeId(location.state.id);
+      setwhychooseusId(location.state.id);
     } else {
-      console.warn('No ID found in location.state');
+      console.warn("No ID found in location.state");
     }
   }, [location.state]);
 
   const handleFormSubmit = async (values) => {
     try {
-      const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("subtitle", values.subtitle);
-      formData.append("description", values.description);
-      if (img) {
-        formData.append("img", img);
-      }
-      formData.append("button", values.button);
-
       await axios.put(
-        `${API_URL}/home/update/${lang}/${mainhomeId}`,
-        formData,
+        `${API_URL}/homewhychooseus/update/${lang}/${whychooseusId}`,
+        {
+          title: values.title,
+          subtitle: values.subtitle,
+          description: values.description,
+          button: values.button,
+        },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
-      setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح":"Update successful!", severity: "success" });
-
+      setAlert({
+        open: true,
+        message: lang === "ar" ? "تم التعديل بنجاح" : "Update successful!",
+        severity: "success",
+      });
       setTimeout(() => {
-        navigate(`/${lang}/home`);
+        navigate(`/${lang}/whychooseus`);
       }, 2000);
-
     } catch (error) {
-      console.error(`Error in fetch edit data: ${error}`);
-      setAlert({ open: true, message: "Update failed. Please try again.", severity: "error" });
+      console.error("Error updating data:", error);
+      setAlert({
+        open: true,
+        message: "Update failed. Please try again.",
+        severity: "error",
+      });
     }
-  };
-
-  const handleImg = (e) => {
-    setImg(e.target.files[0]);
   };
 
   return (
     <Box m="20px">
-      <Header title={lang ==="ar" ? "تعديل الرئيسية" :"UPDATE MAIN HOME"} subtitle={lang ==="ar" ? "تعديل بيانات الرئيسية" : "Update an Existing Main Home"} />
+      <Header
+        title={
+          lang === "ar" ? "تعديل لماذا تختارنا" : "UPDATE Why Choose Us HOME"
+        }
+        subtitle={
+          lang === "ar"
+            ? "تعديل لماذا تختارنا"
+            : "Update an Existing Why Choose Us"
+        }
+      />
 
       {alert.open && (
         <Alert
           severity={alert.severity}
           sx={{
-            backgroundColor: alert.severity === "success" ? "#365486" : "#f8d7da",
+            backgroundColor:
+              alert.severity === "success" ? "#365486" : "#f8d7da",
             marginBottom: "2vh",
             color: alert.severity === "success" ? "#fff" : "#721c24",
             "& .MuiAlert-icon": {
@@ -104,12 +117,12 @@ const UpdateMainHome = () => {
       )}
 
       <Formik
-        enableReinitialize={true} // Important to reinitialize when mainHome changes
+        enableReinitialize={true} // Important to reinitialize when whychooseus changes
         initialValues={{
-          title: mainHome.title || "",
-          subtitle: mainHome.subtitle || "",
-          description: mainHome.description || "",
-          button: mainHome.button || "",
+          title: whychooseus.title || "",
+          subtitle: whychooseus.subtitle || "",
+          description: whychooseus.description || "",
+          button: whychooseus.button || "",
         }}
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
@@ -135,8 +148,7 @@ const UpdateMainHome = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label=
-                {lang ==="ar" ? "العنوان" :"Title"} 
+                label={lang === "ar" ? "العنوان" : "Title"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title} // Correct usage of Formik values
@@ -149,8 +161,7 @@ const UpdateMainHome = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang ==="ar" ? "العنوان الفرعي" :"SubTitle"} 
-
+                label={lang === "ar" ? "العنوان الفرعي" : "SubTitle"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.subtitle} // Correct usage of Formik values
@@ -163,8 +174,7 @@ const UpdateMainHome = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label=               {lang ==="ar" ? "الوصف" :"Description" } 
-
+                label={lang === "ar" ? "الوصف" : "Description"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description} // Correct usage of Formik values
@@ -177,7 +187,7 @@ const UpdateMainHome = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang ==="ar" ? "زر التنقل": "Button"}
+                label={lang === "ar" ? "زر التنقل" : "Button"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.button} // Correct usage of Formik values
@@ -186,17 +196,10 @@ const UpdateMainHome = () => {
                 helperText={touched.button && errors.button}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                sx={{ gridColumn: "span 4" }}
-                label={lang ==="ar" ? "الصورة": "Img"}
-                variant="outlined"
-                type="file"
-                onChange={handleImg}
-              />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-              { lang ==="ar" ? "تعديل" :" Update "}
+                {lang === "ar" ? "تعديل" : " Update "}
               </Button>
             </Box>
           </form>
@@ -213,4 +216,4 @@ const checkoutSchema = yup.object().shape({
   button: yup.string().required("Button is required"),
 });
 
-export default UpdateMainHome;
+export default UpdateWhyChooseUs;

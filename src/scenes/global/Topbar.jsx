@@ -6,12 +6,23 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
+import LanguageIcon from '@mui/icons-material/Language';
+import { useLocation ,useNavigate } from "react-router-dom";
 
 
 const Topbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const lang = location.pathname.split("/")[1] || "en"; // Get the language from the path, default to 'en'
+
+  // Function to toggle language
+  const toggleLanguage = () => {
+    const newLang = lang === "en" ? "ar" : "en"; // Toggle between English and Arabic
+    navigate(`/${newLang}`); // Navigate to the new language path
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -53,7 +64,10 @@ const Topbar = () => {
         <IconButton>
           <LogoutIcon />
         </IconButton>
-       
+         {/* Language Switcher */}
+         <IconButton onClick={toggleLanguage}>
+          <LanguageIcon />
+        </IconButton>
       </Box>
     </Box>
   );

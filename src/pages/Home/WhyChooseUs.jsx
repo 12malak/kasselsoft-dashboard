@@ -8,15 +8,17 @@ import axios from "axios";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
-import ServicesHome from "./ServicesHome";
+import CardHome from "./CardHome";
+import SliderImgHome from "./SliderImgHome";
+import DeleteDialog from '../../components/DeleteDialog.jsx'
 
-function Home() {
+function WhyChooseUs() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [mainHome, setMainHome] = useState([]);
+  const [whychooseus, setwhychooseus] = useState([]);
   const isLargeScreen = useMediaQuery('(min-width:768px)'); // Adjust the breakpoint as needed
 
   // Define styles based on screen size
@@ -25,7 +27,7 @@ function Home() {
     // Add any other styles you need
   };
   const handleUpdate = (id) => {
-    navigate(`/${lang}/updatemainhome`, { state: { id } });
+    navigate(`/${lang}/updatewhychooseus`, { state: { id } });
   };
 
   const columns = [
@@ -57,17 +59,7 @@ function Home() {
       headerAlign: "left",
       align: "left",
     },
-    // {
-    //   field: "accessLevel",
-    //   headerName: "Delete",
-    //   renderCell: (params) => (
-    //     <Box m="0 auto" p="5px" display="flex" justifyContent="center">
-    //       <Typography color={colors.redAccent[400]} sx={{ ml: "5px" }}>
-    //         <DeleteOutlineIcon />
-    //       </Typography>
-    //     </Box>
-    //   ),
-    // },
+  
     {
       field: "accessLeve2",
       headerName:lang ==="ar" ? "تعديل" : "Edit",
@@ -88,8 +80,9 @@ function Home() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const mainhomeRes = await axios.get(`http://localhost:9090/home/${lang}`);
-        setMainHome(mainhomeRes.data);
+        const whychooseusRes = await axios.get(`${API_URL}/homewhychooseus/${lang}`);
+        setwhychooseus(whychooseusRes.data);
+        console.log(whychooseusRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -100,7 +93,7 @@ function Home() {
 
   return (
     <Box m="20px">
-      <Header title={lang ==="ar" ? "الرئيسية" :"Main Home"} subtitle={lang === 'ar' ? "بيانات الرئيسية" :"List of Main Home" }/>
+      <Header title={lang ==="ar" ? "لماذا تختارنا" :"Why Choose Us Home"} subtitle={lang === 'ar' ? "بيانات لماذا تختارنا" :"List of Why Choose Us" }/>
       <Box
         // m="40px 0 0 0"
         height="55vh"
@@ -146,15 +139,17 @@ function Home() {
       >
         <DataGrid 
                 style={dataGridStyle}
-          rows={mainHome} // Ensure this is an array of objects
+          rows={whychooseus} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
         />
       </Box>
-      <ServicesHome/>
+      <CardHome/>
+      <SliderImgHome/>
+
     </Box>
   );
 }
 
-export default Home;
+export default WhyChooseUs;

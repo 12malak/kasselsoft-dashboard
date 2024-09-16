@@ -41,7 +41,7 @@ function UpdateServicesAbout() {
                     const contactData = response.data; // Since data is an object, no need for [0]
                     if (contactData) {
                         setInitialValues({
-                            name: contactData.title || "",
+                            title: contactData.title || "",
                             icon: contactData.icon || "",
                           
                         });

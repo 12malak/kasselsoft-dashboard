@@ -30,6 +30,13 @@ import UpdateServicesHome from "./pages/Home/UpdateServicesHome";
 import WhyChooseUs from "./pages/Home/WhyChooseUs";
 import UpdateWhyChooseUs from "./pages/Home/UpdateWhyChooseUs";
 import UpdateCardHome from "./pages/Home/UpdateCardHome";
+import TeamAbout from "./pages/About/TeamAbout";
+import UpdateTeam from "./pages/About/UpdateTeam";
+import AddTeam from "./pages/About/AddTeam";
+
+import UpdateServicesAbout from "./pages/About/UpdateServicesAbout";
+
+
 
 const DirectionHandler = () => {
   const location = useLocation();
@@ -78,8 +85,11 @@ function App() {
               <Route path="/:lang/infContact" element={<InfContact />} />
               <Route path="/:lang/updatemainhome" element={<UpdateMainHome />} />
               <Route path="/:lang/updateContact" element={<UpdateContact />} />  
+              <Route path="/:lang/updateTeam" element={<UpdateTeam />} /> 
+              <Route path="/:lang/updateServicesAbout" element={<UpdateServicesAbout />} />
+              <Route path="/:lang/addTeam" element={<AddTeam />} />   
               <Route path="/:lang/add" element={<Add />} />
-
+              <Route path="/:lang/teamAbout" element={<TeamAbout />} />
               <Route path="/:lang/updateserviceshome" element={<UpdateServicesHome />} />
               <Route path="/:lang/whychooseus" element={<WhyChooseUs />} />
               <Route path="/:lang/updatewhychooseus" element={<UpdateWhyChooseUs />} />

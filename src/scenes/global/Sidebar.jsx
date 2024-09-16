@@ -32,11 +32,10 @@ const Item = ({ title, to, icon, selected, setSelected , lang}) => {
     <MenuItem
     active={selected === title}
     style={{
+    
       color: colors.grey[100],
       // display:lang === "ar" ?  "flex" : "",
-      display: "flex",
-      justifyContent: lang === "ar" ? "flex-end" : "flex-start", // Adjust alignment for RTL
-      flexDirection: lang === "ar" ? "row-reverse" : "row", // Reverse icon and title order for Arabic
+   
     }}
     onClick={() => setSelected(title)}
     icon={icon}
@@ -63,8 +62,19 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
+
+      
+          // height: '150vh', 
+          // display: 'flex',
+          // flexDirection: 'column', 
+          "& .pro-sidebar-inner": {
+            background: `${colors.primary[400]} !important`,
+             // Ensure sidebar content takes full height
+            // height: '100%',
+          },
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
+        
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -173,6 +183,13 @@ const Sidebar = () => {
     selected={selected}
     setSelected={setSelected}
   />
+ <Item
+    title={lang === "ar" ? " أعضاء الفريق" : "TeamAbout"}
+    to={`/${lang}/teamAbout`}
+    icon={<ErrorOutlineIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
 
   {/* Services Item */}
   <Item
@@ -191,7 +208,13 @@ const Sidebar = () => {
     selected={selected}
     setSelected={setSelected}
   />
-
+<Item
+    title={lang === "ar" ? " معلومات التواصل " : " Contact info"}
+    to={`/${lang}/infContact`}
+    icon={<HelpOutlineOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
   {/* Section Heading: Home */}
   <Typography
     variant="h6"

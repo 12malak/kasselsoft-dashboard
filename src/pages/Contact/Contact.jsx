@@ -8,7 +8,7 @@ import axios from "axios";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams,useNavigate } from "react-router-dom";
-
+import {  Snackbar, Alert } from "@mui/material"; // Ensure Alert is imported
 function Contact() {
     const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -16,7 +16,7 @@ function Contact() {
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [contact, setcontact] = useState([]);
-
+  const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
 
   const columns = [
     {
@@ -92,16 +92,31 @@ function Contact() {
   }, [lang]);
 
 
-
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:9090/contactForm/delete/${id}`);
-      // Refresh the data after deletion
-      const updatedContacts = contact.filter((item) => item.id !== id);
-      setcontact(updatedContacts);
-      console.log("deleting contacts");
-    } catch (err) {
-      console.error("Error deleting data:", err);
+    if (window.confirm(lang === "ar" ? "هل أنت متأكد من أنك تريد الحذف؟" : "Are you sure you want to delete this?")) {
+      try {
+        await axios.delete(`http://localhost:9090/contactForm/delete/${id}`);
+        
+        // Update the contact list after deletion
+        const updatedContacts = contact.filter((item) => item.id !== id);
+        setcontact(updatedContacts);
+
+        // Show success alert
+        setAlert({
+          open: true,
+          message: lang === "ar" ? "تم الحذف بنجاح!" : "Deleted successfully!",
+          severity: "success",
+        });
+      } catch (err) {
+        console.error("Error deleting data:", err);
+
+        // Show error alert
+        setAlert({
+          open: true,
+          message: lang === "ar" ? "فشل الحذف" : "Failed to delete!",
+          severity: "error",
+        });
+      }
     }
   };
   
@@ -166,6 +181,21 @@ function Contact() {
         components={{ Toolbar: GridToolbar }}
         rowHeight={100} // Set the row height here
       />
+
+       {/* Snackbar for alert messages */}
+       <Snackbar
+          open={alert.open}
+          autoHideDuration={2000}
+          onClose={() => setAlert({ ...alert, open: false })}
+        >
+          <Alert
+            onClose={() => setAlert({ ...alert, open: false })}
+            severity={alert.severity}
+            sx={{ width: "100%" }}
+          >
+            {alert.message}
+          </Alert>
+        </Snackbar>
     </Box>
   </Box>
 );

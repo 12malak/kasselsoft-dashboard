@@ -24,24 +24,31 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import { useLocation } from "react-router-dom";
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected , lang}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
  
   return (
     <MenuItem
-      active={selected === title}
-      style={{
-        color: colors.grey[100],
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
-  );
+    active={selected === title}
+    style={{
+      color: colors.grey[100],
+      // display:lang === "ar" ?  "flex" : "",
+      display: "flex",
+      justifyContent: lang === "ar" ? "flex-end" : "flex-start", // Adjust alignment for RTL
+      flexDirection: lang === "ar" ? "row-reverse" : "row", // Reverse icon and title order for Arabic
+    }}
+    onClick={() => setSelected(title)}
+    icon={icon}
+  >
+    <Typography>{title}</Typography>
+    <Link to={to} />
+  </MenuItem>
+);
 };
+
+
+
 
 const Sidebar = () => {
   const theme = useTheme();
@@ -103,125 +110,135 @@ const Sidebar = () => {
 
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Dashboard"
-              to={`/${lang}`}
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+  {/* Dashboard Item */}
+  <Item
+    title={lang === "ar" ? "لوحه التحكم" : "Dashboard"}
+    to={`/${lang}`}
+    icon={<HomeOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Data
-            </Typography>
-        
-           
-            <Item
-              title="form"
-              to="/form"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-<Item
-              title="Blogs"
-              to={`/${lang}/blogs`}
-                            icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Career"
-              to={`/${lang}/career`}
-              icon={<WorkOutlineIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography>
-            <Item
-              title="About us"
-              to={`/${lang}/about`}
-              icon={<ErrorOutlineIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          
-            <Item
-              title="Services"
-              to={`/${lang}/services`}
-              icon={<EventNoteIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
- <Item
-              title="Contact"
-              to={`/${lang}/contact`}
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+  {/* Section Heading: Data */}
+  <Typography
+    variant="h6"
+    color={colors.grey[300]}
+    sx={{ m: "15px 0 5px 20px" }}
+  >
+    {lang === "ar" ? "" : "Data"}
+  </Typography>
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Home
-            </Typography>
-            <Item
-              title="Top section"
-              to={`/${lang}/home`} 
-              icon={<CabinIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Why Choose Us"
-              to={`/${lang}/whychooseus`}
-              icon={<HolidayVillageIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Services home"
-              to={`/${lang}/line`}
-              icon={<OtherHousesIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            {/* <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
+  {/* Form Item */}
+  <Item
+    title={lang === "ar" ? "النموذج" : "Form"}
+    to={`/${lang}/form`}
+    icon={<ReceiptOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
 
-<Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Calendar
-            </Typography>
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          </Box>
+  {/* Blogs Item */}
+  <Item
+    title={lang === "ar" ? "المدونات" : "Blogs"}
+    to={`/${lang}/blogs`}
+    icon={<ReceiptOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+  {/* Career Item */}
+  <Item
+    title={lang === "ar" ? "المسار المهني" : "Career"}
+    to={`/${lang}/career`}
+    icon={<WorkOutlineIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+  {/* Section Heading: Pages */}
+  <Typography
+    variant="h6"
+    color={colors.grey[300]}
+    sx={{ m: "15px 0 5px 20px" }}
+  >
+    {lang === "ar" ? "" : "Pages"}
+  </Typography>
+
+  {/* About Us Item */}
+  <Item
+    title={lang === "ar" ? "من نحن" : "About us"}
+    to={`/${lang}/about`}
+    icon={<ErrorOutlineIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+  {/* Services Item */}
+  <Item
+    title={lang === "ar" ? "خدماتنا" : "Services"}
+    to={`/${lang}/services`}
+    icon={<EventNoteIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+  {/* Contact Item */}
+  <Item
+    title={lang === "ar" ? "اتصل بنا" : "Contact"}
+    to={`/${lang}/contact`}
+    icon={<HelpOutlineOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+  {/* Section Heading: Home */}
+  <Typography
+    variant="h6"
+    color={colors.grey[300]}
+    sx={{ m: "15px 0 5px 20px" }}
+  >
+    {lang === "ar" ? "" : "Home"}
+  </Typography>
+
+  {/* Top Section Item */}
+  <Item
+    title={lang === "ar" ? "القسم العلوي" : "Top section"}
+    to={`/${lang}/home`}
+    icon={<CabinIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+  {/* Why Choose Us Item */}
+  <Item
+    title={lang === "ar" ? "لماذا تختارنا" : "Why Choose Us"}
+    to={`/${lang}/whychooseus`}
+    icon={<HolidayVillageIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+  {/* Services Home Item */}
+  <Item
+    title={lang === "ar" ? "خدمات الرئيسية" : "Services home"}
+    to={`/${lang}/line`}
+    icon={<OtherHousesIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+
+ 
+
+  {/* Calendar Item */}
+  <Item
+    title={lang === "ar" ? "التقويم" : "Calendar"}
+    to={`/${lang}/calendar`}
+    icon={<CalendarTodayOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+</Box>
+
         </Menu>
       </ProSidebar>
     </Box>

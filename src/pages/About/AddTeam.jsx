@@ -9,6 +9,7 @@ function AddTeam() {
     const navigate = useNavigate();
   const { lang } = useParams();
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const API_URL = process.env.REACT_APP_API_URL;
 
   // State for showing success/error messages
   const [alert, setAlert] = useState({ type: "", message: "", visible: false });
@@ -17,7 +18,7 @@ function AddTeam() {
   const handleFormSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const response = await axios.post(
-        `http://localhost:9090/abuteteam/addteam/${lang}`,
+        `${API_URL}/abuteteam/addteam/${lang}`,
         values
       );
       console.log(response.data);

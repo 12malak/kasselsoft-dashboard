@@ -70,7 +70,7 @@ function TeamAbout() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const AboutTemeRes = await axios.get(`http://localhost:9090/abuteteam/aboutteme/${lang}`);
+        const AboutTemeRes = await axios.get(`${API_URL}/abuteteam/aboutteme/${lang}`);
         setAboutTeme(AboutTemeRes.data);
         console.log(AboutTemeRes.data);
       } catch (err) {
@@ -85,7 +85,7 @@ function TeamAbout() {
   const handleDelete = async (id) => {
     if (window.confirm(lang === "ar" ? "هل أنت متأكد من أنك تريد الحذف؟" : "Are you sure you want to delete this?")) {
       try {
-        await axios.delete(`http://localhost:9090/abuteteam/delete/${id}`);
+        await axios.delete(`${API_URL}/abuteteam/delete/${id}`);
         setAlert({ open: true, message: lang === "ar" ? "تم الحذف بنجاح!" : "Deleted successfully!", severity: "success" });
         
         // Refresh the list by re-fetching data

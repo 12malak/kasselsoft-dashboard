@@ -17,6 +17,7 @@ function UpdateServicesAbout() {
     const [AboutServicesId, setAboutServicesId] = useState("");
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const { lang } = useParams();
+    const API_URL = process.env.REACT_APP_API_URL;
     const [initialValues, setInitialValues] = useState({
         title: "",
         icon: "",
@@ -36,7 +37,7 @@ function UpdateServicesAbout() {
     // Fetch team data by id
     useEffect(() => {
         if (AboutServicesId) {
-            axios.get(`http://localhost:9090/AboutServices/getbyid/${AboutServicesId}`)
+            axios.get(`${API_URL}/AboutServices/getbyid/${AboutServicesId}`)
                 .then((response) => {
                     const contactData = response.data; // Since data is an object, no need for [0]
                     if (contactData) {
@@ -59,7 +60,7 @@ function UpdateServicesAbout() {
 
     const handleFormSubmit = async (values) => {
         try {
-            await axios.put(`http://localhost:9090/AboutServices/updateaboutServices/${lang}/${AboutServicesId}`, values);
+            await axios.put(`${API_URL}/AboutServices/updateaboutServices/${lang}/${AboutServicesId}`, values);
             setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح" : "Update successful!", severity: "success" });
 
             // Delay navigation after success

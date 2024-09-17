@@ -9,6 +9,7 @@ import axios from "axios";
 function UpdateTeam() {
     const location = useLocation();
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
     const [alert, setAlert] = useState({ type: "", message: "", visible: false });
     const [AboutTemeId, setAboutTemeId] = useState("");
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -32,7 +33,7 @@ function UpdateTeam() {
     // Fetch team data by id
     useEffect(() => {
         if (AboutTemeId) {
-            axios.get(`http://localhost:9090/abuteteam/getbyid/${AboutTemeId}`)
+            axios.get(`${API_URL}/abuteteam/getbyid/${AboutTemeId}`)
                 .then((response) => {
                     const contactData = response.data; // Since data is an object, no need for [0]
                     if (contactData) {
@@ -55,7 +56,7 @@ function UpdateTeam() {
 
     const handleFormSubmit = async (values) => {
         try {
-            await axios.put(`http://localhost:9090/abuteteam/update/${lang}/${AboutTemeId}`, values);
+            await axios.put(`${API_URL}/abuteteam/update/${lang}/${AboutTemeId}`, values);
             setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح" : "Update successful!", severity: "success" });
 
             // Delay navigation after success

@@ -8,17 +8,15 @@ import axios from "axios";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
-import DeleteDialog from "../../components/DeleteDialog.jsx";
-import HowWeWork from "./HowWeWork.jsx";
-import IndustryImg from "./IndustryImg.jsx";
+import DeleteDialog from '../../components/DeleteDialog.jsx'
 
-function Services() {
+function ExperienceHome() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [services, setservices] = useState([]);
+  const [experienceHome, setExperienceHome] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const handleClickOpen = (id) => {
@@ -26,7 +24,7 @@ function Services() {
     setOpen(true);
   };
   const handleUpdate = (id) => {
-    navigate(`/${lang}/updateservices`, { state: { id } });
+    navigate(`/${lang}/updateexphome`, { state: { id } });
   };
 
   const columns = [
@@ -91,8 +89,10 @@ function Services() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const servicesRes = await axios.get(`${API_URL}/services/${lang}`);
-        setservices(servicesRes.data);
+        const ExperienceHomeRes = await axios.get(
+          `${API_URL}/experiencehome/${lang}`
+        );
+        setExperienceHome(ExperienceHomeRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -102,12 +102,15 @@ function Services() {
   }, [lang]);
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/services/delete/${currentId}`);
+      await axios.delete(
+        `${API_URL}/experiencehome/delete/${currentId}`
+      );
 
       // Remove the deleted department from state
-      setservices((prevData) =>
+      setExperienceHome((prevData) =>
         prevData.filter((data) => data.id !== currentId)
       );
+
 
       handleClose(); // Close the modal after deletion
     } catch (error) {
@@ -120,8 +123,8 @@ function Services() {
   return (
     <Box m="20px">
       <Header
-        title={lang === "ar" ? "الخدمات" : "Services"}
-        subtitle={lang === "ar" ? "بيانات الخدمات" : "List of Services"}
+        title={lang === "ar" ? "الخبرات" : "Experience Home"}
+        subtitle={lang === "ar" ? "بيانات الخبرات" : "List of Experience Home"}
       />
 
       <Box
@@ -183,27 +186,22 @@ function Services() {
             fontWeight: "bold", // Font weight
           }}
           onClick={() => {
-            navigate(`/${lang}/addservices`);
+            navigate(`/${lang}/addexphome`);
           }}
         >
           {lang === "ar" ? "اضافة" : "Add"}
         </Button>
         <DataGrid
-          rows={services} // Ensure this is an array of objects
+          rows={experienceHome} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
         />
       </Box>
-      <DeleteDialog
-        open={open}
-        onClose={handleClose}
-        handleDelete={handleDelete}
-      />
-      <HowWeWork/>
-      <IndustryImg/>
+      <DeleteDialog open={open} onClose={handleClose} handleDelete={handleDelete} />
+
     </Box>
   );
 }
 
-export default Services;
+export default ExperienceHome;

@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, useTheme,useMediaQuery } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -8,36 +8,27 @@ import axios from "axios";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
-import DeleteDialog from "../../components/DeleteDialog.jsx";
-import HowWeWork from "./HowWeWork.jsx";
-import IndustryImg from "./IndustryImg.jsx";
+import DeleteDialog from '../../components/DeleteDialog.jsx'
+import BackgroundPath from "./BackgroundPath.jsx";
 
-function Services() {
+function Titles() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [services, setservices] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [currentId, setCurrentId] = useState(null);
-  const handleClickOpen = (id) => {
-    setCurrentId(id);
-    setOpen(true);
-  };
+  const [titles, settitles] = useState([]);
+ 
   const handleUpdate = (id) => {
-    navigate(`/${lang}/updateservices`, { state: { id } });
+    navigate(`/${lang}/updatetitle`, { state: { id } });
   };
 
   const columns = [
-    {
-      field: "title",
-      headerName: lang === "ar" ? "العنوان" : "Title",
-      flex: 1,
-    },
+    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1 },
+    { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1 },
     {
       field: "description",
-      headerName: lang === "ar" ? "الوصف" : "Description",
+      headerName: lang ==="ar" ? "الوصف" : "Description",
       flex: 2,
       minWidth: 200, // Ensure the column has a minimum width
       renderCell: (params) => (
@@ -54,26 +45,10 @@ function Services() {
         </Typography>
       ),
     },
-    {
-      field: "accessLevel",
-      headerName: "Delete",
-      renderCell: (params) => (
-        <Box m="0 auto" p="5px" display="flex" justifyContent="center">
-          <Typography
-            color={colors.redAccent[400]}
-            sx={{ ml: "5px" }}
-            onClick={() => {
-              handleClickOpen(params.id);
-            }}
-          >
-            <DeleteOutlineIcon />
-          </Typography>
-        </Box>
-      ),
-    },
+  
     {
       field: "accessLeve2",
-      headerName: lang === "ar" ? "تعديل" : "Edit",
+      headerName:lang ==="ar" ? "تعديل" : "Edit",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography
@@ -91,8 +66,9 @@ function Services() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const servicesRes = await axios.get(`${API_URL}/services/${lang}`);
-        setservices(servicesRes.data);
+        const titlesRes = await axios.get(`${API_URL}/titleshome/${lang}`);
+        settitles(titlesRes.data);
+        console.log(titlesRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -100,32 +76,12 @@ function Services() {
 
     fetchAllData();
   }, [lang]);
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`${API_URL}/services/delete/${currentId}`);
 
-      // Remove the deleted department from state
-      setservices((prevData) =>
-        prevData.filter((data) => data.id !== currentId)
-      );
-
-      handleClose(); // Close the modal after deletion
-    } catch (error) {
-      console.error("Error deleting department:", error);
-    }
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <Box m="20px">
-      <Header
-        title={lang === "ar" ? "الخدمات" : "Services"}
-        subtitle={lang === "ar" ? "بيانات الخدمات" : "List of Services"}
-      />
-
+      <Header title={lang ==="ar" ? "العناوين" :"Titles"} subtitle={lang === 'ar' ? "بيانات العناوين" :"List of Titles" }/>
       <Box
-        m="40px 0 0 0"
+        // m="40px 0 0 0"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -153,10 +109,9 @@ function Services() {
           "& .MuiTablePagination-root": {
             color: "#fafafa",
           },
-          "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows":
-            {
-              color: "#fafafa",
-            },
+          "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows": {
+            color: "#fafafa",
+          },
           "& .MuiTablePagination-actions .MuiButtonBase-root": {
             color: "#fafafa",
           },
@@ -168,42 +123,17 @@ function Services() {
           },
         }}
       >
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: colors.lightBlue[900], // Background color for the button
-            color: "#fafafa",
-            borderColor: colors.lightBlue[100], // Border color
-            "&:hover": {
-              backgroundColor: colors.lightBlue[700], // Background color on hover
-              borderColor: colors.lightBlue[600], // Border color on hover
-            },
-            padding: "10px 45px", // Button padding
-            fontSize: "16px", // Font size
-            fontWeight: "bold", // Font weight
-          }}
-          onClick={() => {
-            navigate(`/${lang}/addservices`);
-          }}
-        >
-          {lang === "ar" ? "اضافة" : "Add"}
-        </Button>
-        <DataGrid
-          rows={services} // Ensure this is an array of objects
+        <DataGrid 
+          rows={titles} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
         />
       </Box>
-      <DeleteDialog
-        open={open}
-        onClose={handleClose}
-        handleDelete={handleDelete}
-      />
-      <HowWeWork/>
-      <IndustryImg/>
+   <BackgroundPath/>
+
     </Box>
   );
 }
 
-export default Services;
+export default Titles;

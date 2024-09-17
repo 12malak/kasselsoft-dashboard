@@ -35,6 +35,18 @@ import UpdateTeam from "./pages/About/UpdateTeam";
 import AddTeam from "./pages/About/AddTeam";
 
 import UpdateServicesAbout from "./pages/About/UpdateServicesAbout";
+import AddImgSliderHome from "./pages/Home/AddImgSliderHome";
+import LastTwoSection from "./pages/Home/LastTwoSection";
+import UpdateCareersHome from "./pages/Home/UpdateCareersHome";
+import UpdateExperienceHome from "./pages/Home/UpdateExperienceHome";
+import AddExperienceSlider from "./pages/Home/AddExperienceSlider";
+import Titles from "./pages/Titles/Titles";
+import UpdateTitles from "./pages/Titles/UpdateTitles";
+import AddServices from "./pages/Services/AddServices";
+import UpdateServices from "./pages/Services/UpdateServices";
+import UpdateHowWeWork from "./pages/Services/UpdateHowWeWork";
+import AddIndustryImg from "./pages/Services/AddIndustryImg";
+import UpdateBackgrounPath from "./pages/Titles/UpdateBackgroundPath";
 
 
 
@@ -79,21 +91,38 @@ function App() {
               {/* Add more routes here */}
               <Route path="/career" element={<Career />} />
               <Route path="/blogs" element={<Blogs />} />
+              {/* pages route */}
               <Route path="/:lang/about" element={<About />} />
               <Route path="/:lang/services" element={<Services />} />
-              <Route path="/:lang/home" element={<Home />} />
+              <Route path="/:lang/addservices" element={<AddServices />} />
+              <Route path="/:lang/updateservices" element={<UpdateServices />} />
+              <Route path="/:lang/updatehowwework" element={<UpdateHowWeWork />} />
+              <Route path="/:lang/addindustryimg" element={<AddIndustryImg />} />
+              <Route path="/:lang/updatebackgroundpath" element={<UpdateBackgrounPath />} />
+
               <Route path="/:lang/infContact" element={<InfContact />} />
-              <Route path="/:lang/updatemainhome" element={<UpdateMainHome />} />
+              <Route path="/:lang/titles" element={<Titles />} />
+              <Route path="/:lang/updatetitle" element={<UpdateTitles />} />
+
               <Route path="/:lang/updateContact" element={<UpdateContact />} />  
               <Route path="/:lang/updateTeam" element={<UpdateTeam />} /> 
               <Route path="/:lang/updateServicesAbout" element={<UpdateServicesAbout />} />
               <Route path="/:lang/addTeam" element={<AddTeam />} />   
               <Route path="/:lang/add" element={<Add />} />
               <Route path="/:lang/teamAbout" element={<TeamAbout />} />
+              {/* home routes */}
+              <Route path="/:lang/home" element={<Home />} />
+              <Route path="/:lang/updatemainhome" element={<UpdateMainHome />} />
               <Route path="/:lang/updateserviceshome" element={<UpdateServicesHome />} />
               <Route path="/:lang/whychooseus" element={<WhyChooseUs />} />
               <Route path="/:lang/updatewhychooseus" element={<UpdateWhyChooseUs />} />
               <Route path="/:lang/updatecardhome" element={<UpdateCardHome />} />
+              <Route path="/:lang/addimgslider" element={<AddImgSliderHome />} />
+              <Route path="/:lang/lasttwosection" element={<LastTwoSection />} />
+              <Route path="/:lang/updatecareershome" element={<UpdateCareersHome />} />
+              <Route path="/:lang/updateexphome" element={<UpdateExperienceHome />} />
+              <Route path="/:lang/addexphome" element={<AddExperienceSlider />} />
+
             
             </Routes>
           </main>

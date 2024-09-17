@@ -9,16 +9,14 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteDialog from "../../components/DeleteDialog.jsx";
-import HowWeWork from "./HowWeWork.jsx";
-import IndustryImg from "./IndustryImg.jsx";
 
-function Services() {
+function HowWeWork() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [services, setservices] = useState([]);
+  const [howwework, sethowwework] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const handleClickOpen = (id) => {
@@ -26,7 +24,7 @@ function Services() {
     setOpen(true);
   };
   const handleUpdate = (id) => {
-    navigate(`/${lang}/updateservices`, { state: { id } });
+    navigate(`/${lang}/updatehowwework`, { state: { id } });
   };
 
   const columns = [
@@ -54,23 +52,7 @@ function Services() {
         </Typography>
       ),
     },
-    {
-      field: "accessLevel",
-      headerName: "Delete",
-      renderCell: (params) => (
-        <Box m="0 auto" p="5px" display="flex" justifyContent="center">
-          <Typography
-            color={colors.redAccent[400]}
-            sx={{ ml: "5px" }}
-            onClick={() => {
-              handleClickOpen(params.id);
-            }}
-          >
-            <DeleteOutlineIcon />
-          </Typography>
-        </Box>
-      ),
-    },
+   
     {
       field: "accessLeve2",
       headerName: lang === "ar" ? "تعديل" : "Edit",
@@ -91,8 +73,8 @@ function Services() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const servicesRes = await axios.get(`${API_URL}/services/${lang}`);
-        setservices(servicesRes.data);
+        const howweworkRes = await axios.get(`${API_URL}/howwework/${lang}`);
+        sethowwework(howweworkRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -100,28 +82,12 @@ function Services() {
 
     fetchAllData();
   }, [lang]);
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`${API_URL}/services/delete/${currentId}`);
-
-      // Remove the deleted department from state
-      setservices((prevData) =>
-        prevData.filter((data) => data.id !== currentId)
-      );
-
-      handleClose(); // Close the modal after deletion
-    } catch (error) {
-      console.error("Error deleting department:", error);
-    }
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+ 
   return (
-    <Box m="20px">
+    <Box m="50px 20px 20px 20px">
       <Header
-        title={lang === "ar" ? "الخدمات" : "Services"}
-        subtitle={lang === "ar" ? "بيانات الخدمات" : "List of Services"}
+        title={lang === "ar" ? "كيف نعمل" : "How We Work"}
+        subtitle={lang === "ar" ? "بيانات كيف نعمل" : "List of How We Work"}
       />
 
       <Box
@@ -168,42 +134,17 @@ function Services() {
           },
         }}
       >
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: colors.lightBlue[900], // Background color for the button
-            color: "#fafafa",
-            borderColor: colors.lightBlue[100], // Border color
-            "&:hover": {
-              backgroundColor: colors.lightBlue[700], // Background color on hover
-              borderColor: colors.lightBlue[600], // Border color on hover
-            },
-            padding: "10px 45px", // Button padding
-            fontSize: "16px", // Font size
-            fontWeight: "bold", // Font weight
-          }}
-          onClick={() => {
-            navigate(`/${lang}/addservices`);
-          }}
-        >
-          {lang === "ar" ? "اضافة" : "Add"}
-        </Button>
+        
         <DataGrid
-          rows={services} // Ensure this is an array of objects
+          rows={howwework} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
         />
       </Box>
-      <DeleteDialog
-        open={open}
-        onClose={handleClose}
-        handleDelete={handleDelete}
-      />
-      <HowWeWork/>
-      <IndustryImg/>
+     
     </Box>
   );
 }
 
-export default Services;
+export default HowWeWork;

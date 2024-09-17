@@ -8,14 +8,14 @@ import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
-const UpdateWhyChooseUs = () => {
+const UpdateBackgrounPath = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
-  const [whychooseusId, setwhychooseusId] = useState("");
-  const [whychooseus, setwhychooseus] = useState({});
+  const [backgroundpathId, setbackgroundpathId] = useState("");
+  const [backgroundpath, setbackgroundpath] = useState({});
   const [alert, setAlert] = useState({
     open: false,
     message: "",
@@ -24,41 +24,41 @@ const UpdateWhyChooseUs = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     }, []);
-  // Fetch data when whychooseusId changes
+  // Fetch data when backgroundpathId changes
+    // Set backgroundpathId from location state
+    useEffect(() => {
+        if (location.state && location.state.id) {
+          setbackgroundpathId(location.state.id);
+        } else {
+          console.warn("No ID found in location.state");
+        }
+      }, [location.state]);
   useEffect(() => {
-    if (whychooseusId) {
+    // if (backgroundpathId) {
       const fetchData = async () => {
         try {
           const response = await axios.get(
-            `${API_URL}/homewhychooseus/getbyid/${whychooseusId}`
+            `${API_URL}/backgroundpath/getbyid/${location.state.id}`
           );
-          setwhychooseus(response.data[0]);
+          setbackgroundpath(response.data);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
       };
       fetchData();
-    }
-  }, [whychooseusId]);
+    
+  }, [backgroundpathId]);
 
-  // Set whychooseusId from location state
-  useEffect(() => {
-    if (location.state && location.state.id) {
-      setwhychooseusId(location.state.id);
-    } else {
-      console.warn("No ID found in location.state");
-    }
-  }, [location.state]);
+
 
   const handleFormSubmit = async (values) => {
     try {
       await axios.put(
-        `${API_URL}/homewhychooseus/update/${lang}/${whychooseusId}`,
+        `${API_URL}/backgroundpath/update/${lang}/${backgroundpathId}`,
         {
           title: values.title,
           subtitle: values.subtitle,
-          description: values.description,
-          button: values.button,
+          path: values.path,
         },
         {
           headers: {
@@ -72,8 +72,8 @@ const UpdateWhyChooseUs = () => {
         severity: "success",
       });
       setTimeout(() => {
-        navigate(`/${lang}/whychooseus`);
-      }, 2000);
+        navigate(`/${lang}/titles`);
+      }, 1500);
     } catch (error) {
       console.error("Error updating data:", error);
       setAlert({
@@ -88,12 +88,12 @@ const UpdateWhyChooseUs = () => {
     <Box m="20px">
       <Header
         title={
-          lang === "ar" ? "تعديل لماذا تختارنا" : "UPDATE Why Choose Us HOME"
+          lang === "ar" ? "تعديل  الخلفية" : "UPDATE Background Path"
         }
         subtitle={
           lang === "ar"
-            ? "تعديل لماذا تختارنا"
-            : "Update an Existing Why Choose Us"
+            ? "تعديل الخلفية "
+            : "Update an Background Path"
         }
       />
 
@@ -119,12 +119,11 @@ const UpdateWhyChooseUs = () => {
       )}
 
       <Formik
-        enableReinitialize={true} // Important to reinitialize when whychooseus changes
+        enableReinitialize={true} // Important to reinitialize when backgroundpath changes
         initialValues={{
-          title: whychooseus.title || "",
-          subtitle: whychooseus.subtitle || "",
-          description: whychooseus.description || "",
-          button: whychooseus.button || "",
+          title: backgroundpath.title || "",
+          subtitle: backgroundpath.subtitle || "",
+          path: backgroundpath.path || "",
         }}
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
@@ -176,28 +175,17 @@ const UpdateWhyChooseUs = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang === "ar" ? "الوصف" : "Description"}
+                label={lang === "ar" ? "الرابط" : "path"}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.description} // Correct usage of Formik values
+                value={values.path} // Correct usage of Formik values
                 name="description"
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
+                disabled
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang === "ar" ? "زر التنقل" : "Button"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.button} // Correct usage of Formik values
-                name="button"
-                error={!!touched.button && !!errors.button}
-                helperText={touched.button && errors.button}
-                sx={{ gridColumn: "span 2" }}
-              />
+             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
@@ -214,8 +202,7 @@ const UpdateWhyChooseUs = () => {
 const checkoutSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   subtitle: yup.string().required("Subtitle is required"),
-  description: yup.string().required("Description is required"),
-  button: yup.string().required("Button is required"),
+  path: yup.string().required("Path is required"),
 });
 
-export default UpdateWhyChooseUs;
+export default UpdateBackgrounPath;

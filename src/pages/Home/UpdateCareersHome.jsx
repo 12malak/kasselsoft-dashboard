@@ -8,38 +8,36 @@ import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 
-const UpdateCardHome = () => {
+const UpdateCareersHome = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
-  const [img, setImg] = useState(null);
-  const [cardhomeId, setcardhomeId] = useState("");
-  const [cardhome, setcardhome] = useState({});
+  const [icon, seticon] = useState(null);
+  const [careershomeId, setcareershomeId] = useState("");
+  const [careersHome, setcareersHome] = useState({});
   const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
+
+  // Fetch data when careershomeId changes
   useEffect(() => {
-    window.scrollTo(0, 0);
-    }, []);
-  // Fetch data when cardhomeId changes
-  useEffect(() => {
-    if (cardhomeId) {
+    if (careershomeId) {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${API_URL}/cardhome/getbyid/${cardhomeId}`);
-          setcardhome(response.data[0]);
+          const response = await axios.get(`${API_URL}/careershome/getbyid/${careershomeId}`);
+          setcareersHome(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
       };
       fetchData();
     }
-  }, [cardhomeId]);
+  }, [careershomeId]);
 
-  // Set cardhomeId from location state
+  // Set careershomeId from location state
   useEffect(() => {
     if (location.state && location.state.id) {
-      setcardhomeId(location.state.id);
+      setcareershomeId(location.state.id);
     } else {
       console.warn('No ID found in location.state');
     }
@@ -49,13 +47,13 @@ const UpdateCardHome = () => {
     try {
       const formData = new FormData();
       formData.append("title", values.title);
-      formData.append("description", values.description);
-      if (img) {
-        formData.append("icon", img);
+      formData.append("count", values.count);
+      if (icon) {
+        formData.append("icon", icon);
       }
 
       await axios.put(
-        `${API_URL}/cardhome/update/${lang}/${cardhomeId}`,
+        `${API_URL}/careershome/update/${lang}/${careershomeId}`,
         formData,
         {
           headers: {
@@ -66,7 +64,7 @@ const UpdateCardHome = () => {
       setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح":"Update successful!", severity: "success" });
 
       setTimeout(() => {
-        navigate(`/${lang}/whychooseus`);
+        navigate(`/${lang}/lasttwosection`);
       }, 2000);
 
     } catch (error) {
@@ -75,13 +73,13 @@ const UpdateCardHome = () => {
     }
   };
 
-  const handleImg = (e) => {
-    setImg(e.target.files[0]);
+  const handleicon = (e) => {
+    seticon(e.target.files[0]);
   };
 
   return (
     <Box m="20px">
-      <Header title={lang ==="ar" ? " تعديل بطاقات لماذا تختارنا" :"Update Why Choose Us Card"} subtitle={lang === 'ar' ? " تعديل بيانات بطاقات لماذا تختارنا" :"Update List of Why Choose Us Card" }/>
+      <Header title={lang ==="ar" ? "تعديل فرص العمل" :"UPDATE Career opportunities"} subtitle={lang ==="ar" ? "تعديل بيانات فرص العمل" : "Update an Existing Career opportunities"} />
 
       {alert.open && (
         <Alert
@@ -104,11 +102,10 @@ const UpdateCardHome = () => {
       )}
 
       <Formik
-        enableReinitialize={true} // Important to reinitialize when cardhome changes
+        enableReinitialize={true} // Important to reinitialize when careersHome changes
         initialValues={{
-          title: cardhome.title || "",
-          description: cardhome.description || "",
-          button: cardhome.button || "",
+          title: careersHome.title || "",
+          count: careersHome.count || "",
         }}
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
@@ -149,12 +146,12 @@ const UpdateCardHome = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label=               {lang ==="ar" ? "الوصف" :"Description" } 
+                label=               {lang ==="ar" ? "الرقم" :"Count" } 
 
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.description} // Correct usage of Formik values
-                name="description"
+                value={values.count} // Correct usage of Formik values
+                name="count"
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
@@ -162,10 +159,10 @@ const UpdateCardHome = () => {
              
               <TextField
                 sx={{ gridColumn: "span 4" }}
-                label={lang ==="ar" ? "الصورة": "Img"}
+                label={lang ==="ar" ? "الصورة": "icon"}
                 variant="outlined"
                 type="file"
-                onChange={handleImg}
+                onChange={handleicon}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -182,7 +179,7 @@ const UpdateCardHome = () => {
 
 const checkoutSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
-  description: yup.string().required("Description is required"),
+  count: yup.string().required("count is required"),
 });
 
-export default UpdateCardHome;
+export default UpdateCareersHome;

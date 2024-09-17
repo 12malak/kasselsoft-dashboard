@@ -64,7 +64,7 @@ function ServicesAbout() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const ServicesAboutRes = await axios.get(`http://localhost:9090/aboutServices/getaboutServicesByLang/${lang}`);
+        const ServicesAboutRes = await axios.get(`${API_URL}/aboutServices/getaboutServicesByLang/${lang}`);
         setServicesAbout(ServicesAboutRes.data);
         console.log(ServicesAboutRes.data);
       } catch (err) {
@@ -79,7 +79,7 @@ function ServicesAbout() {
   const handleDelete = async (id) => {
     if (window.confirm(lang === "ar" ? "هل أنت متأكد من أنك تريد الحذف؟" : "Are you sure you want to delete this?")) {
       try {
-        await axios.delete(`http://localhost:9090/aboutServices/delete/${id}`);
+        await axios.delete(`${API_URL}/aboutServices/delete/${id}`);
         setAlert({ open: true, message: lang === "ar" ? "تم الحذف بنجاح!" : "Deleted successfully!", severity: "success" });
         
         // Refresh the list by re-fetching data

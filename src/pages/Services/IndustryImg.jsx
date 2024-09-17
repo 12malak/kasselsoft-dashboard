@@ -11,19 +11,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import DeleteDialog from '../../components/DeleteDialog.jsx'
 
 
-function SliderImgHome() {
+function IndustryImg() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [sliderimg, setsliderimg] = useState([]);
+  const [industryimg, setindustryimg] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null); 
 
-  const handleUpdate = (id) => {
-    navigate(`/${lang}/updateserviceshome`, { state: { id } });
-  };
+ 
   const handleClickOpen = (id) => {
       setCurrentId(id);
     setOpen(true);
@@ -36,22 +34,14 @@ function SliderImgHome() {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `${API_URL}/imgsliderhome/delete/${currentId}`
+        `${API_URL}/industryimg/delete/${currentId}`
       );
 
       // Remove the deleted department from state
-      setsliderimg((prevData) =>
+      setindustryimg((prevData) =>
         prevData.filter((data) => data.id !== currentId)
       );
-
-      // Toastify({
-      //   text: "Library deleted successfully",
-      //   duration: 3000,
-      //   gravity: "top",
-      //   position: "right",
-      //   backgroundColor: "#F57D20",
-      // }).showToast();
-
+    
       handleClose(); // Close the modal after deletion
     } catch (error) {
       console.error("Error deleting department:", error);
@@ -67,7 +57,7 @@ function SliderImgHome() {
           <img
             src={`${API_URL}/${params.value}`} // Adjust path as needed
             alt="Slider"
-            style={{ width: "200px", height: "auto", borderRadius: "4px" }}
+            style={{ width: "100px", borderRadius: "4px" }}
           />
         </Box>
       ),
@@ -90,8 +80,8 @@ function SliderImgHome() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const sliderimgRes = await axios.get(`${API_URL}/imgsliderhome`);
-        setsliderimg(sliderimgRes.data);
+        const industryimgRes = await axios.get(`${API_URL}/industryimg`);
+        setindustryimg(industryimgRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -103,8 +93,8 @@ function SliderImgHome() {
   return (
     <Box m="20px">
       <Header
-        title={lang === "ar" ? "الصور" : "Slider Image Home"}
-        subtitle={lang === "ar" ? "بيانات الصور" : "List of Slider Image Home"}
+        title={lang === "ar" ? "خدمات الإدارة الرائدة في الصناعة" : "IIndustry Leading Managed Services"}
+        subtitle={lang === "ar" ? "بيانات خدمات الإدارة الرائدة في الصناعة" : "List of IIndustry Leading Managed Services"}
       />
 
       <Box
@@ -164,12 +154,12 @@ function SliderImgHome() {
           fontSize: "16px", // Font size
           fontWeight: "bold", // Font weight
         }}
-        onClick={()=>{navigate(`/${lang}/addimgslider`)}}
+        onClick={()=>{navigate(`/${lang}/addindustryimg`)}}
       >
         {lang === 'ar' ? "اضافة":"Add"}
       </Button>
         <DataGrid
-          rows={sliderimg} // Ensure this is an array of objects
+          rows={industryimg} // Ensure this is an array of objects
           columns={columns}
           rowHeight={100} // Set the row height here
 
@@ -182,4 +172,4 @@ function SliderImgHome() {
   );
 }
 
-export default SliderImgHome;
+export default IndustryImg;

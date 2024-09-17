@@ -8,24 +8,19 @@ import axios from "axios";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
-import ServicesHome from "./ServicesHome";
+import DeleteDialog from '../../components/DeleteDialog.jsx'
+import BackgroundPath from "./BackgroundPath.jsx";
 
-function Home() {
+function Titles() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [mainHome, setMainHome] = useState([]);
-  const isLargeScreen = useMediaQuery('(min-width:768px)'); // Adjust the breakpoint as needed
-
-  // Define styles based on screen size
-  const dataGridStyle = {
-    height: isLargeScreen ? '280px' : null, // Larger height for large screens
-    // Add any other styles you need
-  };
+  const [titles, settitles] = useState([]);
+ 
   const handleUpdate = (id) => {
-    navigate(`/${lang}/updatemainhome`, { state: { id } });
+    navigate(`/${lang}/updatetitle`, { state: { id } });
   };
 
   const columns = [
@@ -50,24 +45,7 @@ function Home() {
         </Typography>
       ),
     },
-    {
-      field: "button",
-      headerName:lang ==="ar" ? "زر التنقل" :"button",
-      flex: 1,
-      headerAlign: "left",
-      align: "left",
-    },
-    // {
-    //   field: "accessLevel",
-    //   headerName: "Delete",
-    //   renderCell: (params) => (
-    //     <Box m="0 auto" p="5px" display="flex" justifyContent="center">
-    //       <Typography color={colors.redAccent[400]} sx={{ ml: "5px" }}>
-    //         <DeleteOutlineIcon />
-    //       </Typography>
-    //     </Box>
-    //   ),
-    // },
+  
     {
       field: "accessLeve2",
       headerName:lang ==="ar" ? "تعديل" : "Edit",
@@ -88,8 +66,9 @@ function Home() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const mainhomeRes = await axios.get(`http://localhost:9090/home/${lang}`);
-        setMainHome(mainhomeRes.data);
+        const titlesRes = await axios.get(`${API_URL}/titleshome/${lang}`);
+        settitles(titlesRes.data);
+        console.log(titlesRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -100,10 +79,10 @@ function Home() {
 
   return (
     <Box m="20px">
-      <Header title={lang ==="ar" ? "الرئيسية" :"Main Home"} subtitle={lang === 'ar' ? "بيانات الرئيسية" :"List of Main Home" }/>
+      <Header title={lang ==="ar" ? "العناوين" :"Titles"} subtitle={lang === 'ar' ? "بيانات العناوين" :"List of Titles" }/>
       <Box
         // m="40px 0 0 0"
-        height="55vh"
+        height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -145,16 +124,16 @@ function Home() {
         }}
       >
         <DataGrid 
-                style={dataGridStyle}
-          rows={mainHome} // Ensure this is an array of objects
+          rows={titles} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
         />
       </Box>
-      <ServicesHome/>
+   <BackgroundPath/>
+
     </Box>
   );
 }
 
-export default Home;
+export default Titles;

@@ -16,23 +16,24 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import CabinIcon from '@mui/icons-material/Cabin';
-import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
-import OtherHousesIcon from '@mui/icons-material/OtherHouses';
+import CabinIcon from "@mui/icons-material/Cabin";
+import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
+import OtherHousesIcon from "@mui/icons-material/OtherHouses";
 
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import EventNoteIcon from '@mui/icons-material/EventNote';
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useLocation } from "react-router-dom";
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected, lang }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
- 
+
   return (
     <MenuItem
       active={selected === title}
       style={{
         color: colors.grey[100],
+        // display:lang === "ar" ?  "flex" : "",
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -52,11 +53,19 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const lang = location.pathname.split("/")[1] || "en"; // Get the language from the path, default to 'en'
 
-  
   return (
     <Box
       sx={{
-minHeight:"115em",
+        minHeight: "140em",
+
+        // height: '150vh',
+        // display: 'flex',
+        // flexDirection: 'column',
+        "& .pro-sidebar-inner": {
+          background: `${colors.primary[400]} !important`,
+          // Ensure sidebar content takes full height
+          // height: '100%',
+        },
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },
@@ -102,117 +111,152 @@ minHeight:"115em",
             )}
           </MenuItem>
 
-
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+            {/* Dashboard Item */}
             <Item
-              title="Dashboard"
+              title={lang === "ar" ? "لوحه التحكم" : "Dashboard"}
               to={`/${lang}`}
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
+            {/* Section Heading: Data */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Data
+              {lang === "ar" ? "" : "Data"}
             </Typography>
-        
-           
+
+            {/* Form Item */}
             <Item
-              title="form"
-              to="/form"
+              title={lang === "ar" ? "النموذج" : "Form"}
+              to={`/${lang}/form`}
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-<Item
-              title="Blogs"
+
+            {/* Blogs Item */}
+            <Item
+              title={lang === "ar" ? "المدونات" : "Blogs"}
               to={`/${lang}/blogs`}
-                            icon={<ReceiptOutlinedIcon />}
+              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
+            {/* Career Item */}
             <Item
-              title="Career"
+              title={lang === "ar" ? "المسار المهني" : "Career"}
               to={`/${lang}/career`}
               icon={<WorkOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
+            {/* Section Heading: Pages */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              {lang === "ar" ? "" : "Pages"}
             </Typography>
             <Item
-              title="About us"
+              title={lang === "ar" ? "العناوين " : "Titles"}
+              to={`/${lang}/titles`}
+              icon={<ErrorOutlineIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+           
+            {/* About Us Item */}
+            <Item
+              title={lang === "ar" ? "من نحن" : "About us"}
               to={`/${lang}/about`}
               icon={<ErrorOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              title={lang === "ar" ? " أعضاء الفريق" : "TeamAbout"}
+              to={`/${lang}/teamAbout`}
+              icon={<ErrorOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
+            {/* Services Item */}
             <Item
-              title="Services"
+              title={lang === "ar" ? "خدماتنا" : "Services"}
               to={`/${lang}/services`}
               icon={<EventNoteIcon />}
               selected={selected}
               setSelected={setSelected}
             />
- <Item
-              title="Contact"
+
+            {/* Contact Item */}
+            <Item
+              title={lang === "ar" ? "اتصل بنا" : "Contact"}
               to={`/${lang}/contact`}
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-
+            <Item
+              title={lang === "ar" ? " معلومات التواصل " : " Contact info"}
+              to={`/${lang}/infContact`}
+              icon={<HelpOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            {/* Section Heading: Home */}
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Home
+              {lang === "ar" ? "" : "Home"}
             </Typography>
+
+            {/* Top Section Item */}
             <Item
-              title="Top section"
-              to={`/${lang}/home`} 
+              title={lang === "ar" ? "القسم العلوي" : "Top section"}
+              to={`/${lang}/home`}
               icon={<CabinIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
+            {/* Why Choose Us Item */}
             <Item
-              title="Why Choose Us"
+              title={lang === "ar" ? "لماذا تختارنا" : "Why Choose Us"}
               to={`/${lang}/whychooseus`}
               icon={<HolidayVillageIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
+            {/* Services Home Item */}
             <Item
-              title="Services home"
-              to={`/${lang}/line`}
+              title={lang === "ar" ? "اخر قسمين " : "Last Two Section"}
+              to={`/${lang}/lasttwosection`}
               icon={<OtherHousesIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
+
+            {/* Calendar Item */}
+            <Item
+              title={lang === "ar" ? "التقويم" : "Calendar"}
+              to={`/${lang}/calendar`}
+              icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
           </Box>
         </Menu>
       </ProSidebar>

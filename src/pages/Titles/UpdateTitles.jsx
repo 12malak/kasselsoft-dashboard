@@ -8,14 +8,14 @@ import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
-const UpdateWhyChooseUs = () => {
+const UpdateTitles = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
-  const [whychooseusId, setwhychooseusId] = useState("");
-  const [whychooseus, setwhychooseus] = useState({});
+  const [titleId, settitleId] = useState("");
+  const [titles, settitles] = useState({});
   const [alert, setAlert] = useState({
     open: false,
     message: "",
@@ -24,27 +24,27 @@ const UpdateWhyChooseUs = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     }, []);
-  // Fetch data when whychooseusId changes
+  // Fetch data when titleId changes
   useEffect(() => {
-    if (whychooseusId) {
+    if (titleId) {
       const fetchData = async () => {
         try {
           const response = await axios.get(
-            `${API_URL}/homewhychooseus/getbyid/${whychooseusId}`
+            `${API_URL}/titleshome/getbyid/${titleId}`
           );
-          setwhychooseus(response.data[0]);
+          settitles(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
       };
       fetchData();
     }
-  }, [whychooseusId]);
+  }, [titleId]);
 
-  // Set whychooseusId from location state
+  // Set titleId from location state
   useEffect(() => {
     if (location.state && location.state.id) {
-      setwhychooseusId(location.state.id);
+      settitleId(location.state.id);
     } else {
       console.warn("No ID found in location.state");
     }
@@ -53,12 +53,11 @@ const UpdateWhyChooseUs = () => {
   const handleFormSubmit = async (values) => {
     try {
       await axios.put(
-        `${API_URL}/homewhychooseus/update/${lang}/${whychooseusId}`,
+        `${API_URL}/titleshome/update/${lang}/${titleId}`,
         {
           title: values.title,
           subtitle: values.subtitle,
           description: values.description,
-          button: values.button,
         },
         {
           headers: {
@@ -72,8 +71,8 @@ const UpdateWhyChooseUs = () => {
         severity: "success",
       });
       setTimeout(() => {
-        navigate(`/${lang}/whychooseus`);
-      }, 2000);
+        navigate(`/${lang}/titles`);
+      }, 1500);
     } catch (error) {
       console.error("Error updating data:", error);
       setAlert({
@@ -88,12 +87,12 @@ const UpdateWhyChooseUs = () => {
     <Box m="20px">
       <Header
         title={
-          lang === "ar" ? "تعديل لماذا تختارنا" : "UPDATE Why Choose Us HOME"
+          lang === "ar" ? "تعديل  العنوان" : "UPDATE Title"
         }
         subtitle={
           lang === "ar"
-            ? "تعديل لماذا تختارنا"
-            : "Update an Existing Why Choose Us"
+            ? "تعديل العنوان "
+            : "Update an Existing Title"
         }
       />
 
@@ -119,12 +118,11 @@ const UpdateWhyChooseUs = () => {
       )}
 
       <Formik
-        enableReinitialize={true} // Important to reinitialize when whychooseus changes
+        enableReinitialize={true} // Important to reinitialize when titles changes
         initialValues={{
-          title: whychooseus.title || "",
-          subtitle: whychooseus.subtitle || "",
-          description: whychooseus.description || "",
-          button: whychooseus.button || "",
+          title: titles.title || "",
+          subtitle: titles.subtitle || "",
+          description: titles.description || "",
         }}
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
@@ -185,19 +183,7 @@ const UpdateWhyChooseUs = () => {
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang === "ar" ? "زر التنقل" : "Button"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.button} // Correct usage of Formik values
-                name="button"
-                error={!!touched.button && !!errors.button}
-                helperText={touched.button && errors.button}
-                sx={{ gridColumn: "span 2" }}
-              />
+             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
@@ -215,7 +201,6 @@ const checkoutSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   subtitle: yup.string().required("Subtitle is required"),
   description: yup.string().required("Description is required"),
-  button: yup.string().required("Button is required"),
 });
 
-export default UpdateWhyChooseUs;
+export default UpdateTitles;

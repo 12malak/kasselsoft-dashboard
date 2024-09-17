@@ -8,92 +8,74 @@ import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
-const UpdateWhyChooseUs = () => {
+const AddExperienceSlider = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
-  const [whychooseusId, setwhychooseusId] = useState("");
-  const [whychooseus, setwhychooseus] = useState({});
+  const [img, setImg] = useState(null);
+
+  const [expHome, setexpHome] = useState([]);
   const [alert, setAlert] = useState({
     open: false,
     message: "",
     severity: "",
   });
+
+  // Fetch data when cardhomeId changes
   useEffect(() => {
     window.scrollTo(0, 0);
-    }, []);
-  // Fetch data when whychooseusId changes
-  useEffect(() => {
-    if (whychooseusId) {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            `${API_URL}/homewhychooseus/getbyid/${whychooseusId}`
-          );
-          setwhychooseus(response.data[0]);
-        } catch (err) {
-          console.error("Error fetching data:", err);
-        }
-      };
-      fetchData();
-    }
-  }, [whychooseusId]);
-
-  // Set whychooseusId from location state
-  useEffect(() => {
-    if (location.state && location.state.id) {
-      setwhychooseusId(location.state.id);
-    } else {
-      console.warn("No ID found in location.state");
-    }
-  }, [location.state]);
+  }, []);
 
   const handleFormSubmit = async (values) => {
-    try {
-      await axios.put(
-        `${API_URL}/homewhychooseus/update/${lang}/${whychooseusId}`,
-        {
-          title: values.title,
-          subtitle: values.subtitle,
-          description: values.description,
-          button: values.button,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    if (!img) {
       setAlert({
         open: true,
-        message: lang === "ar" ? "تم التعديل بنجاح" : "Update successful!",
-        severity: "success",
-      });
-      setTimeout(() => {
-        navigate(`/${lang}/whychooseus`);
-      }, 2000);
-    } catch (error) {
-      console.error("Error updating data:", error);
-      setAlert({
-        open: true,
-        message: "Update failed. Please try again.",
+        message: lang === "ar" ? "الرجاء اضافة صورة" : "Please Add img !",
         severity: "error",
       });
     }
+    try {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("img", img);
+      const response = await axios.post(
+        `${API_URL}/experiencehome/add/${lang}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      setexpHome(response.data);
+      setAlert({
+        open: true,
+        message: lang === "ar" ? "تمت الاضافة بنجاح" : "Added successful!",
+        severity: "success",
+      });
+
+      setTimeout(() => {
+        navigate(`/${lang}/lasttwosection`);
+      }, 2000);
+    } catch (error) {
+      console.log(`Error fetching post data ${error}`);
+    }
+  };
+
+  const handleImg = (e) => {
+    setImg(e.target.files[0]);
   };
 
   return (
     <Box m="20px">
       <Header
-        title={
-          lang === "ar" ? "تعديل لماذا تختارنا" : "UPDATE Why Choose Us HOME"
-        }
+        title={lang === "ar" ? " اضافة خبرات" : "Add Experience slider Home"}
         subtitle={
-          lang === "ar"
-            ? "تعديل لماذا تختارنا"
-            : "Update an Existing Why Choose Us"
+          lang === "ar" ? "اضافة خبرات" : "Add List of Experience slider Home"
         }
       />
 
@@ -119,15 +101,13 @@ const UpdateWhyChooseUs = () => {
       )}
 
       <Formik
-        enableReinitialize={true} // Important to reinitialize when whychooseus changes
-        initialValues={{
-          title: whychooseus.title || "",
-          subtitle: whychooseus.subtitle || "",
-          description: whychooseus.description || "",
-          button: whychooseus.button || "",
-        }}
+        enableReinitialize={true} // Important to reinitialize when cardhome changes
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
+        initialValues={{
+          title: expHome.title || "",
+          description: expHome.description || "",
+        }}
       >
         {({
           values,
@@ -159,19 +139,7 @@ const UpdateWhyChooseUs = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang === "ar" ? "العنوان الفرعي" : "SubTitle"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.subtitle} // Correct usage of Formik values
-                name="subtitle"
-                error={!!touched.subtitle && !!errors.subtitle}
-                helperText={touched.subtitle && errors.subtitle}
-                sx={{ gridColumn: "span 2" }}
-              />
+
               <TextField
                 fullWidth
                 variant="filled"
@@ -185,23 +153,18 @@ const UpdateWhyChooseUs = () => {
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
               />
+
               <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang === "ar" ? "زر التنقل" : "Button"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.button} // Correct usage of Formik values
-                name="button"
-                error={!!touched.button && !!errors.button}
-                helperText={touched.button && errors.button}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                label={lang === "ar" ? "الصورة" : "Img"}
+                variant="outlined"
+                type="file"
+                onChange={handleImg}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                {lang === "ar" ? "تعديل" : " Update "}
+                {lang === "ar" ? "اضافة" : " Add "}
               </Button>
             </Box>
           </form>
@@ -213,9 +176,7 @@ const UpdateWhyChooseUs = () => {
 
 const checkoutSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
-  subtitle: yup.string().required("Subtitle is required"),
   description: yup.string().required("Description is required"),
-  button: yup.string().required("Button is required"),
 });
 
-export default UpdateWhyChooseUs;
+export default AddExperienceSlider;

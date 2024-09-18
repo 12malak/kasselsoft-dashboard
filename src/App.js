@@ -47,6 +47,9 @@ import UpdateServices from "./pages/Services/UpdateServices";
 import UpdateHowWeWork from "./pages/Services/UpdateHowWeWork";
 import AddIndustryImg from "./pages/Services/AddIndustryImg";
 import UpdateBackgrounPath from "./pages/Titles/UpdateBackgroundPath";
+import UpdateFooterContact from "./pages/Contact/UpdateFooterContact";
+import AddCareer from "./pages/Career/AddCareer";
+import UpdateCareer from "./pages/Career/UpdateCareer";
 
 
 
@@ -89,8 +92,10 @@ function App() {
               <Route path="/:lang/contact" element={<Contact />} />
 
               {/* Add more routes here */}
-              <Route path="/career" element={<Career />} />
-              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/:lang/career" element={<Career />} />
+              <Route path="/:lang/addcareer" element={<AddCareer />} />
+              <Route path="/:lang/updatecareer" element={<UpdateCareer />} />
+              <Route path="/:lang/blogs" element={<Blogs />} />
               {/* pages route */}
               <Route path="/:lang/about" element={<About />} />
               <Route path="/:lang/services" element={<Services />} />
@@ -101,6 +106,7 @@ function App() {
               <Route path="/:lang/updatebackgroundpath" element={<UpdateBackgrounPath />} />
 
               <Route path="/:lang/infContact" element={<InfContact />} />
+              <Route path="/:lang/updatefooter" element={<UpdateFooterContact />} />
               <Route path="/:lang/titles" element={<Titles />} />
               <Route path="/:lang/updatetitle" element={<UpdateTitles />} />
 

@@ -9,7 +9,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams,useNavigate } from "react-router-dom";
 import { Snackbar, Alert, IconButton } from "@mui/material";
-
+import FooterContact from '../Contact/FooterContact.jsx'
 function InfContact() {
 
     const theme = useTheme();
@@ -206,6 +206,7 @@ function InfContact() {
           </Alert>
         </Snackbar>
     </Box>
+    <FooterContact/>
   </Box>
 );
 }

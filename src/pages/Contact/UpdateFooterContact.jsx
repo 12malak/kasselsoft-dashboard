@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
 const UpdateFooterContact = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -17,18 +17,24 @@ const UpdateFooterContact = () => {
   const [img, setImg] = useState(null);
   const [footercontactId, setfootercontactId] = useState("");
   const [footercontact, setfootercontact] = useState({});
-  const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    }, []);
+  }, []);
   // Fetch data when footercontactId changes
   useEffect(() => {
     if (footercontactId) {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${API_URL}/footer/getbyid/${footercontactId}`);
+          const response = await axios.get(
+            `${API_URL}/footer/getbyid/${footercontactId}`
+          );
           setfootercontact(response.data[0]);
-          console.log(response.data[0])
+          console.log(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
@@ -43,12 +49,12 @@ const UpdateFooterContact = () => {
       setfootercontactId(location.state.id);
       console.log("first", location.state.id);
     } else {
-      console.warn('No ID found in location.state');
+      console.warn("No ID found in location.state");
     }
   }, [location.state]);
 
   const handleFormSubmit = async (values) => {
-    console.log("first")
+    console.log("first");
     try {
       // Prepare the data as a plain object
       const dataToUpdate = {
@@ -70,7 +76,7 @@ const UpdateFooterContact = () => {
         career: values.career,
         career_link: values.career_link,
       };
-  
+
       await axios.put(
         `${API_URL}/footer/update/${lang}/${footercontactId}`,
         dataToUpdate, // Send the plain object
@@ -80,33 +86,43 @@ const UpdateFooterContact = () => {
           },
         }
       );
-  
-      setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح" : "Update successful!", severity: "success" });
-  
+
+      setAlert({
+        open: true,
+        message: lang === "ar" ? "تم التعديل بنجاح" : "Update successful!",
+        severity: "success",
+      });
+
       setTimeout(() => {
         navigate(`/${lang}/infContact`);
       }, 1000);
-  
     } catch (error) {
       console.error(`Error in fetch edit data: ${error}`);
-      setAlert({ open: true, message: "Update failed. Please try again.", severity: "error" });
+      setAlert({
+        open: true,
+        message: "Update failed. Please try again.",
+        severity: "error",
+      });
     }
   };
-  
-
 
   return (
     <Box m="20px">
- <Header
+      <Header
         title={lang === "ar" ? "تعديل التواصل" : " Update FooterContact"}
-        subtitle={lang === "ar" ? "تعديل بيانات التواصل" : "Update List of FooterContact"}
+        subtitle={
+          lang === "ar"
+            ? "تعديل بيانات التواصل"
+            : "Update List of FooterContact"
+        }
       />
 
       {alert.open && (
         <Alert
           severity={alert.severity}
           sx={{
-            backgroundColor: alert.severity === "success" ? "#365486" : "#f8d7da",
+            backgroundColor:
+              alert.severity === "success" ? "#365486" : "#f8d7da",
             marginBottom: "2vh",
             color: alert.severity === "success" ? "#fff" : "#721c24",
             "& .MuiAlert-icon": {
@@ -124,25 +140,26 @@ const UpdateFooterContact = () => {
 
       <Formik
         enableReinitialize={true} // Important to reinitialize when footercontact changes
-        const initialValues = {{
-            logo: footercontact.logo || "",
-            description: footercontact.description || "",
-            support: footercontact.support || "",
-            terms: footercontact.terms || "",
-            terms_link: footercontact.terms_link || "",
-            privacy: footercontact.privacy || "",
-            privacy_link: footercontact.privacy_link || "",
-            contact: footercontact.contact || "",
-            contact_link: footercontact.contact_link || "",
-            company: footercontact.company || "",
-            home: footercontact.home || "",
-            services: footercontact.services || "",
-            services_link: footercontact.services_link || "",
-            about: footercontact.about || "",
-            about_link: footercontact.about_link || "",
-            career: footercontact.career || "",
-            career_link: footercontact.career_link || "",
-          }}
+        const
+        initialValues={{
+          logo: footercontact.logo || "",
+          description: footercontact.description || "",
+          support: footercontact.support || "",
+          terms: footercontact.terms || "",
+          terms_link: footercontact.terms_link || "",
+          privacy: footercontact.privacy || "",
+          privacy_link: footercontact.privacy_link || "",
+          contact: footercontact.contact || "",
+          contact_link: footercontact.contact_link || "",
+          company: footercontact.company || "",
+          home: footercontact.home || "",
+          services: footercontact.services || "",
+          services_link: footercontact.services_link || "",
+          about: footercontact.about || "",
+          about_link: footercontact.about_link || "",
+          career: footercontact.career || "",
+          career_link: footercontact.career_link || "",
+        }}
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
       >
@@ -163,20 +180,19 @@ const UpdateFooterContact = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-                {errors && Object.keys(errors).length > 0 && (
+              {/* {errors && Object.keys(errors).length > 0 && (
   <div>
     {Object.keys(errors).map((key) => (
       <div key={key}>{errors[key]}</div>
     ))}
   </div>
-)}
+)} */}
 
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label=
-                {lang ==="ar" ? "الشعار" :"Logo"} 
+                label={lang === "ar" ? "الشعار" : "Logo"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.logo} // Correct usage of Formik values
@@ -185,13 +201,12 @@ const UpdateFooterContact = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
               />
-             
+
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label=               {lang ==="ar" ? "الوصف" :"Description" } 
-
+                label={lang === "ar" ? "الوصف" : "Description"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description} // Correct usage of Formik values
@@ -204,8 +219,7 @@ const UpdateFooterContact = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label=
-                {lang ==="ar" ? "العنوان" :"support"} 
+                label={lang === "ar" ? "العنوان" : "support"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.support} // Correct usage of Formik values
@@ -215,121 +229,107 @@ const UpdateFooterContact = () => {
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
-            label={lang === "ar" ? "الشروط" : "Terms"}
-            name="terms"
-            value={values.terms}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "رابط الشروط" : "Terms Link"}
-            name="terms_link"
-            value={values.terms_link}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "سياسة الخصوصية" : "Privacy"}
-            name="privacy"
-            value={values.privacy}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "رابط سياسة الخصوصية" : "Privacy Link"}
-            name="privacy_link"
-            value={values.privacy_link}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "التواصل" : "Contact"}
-            name="contact"
-            value={values.contact}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "رابط التواصل" : "Contact Link"}
-            name="contact_link"
-            value={values.contact_link}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "الشركة" : "Company"}
-            name="company"
-            value={values.company}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "الرئيسية" : "Home"}
-            name="home"
-            value={values.home}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "الخدمات" : "Services"}
-            name="services"
-            value={values.services}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "رابط الخدمات" : "Services Link"}
-            name="services_link"
-            value={values.services_link}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "حول" : "About"}
-            name="about"
-            value={values.about}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "رابط حول" : "About Link"}
-            name="about_link"
-            value={values.about_link}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "وظائف" : "Career"}
-            name="career"
-            value={values.career}
-            onChange={handleChange}
-            variant="filled"
-
-          />
-          <TextField
-            label={lang === "ar" ? "رابط الوظائف" : "Career Link"}
-            name="career_link"
-            value={values.career_link}
-            onChange={handleChange}
-            variant="filled"
-
-          />
+                label={lang === "ar" ? "الشروط" : "Terms"}
+                name="terms"
+                value={values.terms}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "رابط الشروط" : "Terms Link"}
+                name="terms_link"
+                value={values.terms_link}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "سياسة الخصوصية" : "Privacy"}
+                name="privacy"
+                value={values.privacy}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "رابط سياسة الخصوصية" : "Privacy Link"}
+                name="privacy_link"
+                value={values.privacy_link}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "التواصل" : "Contact"}
+                name="contact"
+                value={values.contact}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "رابط التواصل" : "Contact Link"}
+                name="contact_link"
+                value={values.contact_link}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "الشركة" : "Company"}
+                name="company"
+                value={values.company}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "الرئيسية" : "Home"}
+                name="home"
+                value={values.home}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "الخدمات" : "Services"}
+                name="services"
+                value={values.services}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "رابط الخدمات" : "Services Link"}
+                name="services_link"
+                value={values.services_link}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "حول" : "About"}
+                name="about"
+                value={values.about}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "رابط حول" : "About Link"}
+                name="about_link"
+                value={values.about_link}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "وظائف" : "Career"}
+                name="career"
+                value={values.career}
+                onChange={handleChange}
+                variant="filled"
+              />
+              <TextField
+                label={lang === "ar" ? "رابط الوظائف" : "Career Link"}
+                name="career_link"
+                value={values.career_link}
+                onChange={handleChange}
+                variant="filled"
+              />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-              { lang ==="ar" ? "تعديل" :" Update "}
+                {lang === "ar" ? "تعديل" : " Update "}
               </Button>
             </Box>
           </form>
@@ -340,23 +340,23 @@ const UpdateFooterContact = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-    logo: yup.string().required("logo is required"),
-    description: yup.string().required("Description is required"),
-    support: yup.string().required("Support link is required"),
-    terms: yup.string().required("Terms are required"),
-    terms_link: yup.string().required("Terms link is required"),
-    privacy: yup.string().required("Privacy policy is required"),
-    privacy_link: yup.string().required("Privacy link is required"),
-    contact: yup.string().required("Contact information is required"),
-    contact_link: yup.string().required("Contact link is required"),
-    company: yup.string().required("Company information is required"),
-    home: yup.string().required("Home link is required"),
-    services: yup.string().required("Services information is required"),
-    services_link: yup.string().required("Services link is required"),
-    about: yup.string().required("About information is required"),
-    about_link: yup.string().required("About link is required"),
-    career: yup.string().required("Career information is required"),
-    career_link: yup.string().required("Career link is required"),
-  });
+  logo: yup.string().required("logo is required"),
+  description: yup.string().required("Description is required"),
+  support: yup.string().required("Support link is required"),
+  terms: yup.string().required("Terms are required"),
+  terms_link: yup.string().required("Terms link is required"),
+  privacy: yup.string().required("Privacy policy is required"),
+  privacy_link: yup.string().required("Privacy link is required"),
+  contact: yup.string().required("Contact information is required"),
+  contact_link: yup.string().required("Contact link is required"),
+  company: yup.string().required("Company information is required"),
+  home: yup.string().required("Home link is required"),
+  services: yup.string().required("Services information is required"),
+  services_link: yup.string().required("Services link is required"),
+  about: yup.string().required("About information is required"),
+  about_link: yup.string().required("About link is required"),
+  career: yup.string().required("Career information is required"),
+  career_link: yup.string().required("Career link is required"),
+});
 
 export default UpdateFooterContact;

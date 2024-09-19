@@ -50,6 +50,8 @@ import UpdateBackgrounPath from "./pages/Titles/UpdateBackgroundPath";
 import UpdateFooterContact from "./pages/Contact/UpdateFooterContact";
 import AddCareer from "./pages/Career/AddCareer";
 import UpdateCareer from "./pages/Career/UpdateCareer";
+import AddBlog from "./pages/Blogs/AddBlog";
+import UpdateBlog from "./pages/Blogs/UpdateBlog";
 
 
 
@@ -96,6 +98,8 @@ function App() {
               <Route path="/:lang/addcareer" element={<AddCareer />} />
               <Route path="/:lang/updatecareer" element={<UpdateCareer />} />
               <Route path="/:lang/blogs" element={<Blogs />} />
+              <Route path="/:lang/addblog" element={<AddBlog />} />
+              <Route path="/:lang/updateblog" element={<UpdateBlog />} />
               {/* pages route */}
               <Route path="/:lang/about" element={<About />} />
               <Route path="/:lang/services" element={<Services />} />

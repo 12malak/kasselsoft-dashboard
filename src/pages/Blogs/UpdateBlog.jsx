@@ -1,38 +1,82 @@
-import React, { useState, useEffect } from 'react';
-import { Button, TextField, Typography, Paper } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
-import { useParams, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  TextField,
+  Typography,
+  useTheme,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+} from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+import { tokens } from "../../theme";
+import { useParams, useLocation,useNavigate } from "react-router-dom";
+import "../../Css/blog.css";
+import Alert from "@mui/material/Alert";
 
 const BlogUpdateForm = () => {
-  const [title, setTitle] = useState('');
-  const [mainDescription, setMainDescription] = useState('');
-  const [tagId, setTagId] = useState('');
-  const [descriptions, setDescriptions] = useState([{ id: uuidv4(), text: '', images: [] }]);
+  const [title, setTitle] = useState("");
+  const [mainDescription, setMainDescription] = useState("");
+  const [descriptions, setDescriptions] = useState([]);
   const [mainImage, setMainImage] = useState(null);
   const { lang } = useParams();
+  const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const location = useLocation();
-  const [blogId, setBlogId] = useState('');
-
+  const [tagId, setTagId] = useState("");
+  const [tags, setTags] = useState([]);
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   useEffect(() => {
-    if (location.state && location.state.id) {
-      setBlogId(location.state.id);
-      console.log("Blog ID:", location.state.id);
-      // Fetch existing blog data here if necessary
-    } else {
-      console.warn("No ID found in location.state");
-    }
+    const fetchBlogById = async () => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/blogs/${lang}/getbyid/${location.state.id}`
+        );
+        const blogData = response.data[0];
+
+        setTitle(blogData.title);
+        setMainDescription(blogData.main_description);
+        setTagId(blogData.tag_id);
+        setMainImage(blogData.main_img);
+        console.log(blogData.main_img);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchBlogById();
+    const fetchtags = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/tags/${lang}`);
+        const tagsData = response.data;
+
+        setTags(tagsData);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchtags();
   }, [location.state]);
 
-  const handleAddDescription = () => {
-    setDescriptions([...descriptions, { id: uuidv4(), text: '', images: [] }]);
-  };
-
+  // Ensure your handleDescriptionChange function updates the state correctly
   const handleDescriptionChange = (index, value) => {
-    const updatedDescriptions = [...descriptions];
-    updatedDescriptions[index].text = value;
-    setDescriptions(updatedDescriptions);
+    setDescriptions((prevDescriptions) => {
+      const updatedDescriptions = [...prevDescriptions];
+      updatedDescriptions[index].text = value; // Update the specific description text
+      return updatedDescriptions;
+    });
+  };
+  const handleAddDescription = () => {
+    setDescriptions([...descriptions, { id: uuidv4(), text: "", images: [] }]);
   };
 
   const handleImageChange = (index, event) => {
@@ -45,69 +89,124 @@ const BlogUpdateForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-  
-    formData.append('lang', lang);
-    formData.append('title', title);
-    formData.append('main_description', mainDescription);
-    formData.append('tag_id', tagId);
-    
+
+    formData.append("lang", lang);
+    formData.append("title", title);
+    formData.append("main_description", mainDescription);
+    formData.append("tag_id", tagId);
+
     if (mainImage) {
-      formData.append('main_img', mainImage);
+      formData.append("main_img", mainImage);
     }
-  
+
+    // Append new descriptions and images
     descriptions.forEach((desc, index) => {
-      formData.append(`descriptions[${index}][text]`, desc.text);
-      desc.images.forEach((image) => {
-        formData.append(`descriptions[${index}][img]`, image);
-      });
+      if (desc.text && desc.images.length > 0) {
+        formData.append(`descriptions[${index}][text]`, desc.text);
+        desc.images.forEach((image) => {
+          formData.append(`descriptions[${index}][img]`, image);
+        });
+      }
     });
-  
+
     try {
-      const response = await axios.put(`${API_URL}/blogs/update/${lang}/${blogId}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await axios.put(
+        `${API_URL}/blogs/update/${lang}/${location.state.id}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
       console.log("Update response:", response.data);
-      // Handle success, e.g., show a success message or redirect
-    } catch (error) {
-      console.error('Error updating blog:', error);
+      setAlert({
+        open: true,
+        message: lang === "ar" ? "تم التعديل بنجاح" : "updated successfully!",
+        severity: "success",
+      });
+
+      setTimeout(() => {
+        navigate(`/${lang}/blogs`);
+      }, 1500);    } catch (error) {
+      console.error("Error updating blog:", error);
       // Handle error, e.g., show an error message
     }
   };
-  
 
   return (
-    <Paper style={{ padding: 16 }}>
-      <Typography variant="h4">Update Blog</Typography>
+    <div style={{ padding: 16 }}>
+      <Typography variant="h3" className="title_updateblog">
+       {lang === "ar" ?"تعديل مدونة":" Update Blog"}
+      </Typography>
+      {alert.open && (
+        <Alert
+          severity={alert.severity}
+          sx={{
+            backgroundColor: alert.severity === "success" ? "#365486" : "#f8d7da",
+            marginBottom: "2vh",
+            color: alert.severity === "success" ? "#fff" : "#721c24",
+            "& .MuiAlert-icon": {
+              color: alert.severity === "success" ? "#fff" : "#721c24",
+            },
+            "& .MuiAlert-message": {
+              fontWeight: "bold",
+            },
+          }}
+          onClose={() => setAlert({ ...alert, open: false })}
+        >
+          {alert.message}
+        </Alert>
+      )}
       <form onSubmit={handleSubmit}>
         <TextField
-          label="Title"
-          fullWidth
+                label={lang === "ar" ? "العنوان" : "Title"}
+                fullWidth
+          style={{ marginBottom: "10px" }}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
         <TextField
-          label="Main Description"
-          fullWidth
+                label={lang === "ar" ? "الوصف" : "Main Description"}
+                fullWidth
           multiline
           rows={4}
           value={mainDescription}
           onChange={(e) => setMainDescription(e.target.value)}
           required
+          style={{ marginBottom: "10px" }}
         />
-        <TextField
-          label="Tag ID"
-          fullWidth
+        <InputLabel id="tag-select-label">Tag ID</InputLabel>
+
+        <Select
+          labelId="tag-select-label"
           value={tagId}
           onChange={(e) => setTagId(e.target.value)}
-          required
-        />
+          fullWidth
+        >
+          {tags.map((tag) => (
+            <MenuItem key={tag.id} value={tag.id}>
+              {tag.tag_name} {/* Adjust based on your tag data structure */}
+            </MenuItem>
+          ))}
+        </Select>
+
+        {/* Display current main image if it exists */}
+        {mainImage && (
+          <div>
+            <Typography variant="subtitle1">             {lang === "ar" ? "الصورة" : "Main Image"}
+            </Typography>
+            <p>{mainImage.name}</p>
+          </div>
+        )}
+
         <input
           type="file"
           onChange={(e) => setMainImage(e.target.files[0])}
           accept="image/*"
-          required
+          style={{ marginBottom: "10px" }}
         />
+
+        {/* Existing Descriptions */}
         {descriptions.map((desc, index) => (
           <div key={desc.id}>
             <TextField
@@ -115,26 +214,61 @@ const BlogUpdateForm = () => {
               fullWidth
               multiline
               rows={2}
-              value={desc.text}
+              value={desc.text} // Set the value to the description text
               onChange={(e) => handleDescriptionChange(index, e.target.value)}
               required
+              style={{ marginBottom: "10px" }}
             />
-            <input
-              type="file"
-              multiple
-              onChange={(e) => handleImageChange(index, e)}
-              accept="image/*"
-            />
+            {/* Display current images if available */}
+            {desc.images.length > 0 && (
+              <div>
+                <Typography variant="subtitle1">Current Images:</Typography>
+                {desc.images.map((img, imgIndex) => (
+                  <div key={imgIndex}>
+                    <p>{img.name}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {desc.images.length === 0 && (
+              <input
+                type="file"
+                multiple
+                onChange={(e) => handleImageChange(index, e)}
+                accept="image/*"
+                required // Only required if there are no current images
+                style={{ marginBottom: "10px" }}
+              />
+            )}
           </div>
         ))}
-        <Button onClick={handleAddDescription} variant="contained" color="primary">
-          Add Description
+<div>
+
+        <Button
+          onClick={handleAddDescription}
+          variant="contained"
+          sx={{
+            backgroundColor: colors.lightBlue[900],
+            color: "#fafafa",
+            borderColor: colors.lightBlue[100],
+            "&:hover": {
+              backgroundColor: colors.lightBlue[700],
+              borderColor: colors.lightBlue[600],
+            },
+            marginRight: "25px",
+           marginLeft:"25px"
+          }}
+        >
+             {lang === "ar" ? "اضف وصف" : " Add Description"}
+
         </Button>
         <Button type="submit" variant="contained" color="secondary">
-          Update Blog
+           {lang === "ar" ? "تعديل" : " Update Blog "}
+
         </Button>
+</div>
       </form>
-    </Paper>
+    </div>
   );
 };
 

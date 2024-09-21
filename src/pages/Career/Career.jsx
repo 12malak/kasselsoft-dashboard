@@ -9,6 +9,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteDialog from "../../components/DeleteDialog.jsx";
+import JobApplication from "./JobApplication.jsx";
 
 function Career() {
   const theme = useTheme();
@@ -283,7 +284,7 @@ function Career() {
         onClose={handleClose}
         handleDelete={handleDelete}
       />
-   
+   <JobApplication/>
     </Box>
   );
 }

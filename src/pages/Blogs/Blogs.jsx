@@ -8,7 +8,7 @@ import axios from "axios";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
-import DeleteDialog from '../../components/DeleteDialog.jsx'
+import DeleteDialog from "../../components/DeleteDialog.jsx";
 
 function Blogs() {
   const theme = useTheme();
@@ -19,8 +19,10 @@ function Blogs() {
   const [Blogs, setBlogs] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
-  const handleClickOpen = (id) => {
+  const [deleteType, setDeleteType] = useState(null); // 'blog' or 'description'
+  const handleClickOpen = (id, type) => {
     setCurrentId(id);
+    setDeleteType(type); // Set the type to either 'blog' or 'description'
     setOpen(true);
   };
   const handleUpdate = (id) => {
@@ -58,7 +60,39 @@ function Blogs() {
       headerName: lang === "ar" ? "التاغ" : "Tag",
       flex: 1,
     },
-   
+    {
+      field: "description",
+      headerName: lang === "ar" ? "الوصف" : "Description",
+      flex: 2,
+      minWidth: 200,
+      renderCell: (params) => (
+        <Box sx={{ maxHeight: 100, overflowY: 'auto' }}> {/* Set maxHeight and overflow */}
+          {params.row.descriptions &&
+            params.row.descriptions.map((desc) => (
+              <Box
+                key={desc.id}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Typography
+                  variant="body2"
+                >
+                  {desc.description}
+                </Typography>
+                <Typography
+                  color="red" // Change color as needed
+                  sx={{ ml: "5px", cursor: "pointer" }}
+                  onClick={() => handleClickOpen(desc.id, 'description')} // Specify type as 'description'
+                >
+                  <DeleteOutlineIcon />
+                </Typography>
+              </Box>
+            ))}
+        </Box>
+      ),
+    }
+,    
     {
       field: "accessLevel",
       headerName: "Delete",
@@ -68,7 +102,7 @@ function Blogs() {
             color={colors.redAccent[400]}
             sx={{ ml: "5px" }}
             onClick={() => {
-              handleClickOpen(params.id);
+              handleClickOpen(params.id,"blog");
             }}
           >
             <DeleteOutlineIcon />
@@ -96,10 +130,9 @@ function Blogs() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const BlogsRes = await axios.get(
-          `${API_URL}/blogs/${lang}`
-        );
+        const BlogsRes = await axios.get(`${API_URL}/blogs/${lang}`);
         setBlogs(BlogsRes.data);
+        console.log(BlogsRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -109,21 +142,32 @@ function Blogs() {
   }, [lang]);
   const handleDelete = async () => {
     try {
-      await axios.delete(
-        `${API_URL}/blogs/delete/${lang}/${currentId}`
-      );
-
-      // Remove the deleted department from state
-      setBlogs((prevData) =>
-        prevData.filter((data) => data.id !== currentId)
-      );
-
-
+      if (deleteType === 'blog') {
+        await axios.delete(`${API_URL}/blogs/delete/${lang}/${currentId}`);
+        setBlogs((prevData) => prevData.filter((data) => data.id !== currentId));
+      } else if (deleteType === 'description') {
+        await axios.delete(`${API_URL}/blogs/deletedescr/${currentId}`);
+        // Optionally, update the descriptions in the specific blog
+        setBlogs((prevData) => 
+          prevData.map((blog) => {
+            if (blog.descriptions) {
+              return {
+                ...blog,
+                descriptions: blog.descriptions.filter(desc => desc.id !== currentId)
+              };
+            }
+            return blog;
+          })
+        );
+      }
       handleClose(); // Close the modal after deletion
     } catch (error) {
-      console.error("Error deleting department:", error);
+      console.error("Error deleting:", error);
     }
   };
+  
+  
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -205,8 +249,12 @@ function Blogs() {
           rowHeight={100} // Set the row height here
         />
       </Box>
-      <DeleteDialog open={open} onClose={handleClose} handleDelete={handleDelete} />
-
+      <DeleteDialog
+        open={open}
+        onClose={handleClose}
+        handleDelete={handleDelete}
+        
+      />
     </Box>
   );
 }

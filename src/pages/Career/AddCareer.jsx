@@ -12,9 +12,7 @@ const AddCareer = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
-  const [careerid, setcareerid] = useState("");
   const [career, setcareer] = useState({});
   const [alert, setAlert] = useState({
     open: false,
@@ -34,7 +32,7 @@ const AddCareer = () => {
         location: values.location,
         exp: values.exp,
         description: values.description,
-        responsibilities: values.responsibilities, // Match with schema
+        responsabilites: values.responsabilites, // Match with schema
         requirment: values.requirment, // Match with schema
         benefit: values.benefit,
         open_count: values.open_count,
@@ -67,12 +65,12 @@ const AddCareer = () => {
     <Box m="20px">
       <Header
         title={
-          lang === "ar" ? "تعديل  العنوان" : "UPDATE Title"
+          lang === "ar" ? "اضافة وظيفة" : "Add Career"
         }
         subtitle={
           lang === "ar"
-            ? "تعديل العنوان "
-            : "Update an Existing Title"
+            ? "اضافة وظيفة "
+            : "Add Career"
         }
       />
 
@@ -129,6 +127,7 @@ const AddCareer = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
+              
              <TextField
                 fullWidth
                 variant="filled"
@@ -165,6 +164,18 @@ const AddCareer = () => {
                 helperText={touched.exp && errors.exp}
                 sx={{ gridColumn: "span 2" }}
               />
+               <TextField
+                fullWidth
+                variant="filled"
+                label={lang === "ar" ? "عدد الشواغر" : "Open Count"}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.open_count}
+                name="open_count"
+                error={!!touched.open_count && !!errors.open_count}
+                helperText={touched.open_count && errors.open_count}
+                sx={{ gridColumn: "span 2" }}
+              />
               <TextField
                 fullWidth
                 variant="filled"
@@ -176,6 +187,8 @@ const AddCareer = () => {
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
               <TextField
                 fullWidth
@@ -183,11 +196,13 @@ const AddCareer = () => {
                 label={lang === "ar" ? "المسؤوليات" : "Responsibilities"}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.responsibilities}
-                name="responsibilities" // Correctly named
-                error={!!touched.responsibilities && !!errors.responsibilities}
-                helperText={touched.responsibilities && errors.responsibilities}
+                value={values.responsabilites}
+                name="responsabilites" // Correctly named
+                error={!!touched.responsabilites && !!errors.responsabilites}
+                helperText={touched.responsabilites && errors.responsabilites}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
               <TextField
                 fullWidth
@@ -200,6 +215,8 @@ const AddCareer = () => {
                 error={!!touched.requirment && !!errors.requirment}
                 helperText={touched.requirment && errors.requirment}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
               <TextField
                 fullWidth
@@ -212,24 +229,16 @@ const AddCareer = () => {
                 error={!!touched.benefit && !!errors.benefit}
                 helperText={touched.benefit && errors.benefit}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                label={lang === "ar" ? "عدد الشواغر" : "Open Count"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.open_count}
-                name="open_count"
-                error={!!touched.open_count && !!errors.open_count}
-                helperText={touched.open_count && errors.open_count}
-                sx={{ gridColumn: "span 2" }}
-              />
+         
+             
              
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                {lang === "ar" ? "تعديل" : " Update "}
+                {lang === "ar" ? "اضافة" : " Add "}
               </Button>
             </Box>
           </form>
@@ -244,7 +253,7 @@ const checkoutSchema = yup.object().shape({
     description: yup.string().required("Description is required"),
     location: yup.string().required("Location is required"),
     exp: yup.string().required("Experience is required"),
-    responsibilities: yup.string().required("Responsibilities are required"), // Match this
+    responsabilites: yup.string().required("responsabilites are required"), // Match this
     requirment: yup.string().required("requirment are required"), // Match this
     benefit: yup.string().required("Benefit is required"),
     open_count: yup.string().required("Open count is required"),

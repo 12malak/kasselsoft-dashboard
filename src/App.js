@@ -3,15 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-
-
 import Contacts from "./scenes/contacts";
-
 import Form from "./scenes/form";
-
-
 import FAQ from "./scenes/faq";
-
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
@@ -24,7 +18,7 @@ import Career from "./pages/Career/Career";
 import About from "./pages/About/About";
 import Services from "./pages/Services/Services";
 import Home from "./pages/Home/Home";
-import { useLocation } from "react-router-dom";
+import { useNavigate,useLocation } from 'react-router-dom';
 import UpdateMainHome from "./pages/Home/UpdateMainHome";
 import UpdateServicesHome from "./pages/Home/UpdateServicesHome";
 import WhyChooseUs from "./pages/Home/WhyChooseUs";
@@ -52,9 +46,26 @@ import AddCareer from "./pages/Career/AddCareer";
 import UpdateCareer from "./pages/Career/UpdateCareer";
 import AddBlog from "./pages/Blogs/AddBlog";
 import UpdateBlog from "./pages/Blogs/UpdateBlog";
+import TermsAndCondition from "./pages/TermsAndCondition/TermsAndCondition";
+import UpdateTermsAndCondition from "./pages/TermsAndCondition/UpdateTermsAndCondition";
+import AddBlackTerms from "./pages/TermsAndCondition/AddBlackTerms";
+import UpdateBlackTerms from "./pages/TermsAndCondition/UpdateBlackTerms";
+import AddBlueTerms from "./pages/TermsAndCondition/AddBlueTerms";
+import UpdateBlueTerms from "./pages/TermsAndCondition/UpdateBlueTerms";
 
 
+const RedirectToDefaultLanguage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  useEffect(() => {
+    if (location.pathname === '/') {
+      navigate('/en'); // Redirect to default language
+    }
+  }, [navigate, location.pathname]);
 
+  return null;
+};
 const DirectionHandler = () => {
   const location = useLocation();
 
@@ -79,6 +90,8 @@ function App() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <DirectionHandler /> {/* Handle direction change */}
+            <RedirectToDefaultLanguage />
+
             <Routes>
               <Route path="/:lang" element={<Dashboard />} />
              
@@ -108,6 +121,13 @@ function App() {
               <Route path="/:lang/updatehowwework" element={<UpdateHowWeWork />} />
               <Route path="/:lang/addindustryimg" element={<AddIndustryImg />} />
               <Route path="/:lang/updatebackgroundpath" element={<UpdateBackgrounPath />} />
+              <Route path="/:lang/termsandcondition" element={<TermsAndCondition />} />
+              <Route path="/:lang/updatetermsandcondition" element={<UpdateTermsAndCondition />} />
+              <Route path="/:lang/addblackterms" element={<AddBlackTerms />} />
+              <Route path="/:lang/updateblackterms" element={<UpdateBlackTerms />} />
+              <Route path="/:lang/addblueterms" element={<AddBlueTerms />} />
+              <Route path="/:lang/updateblueterms" element={<UpdateBlueTerms />} />
+
 
               <Route path="/:lang/infContact" element={<InfContact />} />
               <Route path="/:lang/updatefooter" element={<UpdateFooterContact />} />

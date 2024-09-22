@@ -286,7 +286,7 @@ const validationSchema = yup.object().shape({
   descriptions: yup.array().of(
     yup.object().shape({
       text: yup.string().required("Description text is required"),
-      images: yup.array().min(1, "At least one image is required"),
+      // images: yup.array().min(1, "At least one image is required"),
     })
   ).required("Descriptions are required").min(1, "At least one description is required"),
 });

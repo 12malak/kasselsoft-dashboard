@@ -59,7 +59,7 @@ function JobApplication() {
     {
       field: "position_name",
       headerName: lang === "ar" ? "العنوان" : "position_name",
-      flex: 1,
+      flex: 2,
     },
     {
       field: "exp",

@@ -24,15 +24,25 @@ const UpdateCareer = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     }, []);
-  // Fetch data when careerid changes
-  useEffect(() => {
+    useEffect(() => {
+      if (location.state && location.state.id) {
+        setcareerid(location.state.id);
+        console.log(            `${API_URL}/careers/${lang}/getbyid/${careerid}`
+        )
+      } else {
+        console.warn("No ID found in location.state");
+      }
+    }, [location.state]);
+      useEffect(() => {
     if (careerid) {
       const fetchData = async () => {
+        
         try {
           const response = await axios.get(
-            `${API_URL}/careers/getbyid/${careerid}`
+            `${API_URL}/careers/${lang}/getbyid/${careerid}`
           );
           setcareer(response.data[0]);
+          console.log(response.data[0])
         } catch (err) {
           console.error("Error fetching data:", err);
         }
@@ -42,13 +52,7 @@ const UpdateCareer = () => {
   }, [careerid]);
 
   // Set careerid from location state
-  useEffect(() => {
-    if (location.state && location.state.id) {
-      setcareerid(location.state.id);
-    } else {
-      console.warn("No ID found in location.state");
-    }
-  }, [location.state]);
+ 
 
   const handleFormSubmit = async (values) => {
     try {
@@ -59,7 +63,7 @@ const UpdateCareer = () => {
         location: values.location,
         exp: values.exp,
         description: values.description,
-        responsibilities: values.responsibilities, // Match with schema
+        responsabilites: values.responsabilites, // Match with schema
         requirment: values.requirment, // Match with schema
         benefit: values.benefit,
         open_count: values.open_count,
@@ -92,12 +96,12 @@ const UpdateCareer = () => {
     <Box m="20px">
       <Header
         title={
-          lang === "ar" ? "تعديل  العنوان" : "UPDATE Title"
+          lang === "ar" ? "تعديل  وظيفة" : "UPDATE career"
         }
         subtitle={
           lang === "ar"
-            ? "تعديل العنوان "
-            : "Update an Existing Title"
+            ? "تعديل وظيفة "
+            : "Update an Existing career"
         }
       />
 
@@ -124,16 +128,15 @@ const UpdateCareer = () => {
 
       <Formik
         enableReinitialize={true} // Important to reinitialize when career changes
-        initialValues={{
-            position_name: career.position_name || "",
-            location: career.location || "",
-            exp: career.exp || "",
-            description: career.description || "",
-            responsabilites: career.responsabilites || "",
-            requirment: career.requirment || "",
-            benefit: career.benefit || "",
-            open_count: career.open_count || "",
-          }}
+        initialValues={{ position_name: career.position_name || "",
+          location: career.location || "",
+          exp: career.exp || "",
+          description: career.description || "",
+          responsabilites: career.responsabilites || "",
+          requirment: career.requirment || "",
+          benefit: career.benefit || "",
+          open_count: career.open_count || "",}
+        }
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
       >
@@ -165,6 +168,7 @@ const UpdateCareer = () => {
                 error={!!touched.position_name && !!errors.position_name}
                 helperText={touched.position_name && errors.position_name}
                 sx={{ gridColumn: "span 2" }}
+                
               />
               <TextField
                 fullWidth
@@ -189,6 +193,19 @@ const UpdateCareer = () => {
                 error={!!touched.exp && !!errors.exp}
                 helperText={touched.exp && errors.exp}
                 sx={{ gridColumn: "span 2" }}
+                
+              />
+               <TextField
+                fullWidth
+                variant="filled"
+                label={lang === "ar" ? "عدد الشواغر" : "Open Count"}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.open_count}
+                name="open_count"
+                error={!!touched.open_count && !!errors.open_count}
+                helperText={touched.open_count && errors.open_count}
+                sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
@@ -201,18 +218,22 @@ const UpdateCareer = () => {
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
               <TextField
                 fullWidth
                 variant="filled"
-                label={lang === "ar" ? "المسؤوليات" : "Responsibilities"}
+                label={lang === "ar" ? "المسؤوليات" : "responsabilites"}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.responsibilities}
-                name="responsibilities" // Correctly named
-                error={!!touched.responsibilities && !!errors.responsibilities}
-                helperText={touched.responsibilities && errors.responsibilities}
+                value={values.responsabilites}
+                name="responsabilites" // in TextField
+                error={!!touched.responsabilites && !!errors.responsabilites}
+                helperText={touched.responsabilites && errors.responsabilites}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
               <TextField
                 fullWidth
@@ -225,6 +246,8 @@ const UpdateCareer = () => {
                 error={!!touched.requirment && !!errors.requirment}
                 helperText={touched.requirment && errors.requirment}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
               <TextField
                 fullWidth
@@ -237,19 +260,10 @@ const UpdateCareer = () => {
                 error={!!touched.benefit && !!errors.benefit}
                 helperText={touched.benefit && errors.benefit}
                 sx={{ gridColumn: "span 2" }}
+                rows={5}
+                multiline
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                label={lang === "ar" ? "عدد الشواغر" : "Open Count"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.open_count}
-                name="open_count"
-                error={!!touched.open_count && !!errors.open_count}
-                helperText={touched.open_count && errors.open_count}
-                sx={{ gridColumn: "span 2" }}
-              />
+             
              
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -269,7 +283,7 @@ const checkoutSchema = yup.object().shape({
     description: yup.string().required("Description is required"),
     location: yup.string().required("Location is required"),
     exp: yup.string().required("Experience is required"),
-    responsibilities: yup.string().required("Responsibilities are required"), // Match this
+    responsabilites: yup.string().required("responsabilites are required"), // Match this
     requirment: yup.string().required("requirment are required"), // Match this
     benefit: yup.string().required("Benefit is required"),
     open_count: yup.string().required("Open count is required"),

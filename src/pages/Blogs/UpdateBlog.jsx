@@ -101,7 +101,7 @@ const BlogUpdateForm = () => {
 
     // Append new descriptions and images
     descriptions.forEach((desc, index) => {
-      if (desc.text && desc.images.length > 0) {
+      if (desc.text) {
         formData.append(`descriptions[${index}][text]`, desc.text);
         desc.images.forEach((image) => {
           formData.append(`descriptions[${index}][img]`, image);
@@ -236,7 +236,6 @@ const BlogUpdateForm = () => {
                 multiple
                 onChange={(e) => handleImageChange(index, e)}
                 accept="image/*"
-                required // Only required if there are no current images
                 style={{ marginBottom: "10px" }}
               />
             )}

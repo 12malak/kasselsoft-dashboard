@@ -1,26 +1,20 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import CabinIcon from "@mui/icons-material/Cabin";
 import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
 import OtherHousesIcon from "@mui/icons-material/OtherHouses";
-
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import TitleIcon from '@mui/icons-material/Title';
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useLocation } from "react-router-dom";
@@ -102,7 +96,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                    {lang === 'ar' ? "  الادمن  ": "ADMINIS"}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -168,11 +162,11 @@ const Sidebar = () => {
             <Item
               title={lang === "ar" ? "العناوين " : "Titles"}
               to={`/${lang}/titles`}
-              icon={<ErrorOutlineIcon />}
+              icon={<TitleIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-           
+
             {/* About Us Item */}
             <Item
               title={lang === "ar" ? "من نحن" : "About us"}
@@ -193,23 +187,30 @@ const Sidebar = () => {
             <Item
               title={lang === "ar" ? "خدماتنا" : "Services"}
               to={`/${lang}/services`}
+              icon={<DesignServicesIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            {/* termsandcondition */}
+            <Item
+              title={lang === "ar" ? "الشروط والاحكام" : "Terms and Condition"}
+              to={`/${lang}/termsandcondition`}
               icon={<EventNoteIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-
             {/* Contact Item */}
             <Item
               title={lang === "ar" ? "اتصل بنا" : "Contact"}
               to={`/${lang}/contact`}
-              icon={<HelpOutlineOutlinedIcon />}
+              icon={<AddIcCallIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title={lang === "ar" ? " معلومات التواصل " : " Contact info"}
               to={`/${lang}/infContact`}
-              icon={<HelpOutlineOutlinedIcon />}
+              icon={<AddIcCallIcon />}
               selected={selected}
               setSelected={setSelected}
             />

@@ -28,23 +28,26 @@ function Titles() {
     { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1 },
     {
       field: "description",
-      headerName: lang ==="ar" ? "الوصف" : "Description",
+      headerName: lang === "ar" ? "الوصف" : "Description",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 200,
       renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
             overflow: "hidden",
-            textOverflow: "ellipsis",
             whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
+            wordBreak: "break-word",
+            display: "block",
+            maxHeight: "100px", // Set a max height for the cell
+            overflowY: "auto", // Add vertical scrolling if needed
           }}
         >
           {params.value}
         </Typography>
       ),
-    },
+    }
+    ,
   
     {
       field: "accessLeve2",

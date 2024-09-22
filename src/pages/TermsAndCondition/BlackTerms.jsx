@@ -9,15 +9,16 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteDialog from "../../components/DeleteDialog.jsx";
-import JobApplication from "./JobApplication.jsx";
 
-function Career() {
+
+function BlackTerms() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [careers, setcareers] = useState([]);
+  const [blackterms, setblackterms] = useState([]);
+
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const handleClickOpen = (id) => {
@@ -25,128 +26,42 @@ function Career() {
     setOpen(true);
   };
   const handleUpdate = (id) => {
-    navigate(`/${lang}/updatecareer`, { state: { id } });
+    navigate(`/${lang}/updateblackterms`, { state: { id } });
   };
 
   const columns = [
     {
-      field: "position_name",
-      headerName: lang === "ar" ? "عنوان الوظيفة " : "position_name",
-      minWidth: 200,
-      flex: 2,
-    },
-    {
-      field: "location",
-      headerName: lang === "ar" ? "الموقع" : "location",
-      flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
-        <Typography
-          variant="body2"
-          sx={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
-          }}
-        >
-          {params.value}
-        </Typography>
-      ),
-    },
-    {
-      field: "exp",
-      headerName: lang === "ar" ? "عنوان الوظيفة " : "experience",
+      field: "title",
+      headerName: lang === "ar" ? "العنوان" : "Title",
       flex: 1,
     },
     {
-      field: "description",
-      headerName: lang === "ar" ? "الوصف" : "Description",
-      flex: 2,
-      minWidth: 200,
-      renderCell: (params) => (
-        <Typography
-          variant="body2"
-          sx={{
-            overflow: "hidden",
-            whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word",
-            display: "block",
-            maxHeight: "100px", // Set a max height for the cell
-            overflowY: "auto", // Add vertical scrolling if needed
-          }}
-        >
-          {params.value}
-        </Typography>
-      ),
-    }
-    ,
+        field: "description",
+        headerName: lang === "ar" ? "الوصف" : "Description",
+        flex: 2,
+        minWidth: 200,
+        renderCell: (params) => (
+          <Typography
+            variant="body2"
+            sx={{
+              overflow: "hidden",
+              whiteSpace: "normal", // Allow text to wrap
+              wordBreak: "break-word",
+              display: "block",
+              maxHeight: "100px", // Set a max height for the cell
+              overflowY: "auto", // Add vertical scrolling if needed
+            }}
+          >
+            {params.value}
+          </Typography>
+        ),
+      }
+,      
     {
-      field: "responsabilites",
-      headerName: lang === "ar" ? "المسؤوليات" : "responsabilites",
-      flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
-        <Typography
-          variant="body2"
-          sx={{
-            overflow: "hidden",
-            whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word",
-            display: "block",
-            maxHeight: "100px", // Set a max height for the cell
-            overflowY: "auto", // Add vertical scrolling if needed
-          }}
-        >
-          {params.value}
-        </Typography>
-      ),
-    },
-    {
-      field: "requirment",
-      headerName: lang === "ar" ? "المتطلبات" : "requirment",
-      flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
-        <Typography
-          variant="body2"
-          sx={{
-            overflow: "hidden",
-            whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word",
-            display: "block",
-            maxHeight: "100px", // Set a max height for the cell
-            overflowY: "auto", // Add vertical scrolling if needed
-          }}
-        >
-          {params.value}
-        </Typography>
-      ),
-    },
-    {
-      field: "benefit",
-      headerName: lang === "ar" ? "الفوائد" : "benefit",
-      flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
-        <Typography
-          variant="body2"
-          sx={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
-          }}
-        >
-          {params.value}
-        </Typography>
-      ),
-    },
-    {
-      field: "open_count",
-      headerName: lang === "ar" ? "عدد الوظائف المفتوحة " : "open_count",
-      flex: 1,
-    },
+        field: "page_type",
+        headerName: lang === "ar" ? "اسم الصفحة" : "page_type",
+        flex: 1,
+      },
     {
       field: "accessLevel",
       headerName: "Delete",
@@ -184,8 +99,8 @@ function Career() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const careersRes = await axios.get(`${API_URL}/careers/${lang}`);
-        setcareers(careersRes.data);
+        const blacktermsRes = await axios.get(`${API_URL}/termsandconditions/black/get/${lang}`);
+        setblackterms(blacktermsRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -194,25 +109,27 @@ function Career() {
     fetchAllData();
   }, [lang]);
   const handleDelete = async () => {
-    console.log("Current ID for deletion:", currentId); // Log current ID
     try {
-      const response = await axios.delete(`${API_URL}/careers/delete/${lang}/${currentId}`);
-      console.log("Delete response:", response); // Log the response
-      setcareers((prevData) => prevData.filter((data) => data.id !== currentId));
+      await axios.delete(`${API_URL}/termsandconditions/black/delete/${lang}/${currentId}`);
+
+      // Remove the deleted department from state
+      setblackterms((prevData) =>
+        prevData.filter((data) => data.id !== currentId)
+      );
+
       handleClose(); // Close the modal after deletion
     } catch (error) {
-      console.error("Error deleting:", error.response ? error.response.data : error.message);
+      console.error("Error deleting department:", error);
     }
   };
-  
   const handleClose = () => {
     setOpen(false);
   };
   return (
     <Box m="20px">
       <Header
-        title={lang === "ar" ? "الخدمات" : "careers"}
-        subtitle={lang === "ar" ? "بيانات الخدمات" : "List of careers"}
+        title={lang === "ar" ? "الشروط" : "Black Terms"}
+        subtitle={lang === "ar" ? "بيانات الشروط" : "List of black Terms"}
       />
 
       <Box
@@ -274,13 +191,13 @@ function Career() {
             fontWeight: "bold", // Font weight
           }}
           onClick={() => {
-            navigate(`/${lang}/addcareer`);
+            navigate(`/${lang}/addblackterms`);
           }}
         >
           {lang === "ar" ? "اضافة" : "Add"}
         </Button>
         <DataGrid
-          rows={careers} // Ensure this is an array of objects
+          rows={blackterms} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
@@ -291,9 +208,9 @@ function Career() {
         onClose={handleClose}
         handleDelete={handleDelete}
       />
-   <JobApplication/>
+     
     </Box>
   );
 }
 
-export default Career;
+export default BlackTerms;

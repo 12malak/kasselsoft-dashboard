@@ -200,7 +200,9 @@ const UpdateTermsAndCondition = () => {
                 name="description_Interpretation"
                 error={!!touched.description_Interpretation && !!errors.description_Interpretation}
                 helperText={touched.description_Interpretation && errors.description_Interpretation}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={8}
               />
               <TextField
                 sx={{ gridColumn: "span 4" }}
@@ -231,7 +233,9 @@ const UpdateTermsAndCondition = () => {
                 name="Severability_description"
                 error={!!touched.Severability_description && !!errors.Severability_description}
                 helperText={touched.Severability_description && errors.Severability_description}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={8}
               />
               <TextField
                 sx={{ gridColumn: "span 4" }}

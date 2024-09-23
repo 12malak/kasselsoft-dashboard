@@ -15,7 +15,7 @@ import { tokens } from "../../theme";
 import { useParams, useLocation,useNavigate } from "react-router-dom";
 import "../../Css/blog.css";
 import Alert from "@mui/material/Alert";
-
+import TestBlog from "./TestBlog";
 const BlogUpdateForm = () => {
   const [title, setTitle] = useState("");
   const [mainDescription, setMainDescription] = useState("");
@@ -35,6 +35,7 @@ const BlogUpdateForm = () => {
     severity: "",
   });
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchBlogById = async () => {
       try {
         const response = await axios.get(
@@ -166,7 +167,7 @@ const BlogUpdateForm = () => {
           required
         />
         <TextField
-                label={lang === "ar" ? "الوصف" : "Main Description"}
+                label={lang === "ar" ? "الوصف" : "Main Paragraph"}
                 fullWidth
           multiline
           rows={4}
@@ -209,16 +210,22 @@ const BlogUpdateForm = () => {
         {/* Existing Descriptions */}
         {descriptions.map((desc, index) => (
           <div key={desc.id}>
-            <TextField
-              label={`Description ${index + 1}`}
+            {/* <TextField
+              label={`Paragraph ${index + 1}`}
               fullWidth
               multiline
-              rows={2}
+              rows={3}
               value={desc.text} // Set the value to the description text
               onChange={(e) => handleDescriptionChange(index, e.target.value)}
               required
               style={{ marginBottom: "10px" }}
-            />
+            /> */}
+                <TestBlog 
+          key={index} 
+          descriptions={descriptions} 
+          setDescriptions={setDescriptions} 
+          index={index} 
+        />
             {/* Display current images if available */}
             {desc.images.length > 0 && (
               <div>

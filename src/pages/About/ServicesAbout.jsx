@@ -62,6 +62,7 @@ function ServicesAbout() {
 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchAllData = async () => {
       try {
         const ServicesAboutRes = await axios.get(`${API_URL}/aboutServices/getaboutServicesByLang/${lang}`);
@@ -170,8 +171,9 @@ function ServicesAbout() {
           fontSize: "16px", // Font size
           fontWeight: "bold", // Font weight
         }}
-        onClick={handleSubmitAdd}
-      >
+        onClick={() => {
+          navigate(`/${lang}/addservicesabout`);
+        }}      >
          {lang === "ar" ? " إضافه جديده   " : "Add"}
       </Button>
 

@@ -1,175 +1,185 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { useParams, useNavigate } from "react-router-dom";
+import DeleteDialog from "../../components/DeleteDialog.jsx";
 
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import EditNotificationsIcon from '@mui/icons-material/EditNotifications';
 
 function About() {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-  
-    const columns = [
-      { field: "id", headerName: "ID", flex: 0.5 },
-      { field: "registrarId", headerName: "Registrar ID" },
-      {
-        field: "name",
-        headerName: "Name",
-        flex: 1,
-        cellClassName: "name-column--cell",
-      },
-      {
-        field: "age",
-        headerName: "Age",
-        type: "number",
-        headerAlign: "left",
-        align: "left",
-      },
-      {
-        field: "phone",
-        headerName: "Phone Number",
-        flex: 1,
-      },
-      {
-        field: "email",
-        headerName: "Email",
-        flex: 1,
-      },
-      {
-        field: "address",
-        headerName: "Address",
-        flex: 1,
-      },
-      {
-        field: "accessLevel",
-        headerName: "Delete",
-        flex: 1,
-        renderCell: ({ row: { access } }) => {
-          return (
-            <Box
-            
-              m="0 auto"
-              p="5px"
-              display="flex"
-              justifyContent="center"
-             
-            >
-            
-             
-              <Typography color={colors.redAccent[400]} sx={{ ml: "5px" }}>
-              <DeleteOutlineIcon />
-              </Typography>
-            </Box>
-          );
-        },
-      },
-      {
-        field: "accessLeve2",
-        headerName: "Edet",
-        flex: 1,
-        renderCell: ({ row: { access } }) => {
-          return (
-            <Box
-            
-              m="0 auto"
-              p="5px"
-              display="flex"
-              justifyContent="center"
-             
-            >
-            
-             
-              <Typography color={colors.greenAccent[400]} sx={{ ml: "5px" }}>
-              <EditNotificationsIcon />
-              </Typography>
-            </Box>
-          );
-        },
-      },
-     
-    ];
-  
-    return (
-      <Box m="20px">
-        <Header
-          title="CONTACTS"
-          subtitle="List of Contacts for Future Reference"
-        />
-        <Box
-          m="40px 0 0 0"
-          height="75vh"
-          sx={{
-            "& .MuiDataGrid-root": {
-              border: "none",
-            
-            },
-       
-            "& .MuiDataGrid-cell": {
-              borderBottom: "none",
-            },
-            "& .name-column--cell": {
-              color: colors.greenAccent[400],
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor:  "#365486",
-              borderBottom: "none",
-              color: "#fafafa",
-            },
-            "& .MuiDataGrid-virtualScroller": {
-              backgroundColor: colors.primary[400],
-            },
-            "& .MuiDataGrid-footerContainer": {
-              borderTop: "none",
-              backgroundColor:"#365486",
-              color: "#fafafa",
-            },
-            "& .MuiTablePagination-root": {
-              color: "#fafafa",
-            },
-            "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows": {
-              color: "#fafafa",
-            },
-            "& .MuiTablePagination-actions .MuiButtonBase-root": {
-              color: "#fafafa",
-            },
-            "& .MuiCheckbox-root": {
-              color: `${colors.greenAccent[200]} !important`,
-            },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-              color: `${colors.grey[100]} !important`,
-            },
-          }}
-        >
-            <Button
-       variant="contained"
-        sx={{
-          backgroundColor: colors.lightBlue[900], // Background color for the button
-        color: "#fafafa",
-          borderColor: colors.lightBlue[100], // Border color
-          '&:hover': {
-            backgroundColor: colors.lightBlue[700], // Background color on hover
-            borderColor: colors.lightBlue[600], // Border color on hover
-          },
-          padding: "10px 45px", // Button padding
-          fontSize: "16px", // Font size
-          fontWeight: "bold", // Font weight
-        }}
-      >
-        Add
-      </Button>
-          <DataGrid
-            rows={mockDataContacts}
-            columns={columns}
-            components={{ Toolbar: GridToolbar }}
-          />
-        </Box>
-      </Box>
-    );
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const { lang } = useParams();
+  const API_URL = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+  const [about, setabout] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
+  const handleClickOpen = (id) => {
+    setCurrentId(id);
+    setOpen(true);
+  };
+  const handleUpdate = (id) => {
+    navigate(`/${lang}/updateabout`, { state: { id } });
   };
 
-export default About
+  const columns = [
+    {
+      field: "point1",
+      headerName: lang === "ar" ? "فقرة 1" : "Paragraph 1",
+      flex: 2,
+      minWidth: 200, // Ensure the column has a minimum width
+      renderCell: (params) => (
+        <Typography
+          variant="body2"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "normal", // Allow text to wrap
+            wordBreak: "break-word", // Break long words if necessary
+          }}
+        >
+          {params.value}
+        </Typography>
+      ),
+    },
+    {
+      field: "point2",
+      headerName: lang === "ar" ? "فقرة 2" : "Paragraph 2",
+      flex: 2,
+      minWidth: 200, // Ensure the column has a minimum width
+      renderCell: (params) => (
+        <Typography
+          variant="body2"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "normal", // Allow text to wrap
+            wordBreak: "break-word", // Break long words if necessary
+          }}
+        >
+          {params.value}
+        </Typography>
+      ),
+    },
+    {
+      field: "point3",
+      headerName: lang === "ar" ? "فقرة 3" : "Paragraph 3",
+      flex: 2,
+      minWidth: 200, // Ensure the column has a minimum width
+      renderCell: (params) => (
+        <Typography
+          variant="body2"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "normal", // Allow text to wrap
+            wordBreak: "break-word", // Break long words if necessary
+          }}
+        >
+          {params.value}
+        </Typography>
+      ),
+    },
+    {
+      field: "accessLeve2",
+      headerName: lang === "ar" ? "تعديل" : "Edit",
+      renderCell: (params) => (
+        <Box m="0 auto" p="5px" display="flex" justifyContent="center">
+          <Typography
+            color={colors.greenAccent[400]}
+            sx={{ ml: "5px" }}
+            onClick={() => handleUpdate(params.id)} // Use the ID here
+          >
+            <BorderColorIcon />
+          </Typography>
+        </Box>
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        const aboutRes = await axios.get(`${API_URL}/api/about/${lang}`);
+        setabout(aboutRes.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchAllData();
+  }, [lang]);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  return (
+    <Box m="20px">
+      <Header
+        title={lang === "ar" ? "عن كاسل" : " Main About"}
+        subtitle={lang === "ar" ? "بيانات عن كاسل" : "List of Main About"}
+      />
+
+      <Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.greenAccent[400],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: "#365486",
+            borderBottom: "none",
+            color: "#fafafa",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: "#365486",
+            color: "#fafafa",
+          },
+          "& .MuiTablePagination-root": {
+            color: "#fafafa",
+          },
+          "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows":
+            {
+              color: "#fafafa",
+            },
+          "& .MuiTablePagination-actions .MuiButtonBase-root": {
+            color: "#fafafa",
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
+        }}
+      >
+       
+        <DataGrid
+          rows={about} // Ensure this is an array of objects
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+          rowHeight={100} // Set the row height here
+        />
+      </Box>
+    
+    </Box>
+  );
+}
+
+export default About;

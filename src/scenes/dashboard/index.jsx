@@ -51,7 +51,7 @@ const Dashboard = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title={lang === "ar" ? "  لوحة التحكم  " : "DASHBOARD"}
-          subtitle={lang === "ar" ? "طلبات التوظيف" : "Job Application"}
+          subtitle={lang === "ar" ? "اهلا بك في لوحة تحكم كاسل" : "Welcome To Kassel Dashboard"}
         />
 
         <Box>

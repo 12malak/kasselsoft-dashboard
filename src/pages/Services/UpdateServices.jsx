@@ -122,11 +122,9 @@ const UpdateServices = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+             
               sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                "& > div": { gridColumn: isNonMobile ? undefined : "span 4",marginTop:"10px" },
               }}
             >
               <TextField
@@ -156,7 +154,9 @@ const UpdateServices = () => {
                 name="description"
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
+                // sx={{ gridColumn: "span 2" }}
+                multiline
+                rows={8}
               />
              
               <TextField

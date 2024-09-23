@@ -32,6 +32,7 @@ function UpdateTeam() {
 
     // Fetch team data by id
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (AboutTemeId) {
             axios.get(`${API_URL}/abuteteam/getbyid/${AboutTemeId}`)
                 .then((response) => {
@@ -72,7 +73,7 @@ function UpdateTeam() {
     return (
         <Box m="20px">
             <Header 
-             title={lang === "ar" ? "  نحن" : "ABOUT US"}
+             title={lang === "ar" ? "  نحن" : "ABOUT Team"}
                 subtitle= {lang === "ar" ?"تعديل معلومات عضو للفريق" : "Edit team member information"}
             />
             

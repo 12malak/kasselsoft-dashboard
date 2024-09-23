@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Alert, Stack,Snackbar } from "@mui/material";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-function AddTeam() {
+function AddServicesAbout() {
     const navigate = useNavigate();
   const { lang } = useParams();
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -13,12 +13,14 @@ function AddTeam() {
 
   // State for showing success/error messages
   const [alert, setAlert] = useState({ type: "", message: "", visible: false });
-
+useEffect(()=>{
+window.scrollTo(0,0);
+},)
   // Handle form submission
   const handleFormSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const response = await axios.post(
-        `${API_URL}/abuteteam/addteam/${lang}`,
+        `${API_URL}/aboutServices/add/${lang}`,
         values
       );
       console.log(response.data);
@@ -30,7 +32,7 @@ function AddTeam() {
         }, 2000);
       resetForm(); // Reset the form fields after successful submission
     } catch (error) {
-      console.error("Error adding team:", error);
+      console.error("Error adding contact information:", error);
       setAlert({
         type: "error",
         message: "Failed to add contact information. Please try again.",
@@ -40,16 +42,26 @@ function AddTeam() {
       setSubmitting(false); // Set submitting to false once request is complete
     }
   };
-
+  const handleButtonClick = () => {
+    window.open('https://icons.getbootstrap.com/', '_blank');
+  };
   return (
     <Box m="20px">
       <Header
-        title={lang === "ar" ? "  نحن" : "ABOUT US"}
+        title={lang === "ar" ? "  نحن" : "ABOUT Services"}
         subtitle={
-          lang === "ar" ?"اضافه عضو للفريق" : "Create a New Team Member"
+          lang === "ar" ?"يجب عليك اختيار الايقونة من خلال النقر على هذا الزر للانتقال إلى الموقع" : "You should choose icon from click on this button to navigate to the website icon"
         }
       />
-
+ <Button
+    type="submit"
+    color="secondary"
+    variant="contained"
+    onClick={handleButtonClick} // Add this line
+    sx={{marginBottom: 5}}
+  >
+    {lang === 'ar' ? 'اختر ايقون' : 'Choose icon'}
+  </Button>
        {/* Alert Snackbar */}
        <Snackbar open={alert.open} autoHideDuration={4000} onClose={() => setAlert({ ...alert, open: false })}>
                 <Alert onClose={() => setAlert({ ...alert, open: false })} severity={alert.severity}>
@@ -81,35 +93,25 @@ function AddTeam() {
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang === "ar" ? "الاسم" : "Name"}
+                label={lang === "ar" ? "الاسم" : "title"}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.name}
-                name="name"
+                value={values.title}
+                name="title"
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang === "ar" ? " المشاريع" : "Projects"}
+                label={lang === "ar" ? " الايقونة" : "icon"}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.projects}
-                name="projects"
+                value={values.icon}
+                name="icon"
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang === "ar" ? "التخصص" : "Major"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.major}
-                name="major"
-                sx={{ gridColumn: "span 2" }}
-              />
+             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button
@@ -129,9 +131,8 @@ function AddTeam() {
 }
 
 const initialValues = {
-    name: "",
-  projects: "",
-  major: "",
+    title: "",
+    icon: "",
 };
 
-export default AddTeam;
+export default AddServicesAbout;

@@ -35,7 +35,6 @@ function Home() {
       field: "description",
       headerName: lang ==="ar" ? "الوصف" : "Description",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
       renderCell: (params) => (
         <Typography
           variant="body2"
@@ -57,17 +56,6 @@ function Home() {
       headerAlign: "left",
       align: "left",
     },
-    // {
-    //   field: "accessLevel",
-    //   headerName: "Delete",
-    //   renderCell: (params) => (
-    //     <Box m="0 auto" p="5px" display="flex" justifyContent="center">
-    //       <Typography color={colors.redAccent[400]} sx={{ ml: "5px" }}>
-    //         <DeleteOutlineIcon />
-    //       </Typography>
-    //     </Box>
-    //   ),
-    // },
     {
       field: "accessLeve2",
       headerName:lang ==="ar" ? "تعديل" : "Edit",

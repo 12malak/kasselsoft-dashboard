@@ -8,54 +8,59 @@ import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 
-const UpdateExperienceHome = () => {
+const UpdateAbout = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
-  const [img, setImg] = useState(null);
-  const [exphomeId, setexphomeId] = useState("");
-  const [expHome, setexpHome] = useState({});
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [aboutId, setaboutId] = useState("");
+  const [about, setabout] = useState({});
   const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
+
+  // Fetch data when aboutId changes
   useEffect(() => {
     window.scrollTo(0, 0);
-    }, []);
-  // Fetch data when exphomeId changes
-  useEffect(() => {
-    if (exphomeId) {
+
+    if (aboutId) {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${API_URL}/experiencehome/getbyid/${exphomeId}`);
-          setexpHome(response.data[0]);
+          const response = await axios.get(`${API_URL}/api/aboutbyid/${aboutId}`);
+          setabout(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
       };
       fetchData();
     }
-  }, [exphomeId]);
+  }, [aboutId]);
 
-  // Set exphomeId from location state
+  // Set aboutId from location state
   useEffect(() => {
     if (location.state && location.state.id) {
-      setexphomeId(location.state.id);
+      setaboutId(location.state.id);
     } else {
       console.warn('No ID found in location.state');
     }
   }, [location.state]);
 
   const handleFormSubmit = async (values) => {
+    console.log(aboutId);
     try {
       const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("description", values.description);
-      if (img) {
-        formData.append("img", img);
+      formData.append("point1", values.point1);
+      formData.append("point2", values.point2);
+      formData.append("point3", values.point3);
+      if (image1) {
+        formData.append("image1", image1);
       }
-
+      if (image2) {
+        formData.append("image2", image2);
+      }
       await axios.put(
-        `${API_URL}/experiencehome/update/${lang}/${exphomeId}`,
+        `${API_URL}/api/update/${lang}/${aboutId}`,
         formData,
         {
           headers: {
@@ -66,7 +71,7 @@ const UpdateExperienceHome = () => {
       setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح":"Update successful!", severity: "success" });
 
       setTimeout(() => {
-        navigate(`/${lang}/lasttwosection`);
+        navigate(`/${lang}/about`);
       }, 2000);
 
     } catch (error) {
@@ -75,13 +80,15 @@ const UpdateExperienceHome = () => {
     }
   };
 
-  const handleImg = (e) => {
-    setImg(e.target.files[0]);
+  const handleImg1 = (e) => {
+    setImage1(e.target.files[0]);
   };
-
+  const handleImg2 = (e) => {
+    setImage2(e.target.files[0]);
+  };
   return (
     <Box m="20px">
-      <Header title={lang ==="ar" ? "تعديل الخبرات" :"UPDATE Experience Home"} subtitle={lang ==="ar" ? "تعديل بيانات الخبرات" : "Update an Existing Experience Home"} />
+      <Header title={lang ==="ar" ? "تعديل عن كاسل" :"UPDATE About "} subtitle={lang ==="ar" ? "تعديل بيانات عن كاسل" : "Update an Existing About"} />
 
       {alert.open && (
         <Alert
@@ -104,10 +111,11 @@ const UpdateExperienceHome = () => {
       )}
 
       <Formik
-        enableReinitialize={true} // Important to reinitialize when expHome changes
+        enableReinitialize={true} // Important to reinitialize when about changes
         initialValues={{
-          title: expHome.title || "",
-          description: expHome.description || "",
+          point1: about.point1 || "",
+          point2: about.point2 || "",
+          point3: about.point3 || "",
         }}
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
@@ -122,11 +130,9 @@ const UpdateExperienceHome = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+             
               sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                "& > div": { gridColumn: isNonMobile ? undefined : "span 4",marginTop:"10px" },
               }}
             >
               <TextField
@@ -134,39 +140,57 @@ const UpdateExperienceHome = () => {
                 variant="filled"
                 type="text"
                 label=
-                {lang ==="ar" ? "العنوان" :"Title"} 
+                {lang ==="ar" ? "العنوان" :"Paragraph 1"} 
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.title} // Correct usage of Formik values
-                name="title"
-                error={!!touched.title && !!errors.title}
-                helperText={touched.title && errors.title}
+                value={values.point1} // Correct usage of Formik values
+                name="point1"
+                error={!!touched.point1 && !!errors.point1}
+                helperText={touched.point1 && errors.point1}
                 sx={{ gridColumn: "span 2" }}
               />
              
+             <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label=
+                {lang ==="ar" ? "العنوان" :"Paragraph 2"} 
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.point2} // Correct usage of Formik values
+                name="point2"
+                error={!!touched.point2 && !!errors.point2}
+                helperText={touched.point2 && errors.point2}
+                sx={{ gridColumn: "span 2" }}
+              />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label=               {lang ==="ar" ? "الفقرة" :"Paragraph" } 
-
+                label=
+                {lang ==="ar" ? "العنوان" :"Paragraph 3"} 
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.description} // Correct usage of Formik values
-                name="description"
-                error={!!touched.description && !!errors.description}
-                helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 4" }}
-                multiline
-                rows={6}
+                value={values.point3} // Correct usage of Formik values
+                name="point3"
+                error={!!touched.point3 && !!errors.point3}
+                helperText={touched.point3 && errors.point3}
+                sx={{ gridColumn: "span 2" }}
               />
-             
               <TextField
                 sx={{ gridColumn: "span 4" }}
-                label={lang ==="ar" ? "الصورة": "Img"}
+                label={lang ==="ar" ? " 1الصورة": "image 1"}
                 variant="outlined"
                 type="file"
-                onChange={handleImg}
+                onChange={handleImg1}
+              />
+               <TextField
+                sx={{ gridColumn: "span 4" }}
+                label={lang ==="ar" ? " 2الصورة": "image 2"}
+                variant="outlined"
+                type="file"
+                onChange={handleImg2}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -182,8 +206,10 @@ const UpdateExperienceHome = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  title: yup.string().required("Title is required"),
-  description: yup.string().required("Description is required"),
+    point1: yup.string().required("point1 is required"),
+    point2: yup.string().required("point2 is required"),
+    point3: yup.string().required("point3 is required"),
+
 });
 
-export default UpdateExperienceHome;
+export default UpdateAbout;

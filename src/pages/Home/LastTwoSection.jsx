@@ -62,6 +62,7 @@ function LastTwoSection() {
   ];
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchAllData = async () => {
       try {
         const careersHomeRes = await axios.get(`${API_URL}/careershome/${lang}`);

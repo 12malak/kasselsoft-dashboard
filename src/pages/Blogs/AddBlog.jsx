@@ -15,7 +15,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { tokens } from "../../theme";
-
+import TestBlog from "./TestBlog";
 const AddBlog = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
@@ -112,7 +112,8 @@ const AddBlog = () => {
         <Alert
           severity={alert.severity}
           sx={{
-            backgroundColor: alert.severity === "success" ? "#365486" : "#f8d7da",
+            backgroundColor:
+              alert.severity === "success" ? "#365486" : "#f8d7da",
             marginBottom: "2vh",
             color: alert.severity === "success" ? "#fff" : "#721c24",
             "& .MuiAlert-icon": {
@@ -151,7 +152,7 @@ const AddBlog = () => {
             <Box
               display="grid"
               gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              // gridTemplateColumns="repeat(4, minmax(0, 5fr))"
               sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
@@ -168,18 +169,7 @@ const AddBlog = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                label={lang === "ar" ? "الوصف" : "Main Description"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.main_description}
-                name="main_description"
-                error={!!touched.main_description && !!errors.main_description}
-                helperText={touched.main_description && errors.main_description}
-                sx={{ gridColumn: "span 2" }}
-              />
+
               <FormControl
                 fullWidth
                 variant="filled"
@@ -205,6 +195,20 @@ const AddBlog = () => {
                 </FormHelperText>
               </FormControl>
               <TextField
+                // fullWidth
+                variant="filled"
+                label={lang === "ar" ? "الوصف" : "Main Paragraph"}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.main_description}
+                name="main_description"
+                error={!!touched.main_description && !!errors.main_description}
+                helperText={touched.main_description && errors.main_description}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={5}
+              />
+              <TextField
                 sx={{ gridColumn: "span 4" }}
                 label={lang === "ar" ? "الصورة" : "Main Image"}
                 variant="outlined"
@@ -215,17 +219,27 @@ const AddBlog = () => {
               {/* Dynamic Description Fields */}
               {descriptions.map((desc, index) => (
                 <Box key={index} mb={2}>
-                  <TextField
+                  {/* <TextField
                     fullWidth
                     variant="filled"
-                    label="Description"
+                    label="Paragraph"
+                    sx={{ gridColumn: "span 2" }}
+                    multiline
+                    rows={5}
                     onChange={(e) => {
                       const newDescriptions = [...descriptions];
                       newDescriptions[index].text = e.target.value;
                       setDescriptions(newDescriptions);
+                      
                     }}
                     value={desc.text}
-                  />
+                  /> */}
+                  <TestBlog 
+          key={index} 
+          descriptions={descriptions} 
+          setDescriptions={setDescriptions} 
+          index={index} 
+        />
                   <input
                     type="file"
                     multiple
@@ -239,11 +253,12 @@ const AddBlog = () => {
                       ))}
                     </Box>
                   )}
-                  {touched.descriptions?.[index]?.images && errors.descriptions?.[index]?.images && (
-                    <Typography variant="body2" color="error">
-                      {errors.descriptions[index].images}
-                    </Typography>
-                  )}
+                  {touched.descriptions?.[index]?.images &&
+                    errors.descriptions?.[index]?.images && (
+                      <Typography variant="body2" color="error">
+                        {errors.descriptions[index].images}
+                      </Typography>
+                    )}
                 </Box>
               ))}
             </Box>
@@ -283,12 +298,16 @@ const validationSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   main_description: yup.string().required("Main description is required"),
   tag_id: yup.string().required("Tag ID is required"),
-  descriptions: yup.array().of(
-    yup.object().shape({
-      text: yup.string().required("Description text is required"),
-      // images: yup.array().min(1, "At least one image is required"),
-    })
-  ).required("Descriptions are required").min(1, "At least one description is required"),
+  descriptions: yup
+    .array()
+    .of(
+      yup.object().shape({
+        text: yup.string().required("Description text is required"),
+        // images: yup.array().min(1, "At least one image is required"),
+      })
+    )
+    .required("Descriptions are required")
+    .min(1, "At least one description is required"),
 });
 
 export default AddBlog;

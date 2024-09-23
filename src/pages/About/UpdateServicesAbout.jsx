@@ -36,6 +36,7 @@ function UpdateServicesAbout() {
 
     // Fetch team data by id
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (AboutServicesId) {
             axios.get(`${API_URL}/AboutServices/getbyid/${AboutServicesId}`)
                 .then((response) => {
@@ -81,7 +82,7 @@ const handleButtonClick = () => {
         <Box m="20px">
             <Header 
                title={lang === "ar" ? "الخدمات المقدمة  " : "Services Introduced"}
-               subtitle={lang === "ar" ?"تعديل ايقونة الخدمات أشاره وشرط من ايقون المقدمه من البوتستراب" : "Modify the services icon, a sign and a condition from the iPhone provided by Bootstrap"}
+               subtitle={lang === "ar" ?"يجب عليك اختيار الايقونة من خلال النقر على هذا الزر للانتقال إلى الموقع"  : "You should choose icon from click on this button to navigate to the website icon"}
             />
           <Box display="flex" mb="20px">
   <Button

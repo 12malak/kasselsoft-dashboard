@@ -156,6 +156,8 @@ const UpdateTitles = () => {
                 error={!!touched.title && !!errors.title}
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
+            
+
               />
               <TextField
                 fullWidth
@@ -182,6 +184,8 @@ const UpdateTitles = () => {
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
+                multiline
+                rows={8}
               />
              
             </Box>

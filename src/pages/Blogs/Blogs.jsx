@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, useTheme, Tooltip } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -29,19 +29,27 @@ function Blogs() {
     navigate(`/${lang}/updateblog`, { state: { id } });
     console.log("first", id);
   };
+  const stripHtmlTags=(html)=>{
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    return doc.body.textContent|| ""
 
+  }
   const columns = [
     {
       field: "title",
       headerName: lang === "ar" ? "العنوان" : "Title",
-      flex: 1,
+      // flex: 5,
+      width:200,
+
     },
     {
       field: "main_description",
-      headerName: lang === "ar" ? "الوصف" : "	main Description",
-      flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
+      headerName: lang === "ar" ? "الفقرة الرئيسية" : "	Main Paragraph",
+      // flex: 10,
+      width:800,
       renderCell: (params) => (
+        <Tooltip title={params.value || ''} arrow>
+
         <Typography
           variant="body2"
           sx={{
@@ -53,20 +61,26 @@ function Blogs() {
         >
           {params.value}
         </Typography>
+        </Tooltip>
+
       ),
     },
     {
       field: "tag_name",
       headerName: lang === "ar" ? "التاغ" : "Tag",
-      flex: 1,
+      // flex: 5,
+      width:200,
+
     },
     {
       field: "description",
-      headerName: lang === "ar" ? "الوصف" : "Description",
-      flex: 2,
-      minWidth: 200,
+      headerName: lang === "ar" ? "الفقرة" : "Paragraph",
+    
+      width:500,
+
       renderCell: (params) => (
-        <Box sx={{ maxHeight: 100, overflowY: 'auto' }}> {/* Set maxHeight and overflow */}
+        <Box sx={{ maxHeight: 100, overflowY: 'auto', whiteSpace: "normal", // Allow text to wrap
+          wordBreak: "break-word" }}> {/* Set maxHeight and overflow */}
           {params.row.descriptions &&
             params.row.descriptions.map((desc) => (
               <Box
@@ -77,12 +91,16 @@ function Blogs() {
               >
                 <Typography
                   variant="body2"
+                  marginTop={4}
+
                 >
-                  {desc.description}
+                  {stripHtmlTags(desc.description)}
+
+                  {/* {desc.description} */}
                 </Typography>
                 <Typography
-                  color="red" // Change color as needed
-                  sx={{ ml: "5px", cursor: "pointer" }}
+            color={colors.redAccent[400]}
+            sx={{ ml: "5px", cursor: "pointer",marginTop:4 }}
                   onClick={() => handleClickOpen(desc.id, 'description')} // Specify type as 'description'
                 >
                   <DeleteOutlineIcon />
@@ -95,7 +113,7 @@ function Blogs() {
 ,    
     {
       field: "accessLevel",
-      headerName: "Delete",
+      headerName: lang === 'ar' ? "حذف":"Delete",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography
@@ -242,12 +260,22 @@ function Blogs() {
         >
           {lang === "ar" ? "اضافة" : "Add"}
         </Button>
-        <DataGrid
-          rows={Blogs} // Ensure this is an array of objects
-          columns={columns}
-          components={{ Toolbar: GridToolbar }}
-          rowHeight={100} // Set the row height here
-        />
+        <Box
+    m="20px"
+    sx={{
+        overflowX: 'auto', // Enable horizontal scrolling
+        maxWidth: '100%', // Set maximum width for responsiveness
+    }}
+>
+    <DataGrid
+        rows={Blogs} // Ensure this is an array of objects
+        columns={columns}
+        components={{ Toolbar: GridToolbar }}
+        rowHeight={200} // Set the row height here
+        autoHeight // Optional: Add this if you want the grid to adjust height based on the number of rows
+    />
+</Box>
+
       </Box>
       <DeleteDialog
         open={open}

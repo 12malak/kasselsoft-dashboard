@@ -44,9 +44,10 @@ function TermsAndCondition() {
     },
     {
         field: "main_description",
-        headerName: lang === "ar" ? "الوصف" : "main_description",
+        headerName: lang === "ar" ? "الفقرة" : "main Paragraph",
         flex: 2,
-        minWidth: 300,
+        minWidth: 800,
+     
         renderCell: (params) => (
           <Typography
             variant="body2"
@@ -74,7 +75,7 @@ function TermsAndCondition() {
       field: "description_Interpretation",
       headerName: lang === "ar" ? "وصف التفسير" : "description_Interpretation",
       flex: 5,
-      minWidth: 400, // Ensure the column has a minimum width
+      minWidth: 800, // Ensure the column has a minimum width
       renderCell: (params) => (
         <Typography
           variant="body2"
@@ -99,7 +100,7 @@ function TermsAndCondition() {
       field: "Severability_description",
       headerName: lang === "ar" ? "وصف قابلية الفصل" : "Severability_description",
       flex: 2,
-      minWidth: 400, // Ensure the column has a minimum width
+      minWidth: 800, // Ensure the column has a minimum width
       renderCell: (params) => (
         <Typography
           variant="body2"
@@ -208,6 +209,7 @@ function TermsAndCondition() {
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${colors.grey[100]} !important`,
           },
+          
         }}
       >
         <DataGrid
@@ -215,6 +217,9 @@ function TermsAndCondition() {
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
+          autoHeight={false}
+          disableColumnMenu // Optional: to simplify the header menu
+
         />
       </Box>
       <BlackTerms/>

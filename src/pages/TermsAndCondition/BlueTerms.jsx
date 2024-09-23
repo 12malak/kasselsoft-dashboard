@@ -37,7 +37,7 @@ function BlueTerms() {
     },
     {
         field: "description",
-        headerName: lang === "ar" ? "الوصف" : "Description",
+        headerName: lang === "ar" ? "الفقرة" : "Paragraph",
         flex: 2,
         minWidth: 200,
         renderCell: (params) => (

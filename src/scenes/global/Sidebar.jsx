@@ -125,13 +125,13 @@ const Sidebar = () => {
             </Typography>
 
             {/* Form Item */}
-            <Item
+            {/* <Item
               title={lang === "ar" ? "النموذج" : "Form"}
               to={`/${lang}/form`}
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             {/* Blogs Item */}
             <Item

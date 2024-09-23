@@ -25,7 +25,7 @@ function FooterContact() {
 
   const columns = [
     { field: "logo", headerName:lang ==="ar" ? "العنوان" : "logo", flex: 2,minWidth: 200,  },
-    { field: "description", headerName: lang ==="ar" ? "العنوان الفرعي" : "description", flex: 2,minWidth: 400,  },
+    { field: "description", headerName: lang ==="ar" ? "الفقرة الفرعية" : "Paragraph", flex: 2,minWidth: 700,  },
     {
       field: "support",
       headerName: lang ==="ar" ? "الرابط" : "support",

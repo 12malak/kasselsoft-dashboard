@@ -213,7 +213,9 @@ const UpdateFooterContact = () => {
                 name="description"
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={5}
               />
               <TextField
                 fullWidth

@@ -26,7 +26,7 @@ function CardHome() {
     { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1 },
     {
       field: "description",
-      headerName: lang ==="ar" ? "الوصف" : "Description",
+      headerName: lang ==="ar" ? "الفقرة" : "Paragraph",
       flex: 2,
       minWidth: 200, // Ensure the column has a minimum width
       renderCell: (params) => (

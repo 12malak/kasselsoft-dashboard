@@ -176,14 +176,16 @@ const UpdateWhyChooseUs = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang === "ar" ? "الوصف" : "Description"}
+                label={lang === "ar" ? "الفقرة" : "Paragraph"}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description} // Correct usage of Formik values
                 name="description"
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={6}
               />
               <TextField
                 fullWidth

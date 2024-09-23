@@ -187,7 +187,7 @@ const AddCareer = () => {
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
-                rows={5}
+                rows={8}
                 multiline
               />
               <TextField
@@ -201,7 +201,7 @@ const AddCareer = () => {
                 error={!!touched.responsabilites && !!errors.responsabilites}
                 helperText={touched.responsabilites && errors.responsabilites}
                 sx={{ gridColumn: "span 2" }}
-                rows={5}
+                rows={8}
                 multiline
               />
               <TextField
@@ -215,7 +215,7 @@ const AddCareer = () => {
                 error={!!touched.requirment && !!errors.requirment}
                 helperText={touched.requirment && errors.requirment}
                 sx={{ gridColumn: "span 2" }}
-                rows={5}
+                rows={8}
                 multiline
               />
               <TextField
@@ -229,7 +229,7 @@ const AddCareer = () => {
                 error={!!touched.benefit && !!errors.benefit}
                 helperText={touched.benefit && errors.benefit}
                 sx={{ gridColumn: "span 2" }}
-                rows={5}
+                rows={8}
                 multiline
               />
          

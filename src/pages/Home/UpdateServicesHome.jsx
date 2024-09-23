@@ -21,6 +21,7 @@ const UpdateServicesHome = () => {
 
   // Fetch data when mainhomeId changes
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (mainhomeId) {
       const fetchData = async () => {
         try {
@@ -79,7 +80,7 @@ const UpdateServicesHome = () => {
 
   return (
     <Box m="20px">
-      <Header title={lang ==="ar" ? "تعديل الرئيسية" :"UPDATE MAIN HOME"} subtitle={lang ==="ar" ? "تعديل بيانات الرئيسية" : "Update an Existing Main Home"} />
+      <Header title={lang ==="ar" ? "تعديل الخدمات" :"UPDATE Services HOME"} subtitle={lang ==="ar" ? "تعديل بيانات الخدمات" : "Update an Existing Services Home"} />
 
       {alert.open && (
         <Alert
@@ -155,7 +156,9 @@ const UpdateServicesHome = () => {
                 name="description"
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={6}
               />
              
               <TextField

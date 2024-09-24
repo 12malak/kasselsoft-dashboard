@@ -94,6 +94,13 @@ window.scrollTo(0,0);
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "الاسم" : "title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title}
@@ -105,6 +112,13 @@ window.scrollTo(0,0);
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? " الايقونة" : "icon"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.icon}

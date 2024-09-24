@@ -2,21 +2,19 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteDialog from "../../components/DeleteDialog.jsx";
 
-function JobApplication() {
+function ByRoleJobApplication() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { lang } = useParams();
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const [jobapplication, setjobapplication] = useState([]);
+  const [ByRoleJobApplication, setByRoleJobApplication] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const handleClickOpen = (id) => {
@@ -24,11 +22,13 @@ function JobApplication() {
     setOpen(true);
   };
   const handleDownload = async (fileName) => {
-
     try {
-      const response = await axios.get(`${API_URL}/careerform/${fileName}`, {
-        responseType: "blob", // Important: responseType blob for downloading files
-      });
+      const response = await axios.get(
+        `${API_URL}/jobdescription/byrole/${fileName}`,
+        {
+          responseType: "blob", // Important: responseType blob for downloading files
+        }
+      );
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -39,7 +39,7 @@ function JobApplication() {
       console.error("Error downloading file:", error);
     }
   };
-  
+
   const columns = [
     {
       field: "first_name",
@@ -56,11 +56,13 @@ function JobApplication() {
       headerName: lang === "ar" ? "العنوان" : "email",
       flex: 2,
     },
+
     {
       field: "position_name",
-      headerName: lang === "ar" ? "العنوان" : "position_name",
+      headerName: lang === "ar" ? "اسم الوظيفة" : "Position Name",
       flex: 2,
     },
+
     {
       field: "exp",
       headerName: lang === "ar" ? "العنوان" : "exp",
@@ -87,8 +89,7 @@ function JobApplication() {
               color={colors.greenAccent[400]}
               sx={{ ml: "5px" }}
               onClick={() => {
-                handleDownload(params.formattedValue
-                    ); // Adjust based on your data structure
+                handleDownload(params.formattedValue); // Adjust based on your data structure
               }}
             >
               download
@@ -96,7 +97,6 @@ function JobApplication() {
           </Box>
         );
       },
-      
     },
     {
       field: "accessLevel",
@@ -115,27 +115,27 @@ function JobApplication() {
         </Box>
       ),
     },
-    
   ];
 
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const jobapplicationRes = await axios.get(`${API_URL}/careerform`);
-        setjobapplication(jobapplicationRes.data);
+        const jobapplicationRes = await axios.get(`${API_URL}/jobdescription`);
+        setByRoleJobApplication(jobapplicationRes.data);
+        console.log(jobapplicationRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
     };
 
     fetchAllData();
-  }, [lang]);
+  }, []);
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/careerform/delete/${currentId}`);
-console.log(`${API_URL}/careerform/delete/${currentId}`)
+      await axios.delete(`${API_URL}/jobdescription/delete/${currentId}`);
+      console.log(`${API_URL}/jobdescription/delete/${currentId}`);
       // Remove the deleted department from state
-      setjobapplication((prevData) =>
+      setByRoleJobApplication((prevData) =>
         prevData.filter((data) => data.id !== currentId)
       );
 
@@ -150,9 +150,15 @@ console.log(`${API_URL}/careerform/delete/${currentId}`)
   return (
     <Box m="50px 20px 20px 20px">
       <Header
-        title={lang === "ar" ? "طلبات التوظيف حسب الوظيفة" : "Job Applications by Position"}
+        title={
+          lang === "ar"
+            ? "طلبات التوظيف حسب الدور المحدد"
+            : "Job Applications by Specific Role"
+        }
         subtitle={
-          lang === "ar" ? "بيانات طلبات التوظيف حسب الوظيفة" : "List of JobApplications by Position"
+          lang === "ar"
+            ? "بيانات طلبات التوظيف حسب الدور المحدد"
+            : "List of Job Applications by Specific Role"
         }
       />
 
@@ -201,7 +207,7 @@ console.log(`${API_URL}/careerform/delete/${currentId}`)
         }}
       >
         <DataGrid
-          rows={jobapplication} // Ensure this is an array of objects
+          rows={ByRoleJobApplication} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
@@ -216,4 +222,4 @@ console.log(`${API_URL}/careerform/delete/${currentId}`)
   );
 }
 
-export default JobApplication;
+export default ByRoleJobApplication;

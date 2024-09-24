@@ -9,6 +9,7 @@ import axios from "axios";
 function UpdateContact() {
     const location = useLocation();
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL;
     const [alert, setAlert] = useState({ type: "", message: "", visible: false });
     const [infoContacteId, setInfoContacteId] = useState("");
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -31,7 +32,7 @@ function UpdateContact() {
     // Fetch contact footer data by id
     useEffect(() => {
         if (infoContacteId) {
-            axios.get(`http://localhost:9090/contactfooter/getbyid/${infoContacteId}`)
+            axios.get(`${API_URL}/contactfooter/getbyid/${infoContacteId}`)
                 .then((response) => {
                     const contactData = response.data[0]; // Assuming data is returned as an array
                     setInitialValues({
@@ -48,7 +49,7 @@ function UpdateContact() {
 
     const handleFormSubmit = async (values) => {
         try {
-            await axios.put(`http://localhost:9090/contactfooter/update/${lang}/${infoContacteId}`, values);
+            await axios.put(`${API_URL}/contactfooter/update/${lang}/${infoContacteId}`, values);
             setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح" : "Update successful!", severity: "success" });
 
             // Delay navigation after success
@@ -100,6 +101,13 @@ function UpdateContact() {
                                 variant="filled"
                                 type="text"
                                 label={lang === "ar" ? "العنوان" : "Title"}
+                                InputLabelProps={{
+                                    sx: {
+                                      textAlign: lang === "ar" ? "right" : "left",
+                                      right: lang === "ar" ? 15 : 'auto',
+                                      left: lang === "ar" ? 'auto' : 0,
+                                    },
+                                  }}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value={values.title}
@@ -111,6 +119,13 @@ function UpdateContact() {
                                 variant="filled"
                                 type="text"
                                 label={lang === "ar" ? "العنوان الفرعي" : "Subtitle"}
+                                InputLabelProps={{
+                                    sx: {
+                                      textAlign: lang === "ar" ? "right" : "left",
+                                      right: lang === "ar" ? 15 : 'auto',
+                                      left: lang === "ar" ? 'auto' : 0,
+                                    },
+                                  }}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value={values.subtitle}
@@ -122,6 +137,13 @@ function UpdateContact() {
                                 variant="filled"
                                 type="text"
                                 label={lang === "ar" ? "الرابط" : "Link"}
+                                InputLabelProps={{
+                                    sx: {
+                                      textAlign: lang === "ar" ? "right" : "left",
+                                      right: lang === "ar" ? 15 : 'auto',
+                                      left: lang === "ar" ? 'auto' : 0,
+                                    },
+                                  }}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value={values.link}

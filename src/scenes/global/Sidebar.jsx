@@ -50,7 +50,7 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
-        minHeight: "140em",
+        minHeight: "180em",
 
         // height: '150vh',
         // display: 'flex',

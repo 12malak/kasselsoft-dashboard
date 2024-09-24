@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
 const UpdateCareersHome = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -17,14 +17,20 @@ const UpdateCareersHome = () => {
   const [icon, seticon] = useState(null);
   const [careershomeId, setcareershomeId] = useState("");
   const [careersHome, setcareersHome] = useState({});
-  const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
 
   // Fetch data when careershomeId changes
   useEffect(() => {
     if (careershomeId) {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${API_URL}/careershome/getbyid/${careershomeId}`);
+          const response = await axios.get(
+            `${API_URL}/careershome/getbyid/${careershomeId}`
+          );
           setcareersHome(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
@@ -39,7 +45,7 @@ const UpdateCareersHome = () => {
     if (location.state && location.state.id) {
       setcareershomeId(location.state.id);
     } else {
-      console.warn('No ID found in location.state');
+      console.warn("No ID found in location.state");
     }
   }, [location.state]);
 
@@ -61,15 +67,22 @@ const UpdateCareersHome = () => {
           },
         }
       );
-      setAlert({ open: true, message: lang === 'ar' ? "تم التعديل بنجاح":"Update successful!", severity: "success" });
+      setAlert({
+        open: true,
+        message: lang === "ar" ? "تم التعديل بنجاح" : "Update successful!",
+        severity: "success",
+      });
 
       setTimeout(() => {
         navigate(`/${lang}/lasttwosection`);
       }, 2000);
-
     } catch (error) {
       console.error(`Error in fetch edit data: ${error}`);
-      setAlert({ open: true, message: "Update failed. Please try again.", severity: "error" });
+      setAlert({
+        open: true,
+        message: "Update failed. Please try again.",
+        severity: "error",
+      });
     }
   };
 
@@ -79,13 +92,23 @@ const UpdateCareersHome = () => {
 
   return (
     <Box m="20px">
-      <Header title={lang ==="ar" ? "تعديل فرص العمل" :"UPDATE Career opportunities"} subtitle={lang ==="ar" ? "تعديل بيانات فرص العمل" : "Update an Existing Career opportunities"} />
+      <Header
+        title={
+          lang === "ar" ? "تعديل فرص العمل" : "UPDATE Career opportunities"
+        }
+        subtitle={
+          lang === "ar"
+            ? "تعديل بيانات فرص العمل"
+            : "Update an Existing Career opportunities"
+        }
+      />
 
       {alert.open && (
         <Alert
           severity={alert.severity}
           sx={{
-            backgroundColor: alert.severity === "success" ? "#365486" : "#f8d7da",
+            backgroundColor:
+              alert.severity === "success" ? "#365486" : "#f8d7da",
             marginBottom: "2vh",
             color: alert.severity === "success" ? "#fff" : "#721c24",
             "& .MuiAlert-icon": {
@@ -131,8 +154,8 @@ const UpdateCareersHome = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label=
-                {lang ==="ar" ? "العنوان" :"Title"} 
+                label={lang === "ar" ? "العنوان" : "Title"}
+                
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title} // Correct usage of Formik values
@@ -140,14 +163,27 @@ const UpdateCareersHome = () => {
                 error={!!touched.title && !!errors.title}
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
               />
-             
+
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label=               {lang ==="ar" ? "الرقم" :"Count" } 
-
+                label={lang === "ar" ? "الرقم" : "Count"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.count} // Correct usage of Formik values
@@ -156,10 +192,17 @@ const UpdateCareersHome = () => {
                 helperText={touched.description && errors.description}
                 sx={{ gridColumn: "span 2" }}
               />
-             
+
               <TextField
-                sx={{ gridColumn: "span 4" }}
-                label={lang ==="ar" ? "الصورة": "icon"}
+                sx={{ gridColumn: "span 4",paddingTop:"20px" }}
+                label={lang === "ar" ? "الصورة" : "icon"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 18 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handleicon}
@@ -167,7 +210,7 @@ const UpdateCareersHome = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-              { lang ==="ar" ? "تعديل" :" Update "}
+                {lang === "ar" ? "تعديل" : " Update "}
               </Button>
             </Box>
           </form>

@@ -146,6 +146,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "main_title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.main_title}
@@ -158,6 +165,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "main_subtitle"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.main_subtitle}
@@ -170,6 +184,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "الوصف" : "main_description"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.main_description}
@@ -182,6 +203,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "tiltle_Interpretation"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.tiltle_Interpretation}
@@ -194,6 +222,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "description_Interpretation"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description_Interpretation}
@@ -205,8 +240,15 @@ const UpdateTermsAndCondition = () => {
                 rows={8}
               />
               <TextField
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 4",paddingTop:"20px" }}
                 label={lang === "ar" ? "الصورة" : "img_Interpretation"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 18 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handleimg_Interpretation}
@@ -215,6 +257,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "Severability_title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.Severability_title}
@@ -227,6 +276,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "Severability_description"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.Severability_description}
@@ -238,8 +294,15 @@ const UpdateTermsAndCondition = () => {
                 rows={8}
               />
               <TextField
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 4",paddingTop:"20px" }}
                 label={lang === "ar" ? "الصورة" : "Severability_img"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 18 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handleSeverability_img}
@@ -248,6 +311,13 @@ const UpdateTermsAndCondition = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "اسم الصفحة" : "page_type"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.page_type}

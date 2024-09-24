@@ -70,7 +70,7 @@ function InfContact() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const infContactRes = await axios.get(`http://localhost:9090/contactfooter/${lang}`);
+        const infContactRes = await axios.get(`${API_URL}/contactfooter/${lang}`);
         setinfContact(infContactRes.data);
         console.log(infContactRes.data);
       } catch (err) {
@@ -85,11 +85,11 @@ function InfContact() {
   const handleDelete = async (id) => {
     if (window.confirm(lang === "ar" ? "هل أنت متأكد من أنك تريد الحذف؟" : "Are you sure you want to delete this?")) {
       try {
-        await axios.delete(`http://localhost:9090/contactfooter/delete/${id}`);
+        await axios.delete(`${API_URL}/contactfooter/delete/${id}`);
         setAlert({ open: true, message: lang === "ar" ? "تم الحذف بنجاح!" : "Deleted successfully!", severity: "success" });
         
         // Refresh the list by re-fetching data
-        const infContactRes = await axios.get(`http://localhost:9090/contactfooter/${lang}`);
+        const infContactRes = await axios.get(`${API_URL}/contactfooter/${lang}`);
         setinfContact(infContactRes.data);
       } catch (error) {
         console.error("Error deleting contact footer:", error);

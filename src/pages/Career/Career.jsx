@@ -10,6 +10,8 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteDialog from "../../components/DeleteDialog.jsx";
 import JobApplication from "./JobApplication.jsx";
+import Positions from "./Positions.jsx";
+import ByRoleJobApplication from "./ByRoleJobApplication.jsx";
 
 function Career() {
   const theme = useTheme();
@@ -295,7 +297,9 @@ function Career() {
         onClose={handleClose}
         handleDelete={handleDelete}
       />
+      <Positions/>
    <JobApplication/>
+   <ByRoleJobApplication/>
     </Box>
   );
 }

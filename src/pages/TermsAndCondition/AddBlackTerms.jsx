@@ -123,6 +123,13 @@ const AddBlackTerms = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "العنوان" : "Title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title} // Correct usage of Formik values
@@ -137,6 +144,13 @@ const AddBlackTerms = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "الوصف" : "Description"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description} // Correct usage of Formik values
@@ -150,6 +164,13 @@ const AddBlackTerms = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "اسم الصفحة" : "page_type"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.page_type} // Correct usage of Formik values

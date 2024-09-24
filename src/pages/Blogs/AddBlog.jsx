@@ -161,6 +161,13 @@ const AddBlog = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "Title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title}
@@ -171,14 +178,25 @@ const AddBlog = () => {
               />
 
               <FormControl
+              
                 fullWidth
                 variant="filled"
                 error={!!touched.tag_id && !!errors.tag_id}
-                sx={{ gridColumn: "span 2" }}
-              >
-                <InputLabel>{lang === "ar" ? "التاغ" : "Tag"}</InputLabel>
+                sx={{
+                  gridColumn: "span 2",
+                  '& .MuiInputLabel-root': {
+                    textAlign: lang === "ar" ? 'right' : 'left',
+                    right: lang === "ar" ? 45 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                  '& .MuiSelect-select': {
+                    textAlign: lang === "ar" ? 'right' : 'left',
+                  },
+                }}              >
+                <InputLabel >{lang === "ar" ? "التاغ" : "Tag"}</InputLabel>
                 <Select
                   label={lang === "ar" ? "التاغ" : "Tag"}
+                  
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.tag_id}
@@ -198,6 +216,13 @@ const AddBlog = () => {
                 // fullWidth
                 variant="filled"
                 label={lang === "ar" ? "الوصف" : "Main Paragraph"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.main_description}
@@ -210,7 +235,13 @@ const AddBlog = () => {
               />
               <TextField
                 sx={{ gridColumn: "span 4" }}
-                label={lang === "ar" ? "الصورة" : "Main Image"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 18 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handlemain_Img}
@@ -219,21 +250,7 @@ const AddBlog = () => {
               {/* Dynamic Description Fields */}
               {descriptions.map((desc, index) => (
                 <Box key={index} mb={2}>
-                  {/* <TextField
-                    fullWidth
-                    variant="filled"
-                    label="Paragraph"
-                    sx={{ gridColumn: "span 2" }}
-                    multiline
-                    rows={5}
-                    onChange={(e) => {
-                      const newDescriptions = [...descriptions];
-                      newDescriptions[index].text = e.target.value;
-                      setDescriptions(newDescriptions);
-                      
-                    }}
-                    value={desc.text}
-                  /> */}
+                 
                   <TestBlog 
           key={index} 
           descriptions={descriptions} 

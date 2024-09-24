@@ -150,6 +150,13 @@ const UpdateBackgrounPath = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "العنوان" : "Title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title} // Correct usage of Formik values
@@ -163,6 +170,13 @@ const UpdateBackgrounPath = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "العنوان الفرعي" : "SubTitle"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.subtitle} // Correct usage of Formik values
@@ -176,6 +190,13 @@ const UpdateBackgrounPath = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "الرابط" : "path"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.path} // Correct usage of Formik values

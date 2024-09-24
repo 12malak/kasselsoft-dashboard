@@ -82,6 +82,13 @@ function AddTeam() {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "الاسم" : "Name"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.name}
@@ -93,6 +100,13 @@ function AddTeam() {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? " المشاريع" : "Projects"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.projects}
@@ -104,6 +118,13 @@ function AddTeam() {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "التخصص" : "Major"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.major}

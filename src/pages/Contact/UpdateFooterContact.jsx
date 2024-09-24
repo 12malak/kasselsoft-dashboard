@@ -193,6 +193,13 @@ const UpdateFooterContact = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "الشعار" : "Logo"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.logo} // Correct usage of Formik values
@@ -207,6 +214,13 @@ const UpdateFooterContact = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "الوصف" : "Description"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description} // Correct usage of Formik values
@@ -222,6 +236,13 @@ const UpdateFooterContact = () => {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "العنوان" : "support"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.support} // Correct usage of Formik values
@@ -232,6 +253,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "الشروط" : "Terms"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="terms"
                 value={values.terms}
                 onChange={handleChange}
@@ -239,6 +267,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "رابط الشروط" : "Terms Link"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="terms_link"
                 value={values.terms_link}
                 onChange={handleChange}
@@ -246,6 +281,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "سياسة الخصوصية" : "Privacy"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="privacy"
                 value={values.privacy}
                 onChange={handleChange}
@@ -253,6 +295,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "رابط سياسة الخصوصية" : "Privacy Link"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="privacy_link"
                 value={values.privacy_link}
                 onChange={handleChange}
@@ -260,6 +309,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "التواصل" : "Contact"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="contact"
                 value={values.contact}
                 onChange={handleChange}
@@ -267,6 +323,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "رابط التواصل" : "Contact Link"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="contact_link"
                 value={values.contact_link}
                 onChange={handleChange}
@@ -274,6 +337,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "الشركة" : "Company"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="company"
                 value={values.company}
                 onChange={handleChange}
@@ -281,6 +351,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "الرئيسية" : "Home"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="home"
                 value={values.home}
                 onChange={handleChange}
@@ -288,6 +365,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "الخدمات" : "Services"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="services"
                 value={values.services}
                 onChange={handleChange}
@@ -295,6 +379,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "رابط الخدمات" : "Services Link"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="services_link"
                 value={values.services_link}
                 onChange={handleChange}
@@ -302,6 +393,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "حول" : "About"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="about"
                 value={values.about}
                 onChange={handleChange}
@@ -309,6 +407,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "رابط حول" : "About Link"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="about_link"
                 value={values.about_link}
                 onChange={handleChange}
@@ -316,6 +421,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "وظائف" : "Career"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="career"
                 value={values.career}
                 onChange={handleChange}
@@ -323,6 +435,13 @@ const UpdateFooterContact = () => {
               />
               <TextField
                 label={lang === "ar" ? "رابط الوظائف" : "Career Link"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 name="career_link"
                 value={values.career_link}
                 onChange={handleChange}

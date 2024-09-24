@@ -141,6 +141,13 @@ const UpdateAbout = () => {
                 type="text"
                 label=
                 {lang ==="ar" ? "العنوان" :"Paragraph 1"} 
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.point1} // Correct usage of Formik values
@@ -156,6 +163,13 @@ const UpdateAbout = () => {
                 type="text"
                 label=
                 {lang ==="ar" ? "العنوان" :"Paragraph 2"} 
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.point2} // Correct usage of Formik values
@@ -170,6 +184,13 @@ const UpdateAbout = () => {
                 type="text"
                 label=
                 {lang ==="ar" ? "العنوان" :"Paragraph 3"} 
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.point3} // Correct usage of Formik values
@@ -179,15 +200,29 @@ const UpdateAbout = () => {
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
-                sx={{ gridColumn: "span 4" }}
-                label={lang ==="ar" ? " 1الصورة": "image 1"}
+                sx={{ gridColumn: "span 4",paddingTop:"20px" }}
+                label={lang ==="ar" ? "الصورة 1": "image 1"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 18 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handleImg1}
               />
                <TextField
-                sx={{ gridColumn: "span 4" }}
-                label={lang ==="ar" ? " 2الصورة": "image 2"}
+                sx={{ gridColumn: "span 4",paddingTop:"20px" }}
+                label={lang ==="ar" ? " الصورة 2": "image 2"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 18 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handleImg2}

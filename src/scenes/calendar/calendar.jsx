@@ -14,11 +14,12 @@ import {
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
-
+import { useParams } from "react-router-dom";
 const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const { lang } = useParams();
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
@@ -48,7 +49,7 @@ const Calendar = () => {
 
   return (
     <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
+      <Header title={lang === "ar" ? "التقويم" : "Calendar"}subtitle={lang === "ar" ? "صفحة تفاعلية للتقويم الكامل" : "Full Calendar Interactive Page"} />
 
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}

@@ -10,6 +10,7 @@ function Add() {
     const navigate = useNavigate();
   const { lang } = useParams();
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const API_URL = process.env.REACT_APP_API_URL;
 
   // State for showing success/error messages
   const [alert, setAlert] = useState({ type: "", message: "", visible: false });
@@ -18,7 +19,7 @@ function Add() {
   const handleFormSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const response = await axios.post(
-        `http://localhost:9090/contactfooter/add/${lang}`,
+        `${API_URL}/contactfooter/add/${lang}`,
         values
       );
       console.log(response.data);
@@ -82,6 +83,13 @@ function Add() {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "العنوان" : "Title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title}
@@ -93,6 +101,13 @@ function Add() {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "معلومات التواصل" : "Subtitle"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.subtitle}
@@ -104,6 +119,13 @@ function Add() {
                 variant="filled"
                 type="text"
                 label={lang === "ar" ? "الرابط" : "Link"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.link}

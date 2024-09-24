@@ -161,6 +161,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "العنوان" : "Position Name"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.position_name}
@@ -174,6 +181,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "الموقع" : "Location"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.location}
@@ -186,6 +200,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "الخبرة" : "Experience"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.exp}
@@ -199,6 +220,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "عدد الشواغر" : "Open Count"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.open_count}
@@ -211,6 +239,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "الوصف" : "Description"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description}
@@ -225,6 +260,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "المسؤوليات" : "responsabilites"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.responsabilites}
@@ -239,6 +281,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "المتطلبات" : "requirment"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.requirment} // Correctly named
@@ -253,6 +302,13 @@ const UpdateCareer = () => {
                 fullWidth
                 variant="filled"
                 label={lang === "ar" ? "المزايا" : "Benefit"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.benefit}

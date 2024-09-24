@@ -21,23 +21,33 @@ const Dashboard = () => {
   const [careers, setcareers] = useState([]);
   const [services, setservices] = useState([]);
   const [jobapplication, setjobapplication] = useState([]);
+  const [contactform, setContactform] = useState([]);
+  const [jobdescr, setJopDescr] = useState([]);
+  const [position, setPosition] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
-        const [careersRes, blogsRes, servicesRes, jobapplicationRes] =
+        const [careersRes, blogsRes, servicesRes, jobapplicationRes,contactforemRes,jobdescrRes,positionRes] =
           await Promise.all([
             axios.get(`${API_URL}/careers/${lang}`),
             // axios.get(`${API_URL}/imgsliderhome/`),
             axios.get(`${API_URL}/blogs/${lang}`),
             axios.get(`${API_URL}/services/${lang}`),
             axios.get(`${API_URL}/careerform`),
+            axios.get(`${API_URL}/contactForm`),
+            axios.get(`${API_URL}/jobdescription`),
+            axios.get(`${API_URL}/position`),
           ]);
 
         setblogs(careersRes.data);
         setcareers(blogsRes.data);
         setservices(servicesRes.data);
         setjobapplication(jobapplicationRes.data);
+        setContactform(contactforemRes.data)
+        setJopDescr(jobdescrRes.data)
+        setPosition(positionRes.data)
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -138,15 +148,70 @@ const Dashboard = () => {
         >
           <StatBox
             title={jobapplication.length}
-            subtitle={lang === "ar" ? "طلبات التوظيف" : "Job Application"}
+            subtitle={lang === "ar" ? "طلبات التوظيف حسب الوظيفة" : "Job Applications by Position"}
             icon={
               <CloudDoneIcon
                 sx={{ color: colors.lightBlue[600], fontSize: "26px" }}
               />
             }
           />
+          
         </Box>
-
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.primary[400]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={position.length}
+            subtitle={lang === "ar" ? "الوظائف " : "Positions"}
+            icon={
+              <CloudDoneIcon
+                sx={{ color: colors.lightBlue[600], fontSize: "26px" }}
+              />
+            }
+          />
+          
+        </Box>
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.primary[400]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={contactform.length}
+            subtitle={lang === "ar" ? "تواصل معنا" : "Contact Us"}
+            icon={
+              <CloudDoneIcon
+                sx={{ color: colors.lightBlue[600], fontSize: "26px" }}
+              />
+            }
+          />
+          
+        </Box>
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.primary[400]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={jobdescr.length}
+            subtitle={lang === "ar" ? "طلبات التوظيف حسب الدور المحدد" : " Job Applications by Specific Role"}
+            icon={
+              <CloudDoneIcon
+                sx={{ color: colors.lightBlue[600], fontSize: "26px" }}
+              />
+            }
+          />
+          
+        </Box>
+       
         {/* ROW 3 */}
       </Box>
     </Box>

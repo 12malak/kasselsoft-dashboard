@@ -80,7 +80,7 @@ function Contact() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const contactRes = await axios.get(`http://localhost:9090/contactForm`);
+        const contactRes = await axios.get(`${API_URL}/contactForm`);
         setcontact(contactRes.data);
         console.log(contactRes.data);
       } catch (err) {
@@ -95,7 +95,7 @@ function Contact() {
   const handleDelete = async (id) => {
     if (window.confirm(lang === "ar" ? "هل أنت متأكد من أنك تريد الحذف؟" : "Are you sure you want to delete this?")) {
       try {
-        await axios.delete(`http://localhost:9090/contactForm/delete/${id}`);
+        await axios.delete(`${API_URL}/contactForm/delete/${id}`);
         
         // Update the contact list after deletion
         const updatedContacts = contact.filter((item) => item.id !== id);

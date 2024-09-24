@@ -103,8 +103,15 @@ const AddIndustryImg = () => {
         }}
       >
         <TextField
-          sx={{ gridColumn: "span 4" }}
+          sx={{ gridColumn: "span 4",paddingTop:"20px" }}
           label={lang ==="ar" ? "الصورة": "Img"}
+          InputLabelProps={{
+            sx: {
+              textAlign: lang === "ar" ? "right" : "left",
+              right: lang === "ar" ? 18 : "auto",
+              left: lang === "ar" ? "auto" : 0,
+            },
+          }}
           variant="outlined"
           type="file"
           onChange={handleImg}

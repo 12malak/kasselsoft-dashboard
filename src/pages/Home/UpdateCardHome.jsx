@@ -136,6 +136,13 @@ const UpdateCardHome = () => {
                 type="text"
                 label=
                 {lang ==="ar" ? "العنوان" :"Title"} 
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title} // Correct usage of Formik values
@@ -150,7 +157,13 @@ const UpdateCardHome = () => {
                 variant="filled"
                 type="text"
                 label=               {lang ==="ar" ? "الفقرة" :"Paragraph" } 
-
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description} // Correct usage of Formik values
@@ -163,8 +176,15 @@ const UpdateCardHome = () => {
               />
              
               <TextField
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 4",paddingTop:"20px" }}
                 label={lang ==="ar" ? "الصورة": "Img"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handleImg}

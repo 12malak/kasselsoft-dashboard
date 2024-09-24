@@ -142,6 +142,13 @@ const UpdateMainHome = () => {
                 type="text"
                 label=
                 {lang ==="ar" ? "العنوان" :"Title"} 
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.title} // Correct usage of Formik values
@@ -155,7 +162,13 @@ const UpdateMainHome = () => {
                 variant="filled"
                 type="text"
                 label={lang ==="ar" ? "العنوان الفرعي" :"SubTitle"} 
-
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.subtitle} // Correct usage of Formik values
@@ -169,7 +182,13 @@ const UpdateMainHome = () => {
                 variant="filled"
                 type="text"
                 label=               {lang ==="ar" ? "الوصف" :"Description" } 
-
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.description} // Correct usage of Formik values
@@ -185,6 +204,13 @@ const UpdateMainHome = () => {
                 variant="filled"
                 type="text"
                 label={lang ==="ar" ? "زر التنقل": "Button"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.button} // Correct usage of Formik values
@@ -194,8 +220,15 @@ const UpdateMainHome = () => {
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 4" ,paddingTop:"20px"}}
                 label={lang ==="ar" ? "الصورة": "Img"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                  },
+                }}
                 variant="outlined"
                 type="file"
                 onChange={handleImg}

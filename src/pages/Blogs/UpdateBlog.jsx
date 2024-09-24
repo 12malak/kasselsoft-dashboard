@@ -160,6 +160,14 @@ const BlogUpdateForm = () => {
       <form onSubmit={handleSubmit}>
         <TextField
                 label={lang === "ar" ? "العنوان" : "Title"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                    top: lang === "ar" ?'8px' : '0'
+                  },
+                }}
                 fullWidth
           style={{ marginBottom: "10px" }}
           value={title}
@@ -168,6 +176,14 @@ const BlogUpdateForm = () => {
         />
         <TextField
                 label={lang === "ar" ? "الوصف" : "Main Paragraph"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : 'auto',
+                    left: lang === "ar" ? 'auto' : 0,
+                    top: lang === "ar" ?'8px' : '0'
+                  },
+                }}
                 fullWidth
           multiline
           rows={4}
@@ -176,7 +192,7 @@ const BlogUpdateForm = () => {
           required
           style={{ marginBottom: "10px" }}
         />
-        <InputLabel id="tag-select-label">Tag ID</InputLabel>
+        <InputLabel id="tag-select-label">  {lang === 'ar' ? "التاغ": "Tag"}</InputLabel>
 
         <Select
           labelId="tag-select-label"

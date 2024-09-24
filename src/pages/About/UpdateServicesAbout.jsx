@@ -126,6 +126,13 @@ const handleButtonClick = () => {
                                 variant="filled"
                                 type="text"
                                 label={lang === "ar" ? "العنوان" : "Title"}
+                                InputLabelProps={{
+                                    sx: {
+                                      textAlign: lang === "ar" ? "right" : "left",
+                                      right: lang === "ar" ? 15 : 'auto',
+                                      left: lang === "ar" ? 'auto' : 0,
+                                    },
+                                  }}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value={values.title}
@@ -137,6 +144,13 @@ const handleButtonClick = () => {
                                 variant="filled"
                                 type="text"
                                 label={lang === "ar" ? " ايقون" : "Icon"}
+                                InputLabelProps={{
+                                    sx: {
+                                      textAlign: lang === "ar" ? "right" : "left",
+                                      right: lang === "ar" ? 15 : 'auto',
+                                      left: lang === "ar" ? 'auto' : 0,
+                                    },
+                                  }}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 value={values.icon}

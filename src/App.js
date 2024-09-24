@@ -54,6 +54,7 @@ import AddBlueTerms from "./pages/TermsAndCondition/AddBlueTerms";
 import UpdateBlueTerms from "./pages/TermsAndCondition/UpdateBlueTerms";
 import UpdateAbout from "./pages/About/UpdateAbout";
 import AddServicesAbout from "./pages/About/AddServicesAbout";
+import AddPosition from "./pages/Career/AddPosition";
 
 
 const RedirectToDefaultLanguage = () => {
@@ -112,6 +113,8 @@ function App() {
               <Route path="/:lang/career" element={<Career />} />
               <Route path="/:lang/addcareer" element={<AddCareer />} />
               <Route path="/:lang/updatecareer" element={<UpdateCareer />} />
+              <Route path="/:lang/addposition" element={<AddPosition />} />
+
               <Route path="/:lang/blogs" element={<Blogs />} />
               <Route path="/:lang/addblog" element={<AddBlog />} />
               <Route path="/:lang/updateblog" element={<UpdateBlog />} />

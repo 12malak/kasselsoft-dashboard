@@ -29,20 +29,23 @@ function Home() {
   };
 
   const columns = [
-    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1 },
-    { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1 },
+    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1, minWidth: 400, },
+    { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1, minWidth: 400, },
     {
       field: "description",
       headerName: lang ==="ar" ? "الوصف" : "Description",
       flex: 2,
+      minWidth: 400,
       renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
             overflow: "hidden",
-            textOverflow: "ellipsis",
             whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
+            wordBreak: "break-word",
+            display: "block",
+            maxHeight: "100px", // Set a max height for the cell
+            overflowY: "auto", // Add vertical scrolling if needed
           }}
         >
           {params.value}
@@ -55,6 +58,7 @@ function Home() {
       flex: 1,
       headerAlign: "left",
       align: "left",
+      minWidth: 300,
     },
     {
       field: "accessLeve2",
@@ -131,6 +135,8 @@ function Home() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <DataGrid 
                 style={dataGridStyle}

@@ -43,45 +43,54 @@ function ByRoleJobApplication() {
   const columns = [
     {
       field: "first_name",
-      headerName: lang === "ar" ? "العنوان" : "	first_name",
+      headerName: lang === "ar" ? "الاسم الاول" : "	first_name",
       flex: 1,
+      minWidth: 300,
     },
     {
       field: "last_name",
-      headerName: lang === "ar" ? "الوصف" : "last_name",
+      headerName: lang === "ar" ? "الاسم الاخير" : "last_name",
       flex: 1,
+      minWidth: 300,
     },
     {
       field: "email",
-      headerName: lang === "ar" ? "العنوان" : "email",
+      headerName: lang === "ar" ? "البريد الالكتروني" : "email",
       flex: 2,
+      minWidth: 400,
     },
 
     {
       field: "position_name",
       headerName: lang === "ar" ? "اسم الوظيفة" : "Position Name",
       flex: 2,
+      minWidth: 400,
     },
 
     {
       field: "exp",
-      headerName: lang === "ar" ? "العنوان" : "exp",
+      headerName: lang === "ar" ? "الخبرة" : "exp",
       flex: 1,
+      minWidth: 300,
     },
     {
       field: "skills",
-      headerName: lang === "ar" ? "العنوان" : "skills",
+      headerName: lang === "ar" ? "المهارات" : "skills",
       flex: 1,
+      minWidth: 400,
     },
     {
       field: "phone",
-      headerName: lang === "ar" ? "العنوان" : "phone",
+      headerName: lang === "ar" ? "رقم الهاتف" : "phone",
       flex: 1,
+      minWidth: 400,
     },
     {
       field: "cv",
-      headerName: lang === "ar" ? "العنوان" : "cv",
+      headerName: lang === "ar" ? "السيرة الذاتية" : "cv",
       flex: 1,
+      minWidth: 400,
+
       renderCell: (params) => {
         return (
           <Box m="0 auto" p="5px" display="flex" justifyContent="center">
@@ -100,7 +109,7 @@ function ByRoleJobApplication() {
     },
     {
       field: "accessLevel",
-      headerName: "Delete",
+      headerName: lang === "ar" ? "حذف" : "Delete",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography
@@ -205,6 +214,8 @@ function ByRoleJobApplication() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <DataGrid
           rows={ByRoleJobApplication} // Ensure this is an array of objects

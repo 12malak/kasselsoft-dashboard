@@ -32,20 +32,22 @@ function ExperienceHome() {
       field: "title",
       headerName: lang === "ar" ? "العنوان" : "Title",
       flex: 1,
+      minWidth: 400,
     },
     {
       field: "description",
       headerName: lang === "ar" ? "الفقرة" : "Paragraph",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
             overflow: "hidden",
-            textOverflow: "ellipsis",
             whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
+            wordBreak: "break-word",
+            display: "block",
+            maxHeight: "100px", // Set a max height for the cell
+            overflowY: "auto", // Add vertical scrolling if needed
           }}
         >
           {params.value}
@@ -54,7 +56,7 @@ function ExperienceHome() {
     },
     {
       field: "accessLevel",
-      headerName: "Delete",
+      headerName: lang === "ar" ? "حذف" : "Delete",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography
@@ -170,6 +172,8 @@ function ExperienceHome() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <Button
           variant="contained"

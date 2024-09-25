@@ -34,13 +34,13 @@ function TermsAndCondition() {
       field: "main_title",
       headerName: lang === "ar" ? " االعنوان الرئيسي" : "main_title",
       flex: 1,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 300, // Ensure the column has a minimum width
     },
     {
       field: "main_subtitle",
       headerName: lang === "ar" ? " العنوان الفرعي" : "main_subtitle",
       flex: 1,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 300, // Ensure the column has a minimum width
     },
     {
         field: "main_description",
@@ -69,7 +69,7 @@ function TermsAndCondition() {
       field: "tiltle_Interpretation",
       headerName: lang === "ar" ? "التفسير" : "title_Interpretation",
       flex: 1,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 300, // Ensure the column has a minimum width
     },
     {
       field: "description_Interpretation",
@@ -94,7 +94,7 @@ function TermsAndCondition() {
       field: "Severability_title",
       headerName: lang === "ar" ? "قابلية الفصل" : "Severability_title",
       flex: 1,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 300, // Ensure the column has a minimum width
     },
     {
       field: "Severability_description",
@@ -211,6 +211,8 @@ function TermsAndCondition() {
           },
           
         }}
+        dir='ltr'
+
       >
         <DataGrid
           rows={termsandcondition} // Ensure this is an array of objects

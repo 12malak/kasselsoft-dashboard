@@ -64,7 +64,7 @@ function IndustryImg() {
     },
       {
       field: "accessLevel",
-      headerName: "Delete",
+      headerName: lang === "ar" ? "حذف" : "Delete",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography color={colors.redAccent[400]} sx={{ ml: "5px" }}onClick={()=>{handleClickOpen(params.id)}}
@@ -139,6 +139,8 @@ function IndustryImg() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
             <Button
        variant="contained"
@@ -154,6 +156,7 @@ function IndustryImg() {
           fontSize: "16px", // Font size
           fontWeight: "bold", // Font weight
         }}
+        
         onClick={()=>{navigate(`/${lang}/addindustryimg`)}}
       >
         {lang === 'ar' ? "اضافة":"Add"}

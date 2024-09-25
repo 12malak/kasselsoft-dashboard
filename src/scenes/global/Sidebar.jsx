@@ -11,10 +11,10 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CabinIcon from "@mui/icons-material/Cabin";
 import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
 import OtherHousesIcon from "@mui/icons-material/OtherHouses";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import TitleIcon from '@mui/icons-material/Title';
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import TitleIcon from "@mui/icons-material/Title";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useLocation } from "react-router-dom";
@@ -51,7 +51,10 @@ const Sidebar = () => {
     <Box
       sx={{
         minHeight: "180em",
-
+        "& .pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-icon-wrapper":
+          {
+            marginRight: "0 !important", // Remove right margin
+          },
         // height: '150vh',
         // display: 'flex',
         // flexDirection: 'column',
@@ -96,7 +99,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                    {lang === 'ar' ? "  الادمن  ": "ADMINIS"}
+                  {lang === "ar" ? "  الادمن  " : "ADMINIS"}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -141,7 +144,13 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
+            {/* <Item
+              title={lang === "ar" ? "تسجيل حساب" : "SignUp"}
+              to={`/${lang}/login`}
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            /> */}
             {/* Career Item */}
             <Item
               title={lang === "ar" ? "المسار المهني" : "Career"}

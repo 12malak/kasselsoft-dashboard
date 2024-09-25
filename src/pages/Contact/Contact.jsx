@@ -23,25 +23,28 @@ function Contact() {
       field: "email",
       headerName: lang === "ar" ? "البريد الإلكتروني" : "Email",
       flex: 1,
+      minWidth: 400,
     },
     {
       field: "name",
       headerName: lang === "ar" ? "الاسم" : "Name",
       flex: 1,
+      minWidth: 300,
     },
     {
       field: "message",
       headerName: lang === "ar" ? "الرسالة" : "Message",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
             overflow: "hidden",
-            textOverflow: "ellipsis",
             whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
+            wordBreak: "break-word",
+            display: "block",
+            maxHeight: "100px", // Set a max height for the cell
+            overflowY: "auto", // Add vertical scrolling if needed
           }}
         >
           {params.value}
@@ -54,6 +57,7 @@ function Contact() {
       flex: 1,
       headerAlign: "left",
       align: "left",
+      minWidth: 300,
     },
     {
         field: "accessLevel",
@@ -173,6 +177,8 @@ function Contact() {
           color: `${colors.grey[100]} !important`,
         },
       }}
+      dir='ltr'
+
     >
       
       <DataGrid

@@ -1,7 +1,5 @@
 import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import WorkIcon from "@mui/icons-material/Work";
 import BookIcon from "@mui/icons-material/Book";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
@@ -64,27 +62,18 @@ const Dashboard = () => {
           subtitle={lang === "ar" ? "اهلا بك في لوحة تحكم كاسل" : "Welcome To Kassel Dashboard"}
         />
 
-        <Box>
-          {/* <Button
-            sx={{
-              backgroundColor: colors.lightBlue[900],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button> */}
-        </Box>
+       
       </Box>
 
       {/* GRID & CHARTS */}
       <Box
         display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
+        gridTemplateColumns={{
+          xs: "repeat(2, 1fr)", // 2 columns on extra small screens
+          sm: "repeat(3, 1fr)", // 3 columns on small screens
+          md: "repeat(6, 1fr)", // 4 columns on medium screens
+          lg: "repeat(12, 1fr)", // 12 columns on large screens
+        }}        gridAutoRows="140px"
         gap="20px"
       >
         {/* ROW 1 */}

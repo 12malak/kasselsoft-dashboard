@@ -34,13 +34,14 @@ function BlueTerms() {
       field: "title",
       headerName: lang === "ar" ? "العنوان" : "Title",
       flex: 1,
+      minWidth: 300,
     },
     {
         field: "description",
         headerName: lang === "ar" ? "الفقرة" : "Paragraph",
         flex: 2,
-        minWidth: 200,
-        renderCell: (params) => (
+        minWidth: 400,
+                renderCell: (params) => (
           <Typography
             variant="body2"
             sx={{
@@ -62,10 +63,11 @@ function BlueTerms() {
         field: "page_type",
         headerName: lang === "ar" ? "اسم الصفحة" : "page_type",
         flex: 1,
+        minWidth: 300,
       },
     {
       field: "accessLevel",
-      headerName: "Delete",
+      headerName: lang === "ar" ? "حذف" : "Delete",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography
@@ -176,6 +178,8 @@ function BlueTerms() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <Button
           variant="contained"

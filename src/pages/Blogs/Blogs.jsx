@@ -39,15 +39,13 @@ function Blogs() {
       field: "title",
       headerName: lang === "ar" ? "العنوان" : "Title",
       // flex: 5,
-      width:200,
-
+      minWidth: 400,
     },
     {
       field: "main_description",
       headerName: lang === "ar" ? "الفقرة الرئيسية" : "	Main Paragraph",
       // flex: 10,
-      width:800,
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Tooltip title={params.value || ''} arrow>
 
         <Typography
@@ -69,15 +67,13 @@ function Blogs() {
       field: "tag_name",
       headerName: lang === "ar" ? "التاغ" : "Tag",
       // flex: 5,
-      width:200,
-
+      minWidth: 400,
     },
     {
       field: "description",
       headerName: lang === "ar" ? "الفقرة" : "Paragraph",
     
-      width:500,
-
+      minWidth: 400,
       renderCell: (params) => (
         <Box sx={{ maxHeight: 100, overflowY: 'auto', whiteSpace: "normal", // Allow text to wrap
           wordBreak: "break-word" }}> {/* Set maxHeight and overflow */}
@@ -239,6 +235,8 @@ function Blogs() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+  dir='ltr'
+
       >
         <Button
           variant="contained"

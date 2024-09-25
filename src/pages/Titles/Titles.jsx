@@ -10,7 +10,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteDialog from '../../components/DeleteDialog.jsx'
 import BackgroundPath from "./BackgroundPath.jsx";
-
+import '../../index.css'
 function Titles() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -24,14 +24,13 @@ function Titles() {
   };
 
   const columns = [
-    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1 },
-    { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1 },
+    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1, minWidth: 400, },
+    { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1 , minWidth: 400,},
     {
       field: "description",
       headerName: lang === "ar" ? "الوصف" : "Description",
       flex: 2,
-      minWidth: 200,
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -65,7 +64,7 @@ function Titles() {
       ),
     },
   ];
-
+ 
   useEffect(() => {
     const fetchAllData = async () => {
       try {
@@ -79,7 +78,8 @@ function Titles() {
 
     fetchAllData();
   }, [lang]);
-
+ 
+  
   return (
     <Box m="20px">
       <Header title={lang ==="ar" ? "العناوين" :"Titles"} subtitle={lang === 'ar' ? "بيانات العناوين" :"List of Titles" }/>
@@ -124,14 +124,16 @@ function Titles() {
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${colors.grey[100]} !important`,
           },
+           width: '100%', overflowX: 'auto'
         }}
+        dir='ltr'
+
       >
         <DataGrid 
           rows={titles} // Ensure this is an array of objects
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
-          rowHeight={100} // Set the row height here
-        />
+          components={{ Toolbar: GridToolbar }}   
+          rowHeight={100}   />
       </Box>
    <BackgroundPath/>
 

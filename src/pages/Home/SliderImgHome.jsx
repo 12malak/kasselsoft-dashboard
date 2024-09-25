@@ -44,14 +44,6 @@ function SliderImgHome() {
         prevData.filter((data) => data.id !== currentId)
       );
 
-      // Toastify({
-      //   text: "Library deleted successfully",
-      //   duration: 3000,
-      //   gravity: "top",
-      //   position: "right",
-      //   backgroundColor: "#F57D20",
-      // }).showToast();
-
       handleClose(); // Close the modal after deletion
     } catch (error) {
       console.error("Error deleting department:", error);
@@ -74,7 +66,7 @@ function SliderImgHome() {
     },
       {
       field: "accessLevel",
-      headerName: "Delete",
+      headerName: lang === "ar" ? "حذف" : "Delete",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography color={colors.redAccent[400]} sx={{ ml: "5px" }}onClick={()=>{handleClickOpen(params.id)}}
@@ -149,6 +141,8 @@ function SliderImgHome() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
             <Button
        variant="contained"

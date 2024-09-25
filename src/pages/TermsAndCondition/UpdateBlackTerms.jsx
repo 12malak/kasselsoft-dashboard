@@ -206,6 +206,7 @@ const UpdateBlackTerms = () => {
                 error={!!touched.page_type && !!errors.page_type}
                 helperText={touched.page_type && errors.page_type}
                 sx={{ gridColumn: "span 2" }}
+                disabled
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">

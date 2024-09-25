@@ -23,7 +23,7 @@ function LastTwoSection() {
   };
 
   const columns = [
-    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1 },
+    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1 , minWidth: 400,},
     {
       field: "count",
       headerName: lang ==="ar" ? "الرقم" : "Count",
@@ -121,6 +121,8 @@ function LastTwoSection() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <DataGrid 
                

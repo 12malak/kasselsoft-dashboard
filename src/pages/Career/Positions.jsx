@@ -146,6 +146,8 @@ function Positions() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <Button
           variant="contained"

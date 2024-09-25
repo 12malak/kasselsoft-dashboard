@@ -41,4 +41,6 @@ body,
 .rtl {
   direction: rtl;
   text-align: right;
-}
+  overflow: auto;
+
+  }

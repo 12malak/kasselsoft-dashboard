@@ -24,16 +24,18 @@ function ServicesAbout() {
     {
          field: "title",
          headerName: lang === "ar" ? "العنوان" : "Title",
-           flex: 1 
+           flex: 1 ,
+           minWidth: 400,
         },
     { field: "icon",
         headerName: lang === "ar" ? " ايقون " : "Icon",
-         flex: 1 },
+         flex: 1,
+         minWidth: 400, },
    
    
     {
         field: "delete",
-        headerName: "Delete",
+        headerName: lang === "ar" ? "حذف" : "Delete",
         renderCell: (params) => (
           <Box m="0 auto" p="5px" display="flex" justifyContent="center">
             <IconButton onClick={() => handleDelete(params.id)}>
@@ -156,6 +158,8 @@ function ServicesAbout() {
           color: `${colors.grey[100]} !important`,
         },
       }}
+      dir='ltr'
+
     >
       <Button
         variant="contained"

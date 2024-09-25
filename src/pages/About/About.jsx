@@ -1,14 +1,11 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useParams, useNavigate } from "react-router-dom";
-import DeleteDialog from "../../components/DeleteDialog.jsx";
 
 
 function About() {
@@ -33,8 +30,8 @@ function About() {
       field: "point1",
       headerName: lang === "ar" ? "فقرة 1" : "Paragraph 1",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,
+            renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -42,6 +39,7 @@ function About() {
             textOverflow: "ellipsis",
             whiteSpace: "normal", // Allow text to wrap
             wordBreak: "break-word", // Break long words if necessary
+            
           }}
         >
           {params.value}
@@ -52,8 +50,7 @@ function About() {
       field: "point2",
       headerName: lang === "ar" ? "فقرة 2" : "Paragraph 2",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -71,8 +68,7 @@ function About() {
       field: "point3",
       headerName: lang === "ar" ? "فقرة 3" : "Paragraph 3",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -125,13 +121,15 @@ function About() {
         subtitle={lang === "ar" ? "بيانات عن كاسل" : "List of Main About"}
       />
 
-      <Box
+     {/* <Box
         m="40px 0 0 0"
         height="75vh"
         sx={{
+          
           "& .MuiDataGrid-root": {
             border: "none",
           },
+          
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
           },
@@ -169,15 +167,99 @@ function About() {
           },
         }}
       >
-       
+
         <DataGrid
           rows={about} // Ensure this is an array of objects
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           rowHeight={100} // Set the row height here
         />
-      </Box>
+      </Box>  */}
+<Box
+  m="40px 0 0 0"
+  height="75vh"
+  sx={{
+    "& .MuiDataGrid-root": {
+      border: "none",
+    },
+    "& .MuiDataGrid-cell": {
+      borderBottom: "none",
+    },
+    "& .name-column--cell": {
+      color: colors.greenAccent[400],
+    },
+    "& .MuiDataGrid-columnHeaders": {
+      backgroundColor: "#365486",
+      borderBottom: "none",
+      color: "#fafafa",
+    },
+    "& .MuiDataGrid-virtualScroller": {
+      backgroundColor: colors.primary[400],
+    },
+    "& .MuiDataGrid-footerContainer": {
+      borderTop: "none",
+      backgroundColor: "#365486",
+      color: "#fafafa",
+    },
+    "& .MuiTablePagination-root": {
+      color: "#fafafa",
+    },
+    "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows": {
+      color: "#fafafa",
+    },
+    "& .MuiTablePagination-actions .MuiButtonBase-root": {
+      color: "#fafafa",
+    },
+    "& .MuiCheckbox-root": {
+      color: `${colors.greenAccent[200]} !important`,
+    },
+    "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+      color: `${colors.grey[100]} !important`,
+    },
     
+  }}
+  dir='ltr'
+>
+  <DataGrid
+    rows={about} // Ensure this is an array of objects
+    columns={columns}
+    components={{ Toolbar: GridToolbar }}
+    rowHeight={100} // Set the row height here
+  />
+</Box>
+
+{/* <Box
+  m="40px 0 0 0"
+  height="75vh" // Fixed height for the table container
+  sx={{
+    overflowX: "auto", // Allow horizontal scrolling
+    overflowY: "hidden", // Prevent vertical scrolling
+    "& .MuiDataGrid-root": {
+      border: "none",
+    },
+    "& .MuiDataGrid-columnHeaders": {
+      position: "sticky", // Stick the header
+      top: 0, // Stick to the top
+      backgroundColor: "#365486", // Ensure it stands out
+      zIndex: 1, // Ensure it stays above the rows
+    },
+    "& .MuiDataGrid-virtualScroller": {
+      backgroundColor: colors.primary[400],
+      overflowX: "hidden", // Prevent double scrollbars
+    },
+    // Additional styles...
+  }}
+>
+  <DataGrid
+    rows={about} // Ensure this is an array of objects
+    columns={columns}
+    components={{ Toolbar: GridToolbar }}
+    rowHeight={100} // Set the row height here
+  />
+</Box> */}
+
+
+
     </Box>
   );
 }

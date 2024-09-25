@@ -140,7 +140,7 @@ const UpdateAbout = () => {
                 variant="filled"
                 type="text"
                 label=
-                {lang ==="ar" ? "العنوان" :"Paragraph 1"} 
+                {lang ==="ar" ? "فقرة 1" :"Paragraph 1"} 
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -162,7 +162,7 @@ const UpdateAbout = () => {
                 variant="filled"
                 type="text"
                 label=
-                {lang ==="ar" ? "العنوان" :"Paragraph 2"} 
+                {lang ==="ar" ? "فقرة 2" :"Paragraph 2"} 
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -183,7 +183,7 @@ const UpdateAbout = () => {
                 variant="filled"
                 type="text"
                 label=
-                {lang ==="ar" ? "العنوان" :"Paragraph 3"} 
+                {lang ==="ar" ? "فقرة 3" :"Paragraph 3"} 
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",

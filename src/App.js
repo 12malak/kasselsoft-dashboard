@@ -55,6 +55,7 @@ import UpdateBlueTerms from "./pages/TermsAndCondition/UpdateBlueTerms";
 import UpdateAbout from "./pages/About/UpdateAbout";
 import AddServicesAbout from "./pages/About/AddServicesAbout";
 import AddPosition from "./pages/Career/AddPosition";
+import LoginForm from "./pages/Titles/LoginForm";
 
 
 const RedirectToDefaultLanguage = () => {
@@ -83,21 +84,34 @@ const DirectionHandler = () => {
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const location = useLocation(); // Get the current location
+
+  useEffect(() => {
+    // Check if the current path is '/login'
+    if (location.pathname === '/login') {
+      setIsSidebar(false);
+    } else {
+      setIsSidebar(true);
+    }
+  }, [location.pathname]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+        {isSidebar && <Sidebar isSidebar={isSidebar} />} {/* Only render if isSidebar is true */}
+        <main className="content">
+          {isSidebar && <Topbar setIsSidebar={setIsSidebar} />} {/* Only render if isSidebar is true */}
             <DirectionHandler /> {/* Handle direction change */}
             <RedirectToDefaultLanguage />
 
             <Routes>
+            <Route path="/login" element={<LoginForm />} />
+
               <Route path="/:lang" element={<Dashboard />} />
-             
+
               <Route path="/contacts" element={<Contacts />} />
              
               <Route path="/form" element={<Form />} />

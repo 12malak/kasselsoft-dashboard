@@ -34,14 +34,13 @@ function Career() {
     {
       field: "position_name",
       headerName: lang === "ar" ? "عنوان الوظيفة " : "position_name",
-      minWidth: 200,
-      flex: 2,
+      minWidth: 400,      flex: 2,
     },
     {
       field: "location",
       headerName: lang === "ar" ? "الموقع" : "location",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 300, // Ensure the column has a minimum width
       renderCell: (params) => (
         <Typography
           variant="body2"
@@ -60,15 +59,14 @@ function Career() {
       field: "exp",
       headerName: lang === "ar" ? "عنوان الوظيفة " : "experience",
       flex: 3,
-      minWidth: 200,
+      minWidth: 300,
 
     },
     {
       field: "description",
       headerName: lang === "ar" ? "الوصف" : "Description",
       flex: 2,
-      minWidth: 300,
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -89,8 +87,7 @@ function Career() {
       field: "responsabilites",
       headerName: lang === "ar" ? "المسؤوليات" : "responsabilites",
       flex: 2,
-      minWidth: 300, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -110,8 +107,7 @@ function Career() {
       field: "requirment",
       headerName: lang === "ar" ? "المتطلبات" : "requirment",
       flex: 2,
-      minWidth: 300, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -131,8 +127,7 @@ function Career() {
       field: "benefit",
       headerName: lang === "ar" ? "الفوائد" : "benefit",
       flex: 2,
-      minWidth: 300, // Ensure the column has a minimum width
-      renderCell: (params) => (
+      minWidth: 400,      renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
@@ -200,10 +195,8 @@ function Career() {
     fetchAllData();
   }, [lang]);
   const handleDelete = async () => {
-    console.log("Current ID for deletion:", currentId); // Log current ID
     try {
       const response = await axios.delete(`${API_URL}/careers/delete/${lang}/${currentId}`);
-      console.log("Delete response:", response); // Log the response
       setcareers((prevData) => prevData.filter((data) => data.id !== currentId));
       handleClose(); // Close the modal after deletion
     } catch (error) {
@@ -264,6 +257,8 @@ function Career() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <Button
           variant="contained"

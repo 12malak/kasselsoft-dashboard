@@ -145,7 +145,7 @@ const UpdateTermsAndCondition = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                label={lang === "ar" ? "العنوان" : "main_title"}
+                label={lang === "ar" ? " العنوان الرئيسي" : "main_title"}
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -164,7 +164,7 @@ const UpdateTermsAndCondition = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                label={lang === "ar" ? "العنوان" : "main_subtitle"}
+                label={lang === "ar" ? "العنوان الفرعي" : "main_subtitle"}
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -183,7 +183,7 @@ const UpdateTermsAndCondition = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                label={lang === "ar" ? "الوصف" : "main_description"}
+                label={lang === "ar" ? " الوصف الرئيسي" : "main_description"}
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -197,7 +197,9 @@ const UpdateTermsAndCondition = () => {
                 name="main_description"
                 error={!!touched.main_description && !!errors.main_description}
                 helperText={touched.main_description && errors.main_description}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={7}
               />
               <TextField
                 fullWidth
@@ -221,7 +223,7 @@ const UpdateTermsAndCondition = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                label={lang === "ar" ? "العنوان" : "description_Interpretation"}
+                label={lang === "ar" ? "الوصف" : "description_Interpretation"}
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -275,7 +277,7 @@ const UpdateTermsAndCondition = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                label={lang === "ar" ? "العنوان" : "Severability_description"}
+                label={lang === "ar" ? "الوصف" : "Severability_description"}
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",

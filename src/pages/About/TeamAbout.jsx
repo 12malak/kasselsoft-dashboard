@@ -24,11 +24,11 @@ function TeamAbout() {
     {
          field: "name",
          headerName: lang === "ar" ? "الاسم" : "Name",
-           flex: 1 
+           flex: 1 , minWidth: 400,
         },
     { field: "projects",
         headerName: lang === "ar" ? " المشاريع " : "Projects",
-         flex: 1 },
+         flex: 1, minWidth: 400, },
    
     {
       field: "major",
@@ -36,10 +36,11 @@ function TeamAbout() {
       flex: 1,
       headerAlign: "left",
       align: "left",
+      minWidth: 400,
     },
     {
         field: "delete",
-        headerName: "Delete",
+        headerName: lang === "ar" ? "حذف" : "Delete",
         renderCell: (params) => (
           <Box m="0 auto" p="5px" display="flex" justifyContent="center">
             <IconButton onClick={() => handleDelete(params.id)}>
@@ -161,6 +162,8 @@ function TeamAbout() {
           color: `${colors.grey[100]} !important`,
         },
       }}
+      dir='ltr'
+
     >
       <Button
         variant="contained"

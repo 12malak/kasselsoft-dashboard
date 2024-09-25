@@ -8,7 +8,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import LogoutIcon from '@mui/icons-material/Logout';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useLocation ,useNavigate } from "react-router-dom";
-
+import axios from "axios";
 
 const Topbar = () => {
   const location = useLocation();
@@ -17,13 +17,24 @@ const Topbar = () => {
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const lang = location.pathname.split("/")[1] || "en"; // Get the language from the path, default to 'en'
+  const API_URL = process.env.REACT_APP_API_URL;
 
   // Function to toggle language
   const toggleLanguage = () => {
     const newLang = lang === "en" ? "ar" : "en"; // Toggle between English and Arabic
     navigate(`/${newLang}`); // Navigate to the new language path
   };
-
+  const logoutuser = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
+      if (response.data.Status === "Logout Success") {
+        navigate('/login'); // Redirect to login or desired route
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+  
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -63,7 +74,7 @@ const Topbar = () => {
         </IconButton>
        
         <IconButton>
-          <LogoutIcon />
+          <LogoutIcon onClick={logoutuser} />
         </IconButton>
          {/* Language Switcher */}
          <IconButton onClick={toggleLanguage}>

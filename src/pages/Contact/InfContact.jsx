@@ -24,11 +24,13 @@ function InfContact() {
     {
          field: "title",
          headerName: lang === "ar" ? "العنوان" : "Title",
-           flex: 1 
+           flex: 1 ,
+           minWidth: 300,
         },
     { field: "subtitle",
         headerName: lang === "ar" ? "معلومات التواصل " : "Subtitle",
-         flex: 1 },
+         flex: 1,
+         minWidth: 400, },
    
     {
       field: "link",
@@ -36,10 +38,11 @@ function InfContact() {
       flex: 1,
       headerAlign: "left",
       align: "left",
+      minWidth: 400,
     },
     {
         field: "delete",
-        headerName: "Delete",
+        headerName: lang === "ar" ? "حذف" : "Delete",
         renderCell: (params) => (
           <Box m="0 auto" p="5px" display="flex" justifyContent="center">
             <IconButton onClick={() => handleDelete(params.id)}>
@@ -161,6 +164,8 @@ function InfContact() {
           color: `${colors.grey[100]} !important`,
         },
       }}
+      dir='ltr'
+
     >
       <Button
         variant="contained"

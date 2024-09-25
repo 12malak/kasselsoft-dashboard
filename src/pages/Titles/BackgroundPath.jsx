@@ -24,13 +24,13 @@ function BackgroundPath() {
   };
 
   const columns = [
-    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1 },
-    { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1 },
+    { field: "title", headerName:lang ==="ar" ? "العنوان" : "Title", flex: 1, minWidth: 400, },
+    { field: "subtitle", headerName: lang ==="ar" ? "العنوان الفرعي" : "Subtitle", flex: 1, minWidth: 400, },
     {
       field: "path",
       headerName: lang ==="ar" ? "الرابط" : "path",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 300, // Ensure the column has a minimum width
       renderCell: (params) => (
         <Typography
           variant="body2"
@@ -122,6 +122,8 @@ function BackgroundPath() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         <DataGrid 
           rows={backgroundpath} // Ensure this is an array of objects

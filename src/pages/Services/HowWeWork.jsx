@@ -32,20 +32,23 @@ function HowWeWork() {
       field: "title",
       headerName: lang === "ar" ? "العنوان" : "Title",
       flex: 1,
+      minWidth: 400,
     },
     {
       field: "description",
       headerName: lang === "ar" ? "الوصف" : "Description",
       flex: 2,
-      minWidth: 200, // Ensure the column has a minimum width
+      minWidth: 400, // Ensure the column has a minimum width
       renderCell: (params) => (
         <Typography
           variant="body2"
           sx={{
             overflow: "hidden",
-            textOverflow: "ellipsis",
             whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
+            wordBreak: "break-word",
+            display: "block",
+            maxHeight: "100px", // Set a max height for the cell
+            overflowY: "auto", // Add vertical scrolling if needed
           }}
         >
           {params.value}
@@ -133,6 +136,8 @@ function HowWeWork() {
             color: `${colors.grey[100]} !important`,
           },
         }}
+        dir='ltr'
+
       >
         
         <DataGrid

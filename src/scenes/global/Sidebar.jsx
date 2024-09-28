@@ -144,13 +144,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title={lang === "ar" ? "تسجيل حساب" : "SignUp"}
-              to={`/${lang}/login`}
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
+
             {/* Career Item */}
             <Item
               title={lang === "ar" ? "المسار المهني" : "Career"}
@@ -159,7 +153,13 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
+            <Item
+              title={lang === "ar" ? "تسجيل حساب" : "SignUp"}
+              to={`/${lang}/users`}
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             {/* Section Heading: Pages */}
             <Typography
               variant="h6"

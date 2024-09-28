@@ -5,7 +5,6 @@ import {
   Typography,
   useTheme,
   MenuItem,
-  FormControl,
   InputLabel,
   Select,
 } from "@mui/material";
@@ -16,6 +15,7 @@ import { useParams, useLocation,useNavigate } from "react-router-dom";
 import "../../Css/blog.css";
 import Alert from "@mui/material/Alert";
 import TestBlog from "./TestBlog";
+import TextEditorMainDescription from "./TextEditorMainDescription";
 const BlogUpdateForm = () => {
   const [title, setTitle] = useState("");
   const [mainDescription, setMainDescription] = useState("");
@@ -174,7 +174,7 @@ const BlogUpdateForm = () => {
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-        <TextField
+        {/* <TextField
                 label={lang === "ar" ? "الوصف" : "Main Paragraph"}
                 InputLabelProps={{
                   sx: {
@@ -191,6 +191,12 @@ const BlogUpdateForm = () => {
           onChange={(e) => setMainDescription(e.target.value)}
           required
           style={{ marginBottom: "10px" }}
+        /> */}
+        <label htmlFor="">{lang === "ar" ? "الوصف" : "Main Paragraph"}</label>
+           <TextEditorMainDescription 
+          mainDescription={mainDescription} 
+          setMainDescription={setMainDescription} 
+          required
         />
         <InputLabel id="tag-select-label">  {lang === 'ar' ? "التاغ": "Tag"}</InputLabel>
 

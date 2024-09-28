@@ -346,10 +346,10 @@ const checkoutSchema = yup.object().shape({
   main_title: yup.string().required("Main title is required"),
   main_subtitle: yup.string().required("Main subtitle is required"),
   main_description: yup.string().required("Main description is required"),
-  tiltle_Interpretation: yup.string().required("Title interpretation is required"),
-  description_Interpretation: yup.string().required("Description interpretation is required"),
-  Severability_title: yup.string().required("Severability title is required"),
-  Severability_description: yup.string().required("Severability description is required"),
+  // tiltle_Interpretation: yup.string().required("Title interpretation is required"),
+  // description_Interpretation: yup.string().required("Description interpretation is required"),
+  // Severability_title: yup.string().required("Severability title is required"),
+  // Severability_description: yup.string().required("Severability description is required"),
   page_type: yup.string().required("Page type is required"),
 });
 

@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -56,20 +56,9 @@ import UpdateAbout from "./pages/About/UpdateAbout";
 import AddServicesAbout from "./pages/About/AddServicesAbout";
 import AddPosition from "./pages/Career/AddPosition";
 import LoginForm from "./pages/Titles/LoginForm";
-
-
-const RedirectToDefaultLanguage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  
-  useEffect(() => {
-    if (location.pathname === '/') {
-      navigate('/en'); // Redirect to default language
-    }
-  }, [navigate, location.pathname]);
-
-  return null;
-};
+import SignUp from "./pages/SignUp/SignUp.jsx";
+import UpdateParagraph from "./pages/Blogs/UpdateParagraph.jsx";
+import AddAdmin from "./pages/SignUp/AddAdmin.jsx";
 const DirectionHandler = () => {
   const location = useLocation();
 
@@ -81,13 +70,51 @@ const DirectionHandler = () => {
 
   return null;
 };
+
+const RedirectToDefaultLanguage = () => {
+  const navigate = useNavigate();
+ const location = useLocation();
+
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+
+  useEffect(() => {
+      if (isAuthenticated) {
+        if (location.pathname === '/') {
+          navigate('/en'); // Redirect to default language if logged in and at root
+        }
+      } else {
+        if (location.pathname !== '/login') {
+          navigate('/login'); // Redirect to login if not logged in and not already there
+        }
+      }
+  
+  }, [isAuthenticated, navigate]);
+
+ 
+
+  return null;
+};
+// const RedirectToDefaultLanguage = () => {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const isAuthenticated= localStorage.getItem('isAuthenticated') === 'true';
+//   useEffect(() => {
+//     if (isAuthenticated) {
+//       navigate('/en'); // Redirect to default language if logged in
+//     } else {
+//       navigate('/login'); // Redirect to login if not logged in
+//     }
+//   }, [navigate, location.pathname]);
+
+//   return null;
+// };
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const location = useLocation(); // Get the current location
-
+ 
   useEffect(() => {
-    // Check if the current path is '/login'
     if (location.pathname === '/login') {
       setIsSidebar(false);
     } else {
@@ -104,10 +131,11 @@ function App() {
         {isSidebar && <Sidebar isSidebar={isSidebar} />} {/* Only render if isSidebar is true */}
         <main className="content">
           {isSidebar && <Topbar setIsSidebar={setIsSidebar} />} {/* Only render if isSidebar is true */}
-            <DirectionHandler /> {/* Handle direction change */}
+            <DirectionHandler />
             <RedirectToDefaultLanguage />
 
             <Routes>
+              
             <Route path="/login" element={<LoginForm />} />
 
               <Route path="/:lang" element={<Dashboard />} />
@@ -132,6 +160,9 @@ function App() {
               <Route path="/:lang/blogs" element={<Blogs />} />
               <Route path="/:lang/addblog" element={<AddBlog />} />
               <Route path="/:lang/updateblog" element={<UpdateBlog />} />
+              <Route path="/:lang/updateparagraph" element={<UpdateParagraph />} />
+              <Route path="/:lang/users" element={<SignUp />} />
+              <Route path="/:lang/addadmin" element={<AddAdmin />} />
               {/* pages route */}
               <Route path="/:lang/about" element={<About />} />
               <Route path="/:lang/updateabout" element={<UpdateAbout />} />

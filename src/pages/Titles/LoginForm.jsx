@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [emailFlag, setEmailFlag] = useState(true);
   const [passwordFlag, setPasswordFlag] = useState(true);
   const API_URL = process.env.REACT_APP_API_URL;
@@ -21,7 +21,7 @@ const LoginForm = () => {
   };
 
   const validatePassword = (password) => {
-    return password.trim() !== '';
+    return password.trim() !== "";
   };
 
   const handleFormSubmit = (event) => {
@@ -45,10 +45,14 @@ const LoginForm = () => {
 
   const submitUser = async () => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login/post`, { email, password },      { withCredentials: true } // This is important for cookies
+      const response = await axios.post(
+        `${API_URL}/auth/login/post`,
+        { email, password },
+        { withCredentials: true } // This is important for cookies
       );
       if (response.data.Status === "Login Succses") {
-        navigate('/en'); // Redirect to home or desired route
+        navigate("/en"); // Redirect to home or desired route
+        localStorage.setItem("isAuthenticated", "true");
       } else {
         if (response.data.Error === "Incorect Password") {
           setCorrectPassword(false);
@@ -82,13 +86,11 @@ const LoginForm = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-         
+
           {!correctPassword && (
-            <p style={{ color: 'red' }}>Incorrect Password</p>
+            <p style={{ color: "red" }}>Incorrect Password</p>
           )}
-          {!emailFlag && (
-            <p style={{ color: 'red' }}>Email not found.</p>
-          )}
+          {!emailFlag && <p style={{ color: "red" }}>Email not found.</p>}
           <input type="submit" value="Submit" />
         </form>
       </div>

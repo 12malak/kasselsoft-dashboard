@@ -29,6 +29,7 @@ const Topbar = () => {
       const response = await axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
       if (response.data.Status === "Logout Success") {
         navigate('/login'); // Redirect to login or desired route
+        localStorage.removeItem('isAuthenticated')
       }
     } catch (error) {
       console.error("Logout error:", error);

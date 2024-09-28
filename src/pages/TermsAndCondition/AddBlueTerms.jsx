@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField,Typography } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -138,7 +138,11 @@ const AddBlueTerms = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
               />
-
+     {/* <Typography sx={{ gridColumn: "span 4" }}>
+                {lang === "ar"
+                  ? " إذا كنت تريد إضافة سطر جديد بين الوصف، أضف هذا النص:<br>"
+                  : "if you want to add a new line between description, add this text: &lt;br&gt"}
+              </Typography> */}
               <TextField
                 fullWidth
                 variant="filled"
@@ -157,7 +161,9 @@ const AddBlueTerms = () => {
                 name="description"
                 error={!!touched.description && !!errors.description}
                 helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
+                multiline
+                rows={8}
               />
               <TextField
                 fullWidth

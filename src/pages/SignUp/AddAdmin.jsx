@@ -1,20 +1,21 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
-const AddBlackTerms = () => {
+const AddAdmin = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { lang } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL;
 
-  const [blackterms, setblackterms] = useState([]);
+  const [admins, setadmins] = useState([]);
   const [alert, setAlert] = useState({
     open: false,
     message: "",
@@ -29,46 +30,39 @@ const AddBlackTerms = () => {
   const handleFormSubmit = async (values) => {
     try {
       const response = await axios.post(
-        `${API_URL}/termsandconditions/addblack/${lang}`,
+        `${API_URL}/auth/signup/post`,
         {
-          title: values.title,
-          description: values.description,
-          page_type: values.page_type,
+          name: values.name,
+          email: values.email,
+          password: values.password,
         },
         {
           headers: {
-            "Content-Type": "application/json", // Use JSON content type
+            "Content-Type": "application/json", // Set to application/json
           },
         }
       );
-
-      setblackterms(response.data);
+  
+      setadmins(response.data);
       setAlert({
         open: true,
-        message: lang === "ar" ? "تمت الاضافة بنجاح" : "Added successfully!",
+        message: lang === "ar" ? "تمت الاضافة بنجاح" : "Added successful!",
         severity: "success",
       });
-
+  
       setTimeout(() => {
-        navigate(`/${lang}/termsandcondition`);
+        navigate(`/${lang}/users`);
       }, 1500);
     } catch (error) {
-      console.log(
-        `Error fetching post data: ${error.response?.data || error.message}`
-      );
-      setAlert({
-        open: true,
-        message: "Error adding black term. Please check your input.",
-        severity: "error",
-      });
+      console.log(`Error fetching post data ${error}`);
     }
   };
-
+  
   return (
     <Box m="20px">
       <Header
-        title={lang === "ar" ? "اضافة شروط" : "Add Black Terms"}
-        subtitle={lang === "ar" ? "بيانات الشروط" : "List of black terms"}
+        title={lang === "ar" ? "اضافة ادمن" : "Add Admin"}
+        subtitle={lang === "ar" ? "بيانات الادمن" : "List of admins"}
       />
 
       {alert.open && (
@@ -97,9 +91,10 @@ const AddBlackTerms = () => {
         onSubmit={handleFormSubmit}
         validationSchema={checkoutSchema}
         initialValues={{
-          title: blackterms.title || "",
-          description: blackterms.description || "",
-          page_type: blackterms.page_type || "",
+          name: admins.name || "",
+          email: admins.email || "",
+          password: admins.password || "",
+          confirmpassword: admins.confirmpassword || "",
         }}
       >
         {({
@@ -112,18 +107,18 @@ const AddBlackTerms = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
               sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                "& > div": {
+                  gridColumn: isNonMobile ? undefined : "span 4",
+                  marginTop: "10px",
+                },
               }}
             >
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang === "ar" ? "العنوان" : "Title"}
+                label={lang === "ar" ? "الاسم" : "Name"}
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -133,18 +128,17 @@ const AddBlackTerms = () => {
                 }}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.title} // Correct usage of Formik values
-                name="title"
-                error={!!touched.title && !!errors.title}
-                helperText={touched.title && errors.title}
-                sx={{ gridColumn: "span 4" }}
+                value={values.name} // Correct usage of Formik values
+                name="name"
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
               />
-         
+
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={lang === "ar" ? "الوصف" : "Description"}
+                label={lang === "ar" ? "البريد الالكتروني" : "Email"}
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
@@ -154,33 +148,50 @@ const AddBlackTerms = () => {
                 }}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.description} // Correct usage of Formik values
-                name="description"
-                error={!!touched.description && !!errors.description}
-                helperText={touched.description && errors.description}
-                sx={{ gridColumn: "span 4" }}
-                multiline
-                rows={8}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label={lang === "ar" ? "اسم الصفحة" : "page_type"}
-                InputLabelProps={{
-                  sx: {
-                    textAlign: lang === "ar" ? "right" : "left",
-                    right: lang === "ar" ? 15 : "auto",
-                    left: lang === "ar" ? "auto" : 0,
-                  },
-                }}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.page_type} // Correct usage of Formik values
-                name="page_type"
-                error={!!touched.page_type && !!errors.page_type}
-                helperText={touched.page_type && errors.page_type}
+                value={values.email} // Correct usage of Formik values
+                name="email"
+                error={!!touched.email && !!errors.email}
+                helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 2" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="password"
+                label={lang === "ar" ? "كلمة السر" : "Password"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.password} // Correct usage of Formik values
+                name="password"
+                error={!!touched.password && !!errors.password}
+                helperText={touched.password && errors.password}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="password"
+                label={lang === "ar" ? " تأكيد كلمة السر " : "Confirm password"}
+                InputLabelProps={{
+                  sx: {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 15 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
+                  },
+                }}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.confirmpassword} // Correct usage of Formik values
+                name="confirmpassword"
+                error={!!touched.confirmpassword && !!errors.confirmpassword}
+                helperText={touched.confirmpassword && errors.confirmpassword}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -196,9 +207,13 @@ const AddBlackTerms = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  title: yup.string().required("Title is required"),
-  description: yup.string().required("Description is required"),
-  page_type: yup.string().required("page_type is required"),
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup.string().required("Password is required"),
+  confirmpassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required"),
 });
 
-export default AddBlackTerms;
+export default AddAdmin;

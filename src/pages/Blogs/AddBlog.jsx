@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { tokens } from "../../theme";
 import TestBlog from "./TestBlog";
+import TextEditorMainDescription from "./TextEditorMainDescription";
 const AddBlog = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
@@ -26,12 +27,18 @@ const AddBlog = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const [main_img, setmain_Img] = useState(null);
   const [tags, settags] = useState([]);
+  const [title, settitle] = useState("");
+  const [tag_id, settag_id] = useState("");
   const [alert, setAlert] = useState({
     open: false,
     message: "",
     severity: "",
   });
   const [descriptions, setDescriptions] = useState([{ text: "", images: [] }]);
+  const [mainDescription, setMainDescription] = useState("");
+  const handleMainDescriptionChange = (value) => {
+    setMainDescription(value);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,9 +71,9 @@ const AddBlog = () => {
 
   const handleFormSubmit = async (values) => {
     const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("main_description", values.main_description);
-    formData.append("tag_id", values.tag_id);
+    formData.append("title", title);
+    formData.append("main_description", mainDescription);
+    formData.append("tag_id", tag_id);
     formData.append("main_img", main_img);
 
     values.descriptions.forEach((desc, index) => {
@@ -134,9 +141,9 @@ const AddBlog = () => {
         onSubmit={handleFormSubmit}
         validationSchema={validationSchema}
         initialValues={{
-          title: "",
-          main_description: "",
-          tag_id: "",
+          title: title || "",
+          tag_id: tag_id || "",
+          main_description: mainDescription, // Set this correctly,
           descriptions,
         }}
       >
@@ -164,12 +171,14 @@ const AddBlog = () => {
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
-                    right: lang === "ar" ? 15 : 'auto',
-                    left: lang === "ar" ? 'auto' : 0,
+                    right: lang === "ar" ? 15 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
                   },
                 }}
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) => {
+                  settitle(e.target.value);
+                }}
                 value={values.title}
                 name="title"
                 error={!!touched.title && !!errors.title}
@@ -178,27 +187,28 @@ const AddBlog = () => {
               />
 
               <FormControl
-              
                 fullWidth
                 variant="filled"
                 error={!!touched.tag_id && !!errors.tag_id}
                 sx={{
                   gridColumn: "span 2",
-                  '& .MuiInputLabel-root': {
-                    textAlign: lang === "ar" ? 'right' : 'left',
-                    right: lang === "ar" ? 45 : 'auto',
-                    left: lang === "ar" ? 'auto' : 0,
+                  "& .MuiInputLabel-root": {
+                    textAlign: lang === "ar" ? "right" : "left",
+                    right: lang === "ar" ? 45 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
                   },
-                  '& .MuiSelect-select': {
-                    textAlign: lang === "ar" ? 'right' : 'left',
+                  "& .MuiSelect-select": {
+                    textAlign: lang === "ar" ? "right" : "left",
                   },
-                }}              >
-                <InputLabel >{lang === "ar" ? "التاغ" : "Tag"}</InputLabel>
+                }}
+              >
+                <InputLabel>{lang === "ar" ? "التاغ" : "Tag"}</InputLabel>
                 <Select
                   label={lang === "ar" ? "التاغ" : "Tag"}
-                  
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    settag_id(e.target.value);
+                  }}
                   value={values.tag_id}
                   name="tag_id"
                 >
@@ -212,27 +222,20 @@ const AddBlog = () => {
                   {touched.tag_id && errors.tag_id}
                 </FormHelperText>
               </FormControl>
-              <TextField
-                // fullWidth
-                variant="filled"
-                label={lang === "ar" ? "الوصف" : "Main Paragraph"}
-                InputLabelProps={{
-                  sx: {
-                    textAlign: lang === "ar" ? "right" : "left",
-                    right: lang === "ar" ? 15 : 'auto',
-                    left: lang === "ar" ? 'auto' : 0,
-                  },
-                }}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.main_description}
-                name="main_description"
-                error={!!touched.main_description && !!errors.main_description}
-                helperText={touched.main_description && errors.main_description}
-                sx={{ gridColumn: "span 4" }}
-                multiline
-                rows={5}
-              />
+              <Box>
+                <label htmlFor="">
+                  {lang === "ar" ? "الوصف" : "Main Paragraph"}
+                </label>
+                <TextEditorMainDescription
+                  mainDescription={mainDescription}
+                  setMainDescription={handleMainDescriptionChange} // Update with the new function
+                />
+              </Box>
+              {touched.main_description && errors.main_description && (
+                <Typography variant="body2" color="error">
+                  {errors.main_description}
+                </Typography>
+              )}
               <TextField
                 sx={{ gridColumn: "span 4" }}
                 InputLabelProps={{
@@ -250,13 +253,12 @@ const AddBlog = () => {
               {/* Dynamic Description Fields */}
               {descriptions.map((desc, index) => (
                 <Box key={index} mb={2}>
-                 
-                  <TestBlog 
-          key={index} 
-          descriptions={descriptions} 
-          setDescriptions={setDescriptions} 
-          index={index} 
-        />
+                  <TestBlog
+                    key={index}
+                    descriptions={descriptions}
+                    setDescriptions={setDescriptions}
+                    index={index}
+                  />
                   <input
                     type="file"
                     multiple
@@ -313,8 +315,9 @@ const AddBlog = () => {
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
-  main_description: yup.string().required("Main description is required"),
   tag_id: yup.string().required("Tag ID is required"),
+  main_description: yup.string().required("Main description is required"),
+
   descriptions: yup
     .array()
     .of(

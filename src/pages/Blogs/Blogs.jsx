@@ -27,13 +27,11 @@ function Blogs() {
   };
   const handleUpdate = (id) => {
     navigate(`/${lang}/updateblog`, { state: { id } });
-    console.log("first", id);
   };
-  const stripHtmlTags=(html)=>{
-    const doc=new DOMParser().parseFromString(html,'text/html');
-    return doc.body.textContent|| ""
-
-  }
+  const stripHtmlTags = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  };
   const columns = [
     {
       field: "title",
@@ -45,22 +43,21 @@ function Blogs() {
       field: "main_description",
       headerName: lang === "ar" ? "الفقرة الرئيسية" : "	Main Paragraph",
       // flex: 10,
-      minWidth: 400,      renderCell: (params) => (
-        <Tooltip title={params.value || ''} arrow>
-
-        <Typography
-          variant="body2"
-          sx={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "normal", // Allow text to wrap
-            wordBreak: "break-word", // Break long words if necessary
-          }}
-        >
-          {params.value}
-        </Typography>
+      minWidth: 400,
+      renderCell: (params) => (
+        <Tooltip title={params.value || ""} arrow>
+          <Typography
+            variant="body2"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "normal", // Allow text to wrap
+              wordBreak: "break-word", // Break long words if necessary
+            }}
+          >
+            {stripHtmlTags(params.value)}
+          </Typography>
         </Tooltip>
-
       ),
     },
     {
@@ -72,51 +69,61 @@ function Blogs() {
     {
       field: "description",
       headerName: lang === "ar" ? "الفقرة" : "Paragraph",
-    
+
       minWidth: 400,
       renderCell: (params) => (
-        <Box sx={{ maxHeight: 100, overflowY: 'auto', whiteSpace: "normal", // Allow text to wrap
-          wordBreak: "break-word" }}> {/* Set maxHeight and overflow */}
+        <Box
+          sx={{
+            maxHeight: 100,
+            overflowY: "auto",
+            whiteSpace: "normal", // Allow text to wrap
+            wordBreak: "break-word",
+          }}
+        >
+          {" "}
+          {/* Set maxHeight and overflow */}
           {params.row.descriptions &&
-            params.row.descriptions.map((desc) => (
+            params.row.descriptions.map((desc,index) => (
               <Box
-                key={desc.id}
-                display="flex"
+              key={`${params.row.id}-${desc.id}-${index}`} // Add index if necessary
+              display="flex"
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Typography
-                  variant="body2"
-                  marginTop={4}
-
-                >
+                <Typography variant="body2" marginTop={4}>
                   {stripHtmlTags(desc.description)}
 
                   {/* {desc.description} */}
                 </Typography>
                 <Typography
-            color={colors.redAccent[400]}
-            sx={{ ml: "5px", cursor: "pointer",marginTop:4 }}
-                  onClick={() => handleClickOpen(desc.id, 'description')} // Specify type as 'description'
+                  color={colors.redAccent[400]}
+                  sx={{ ml: "5px", cursor: "pointer", marginTop: 4 }}
+                  onClick={() => handleClickOpen(desc.id, "description")} // Specify type as 'description'
                 >
                   <DeleteOutlineIcon />
+                </Typography>
+                <Typography
+                  color={colors.greenAccent[400]} // Change color as needed
+                  sx={{ ml: "5px", cursor: "pointer", marginTop: 4 }}
+                  onClick={() => handleEditParagraphClick(desc.id)} // Pass blog.id here
+                  >
+                  <BorderColorIcon />
                 </Typography>
               </Box>
             ))}
         </Box>
       ),
-    }
-,    
+    },
     {
       field: "accessLevel",
-      headerName: lang === 'ar' ? "حذف":"Delete",
+      headerName: lang === "ar" ? "حذف" : "Delete",
       renderCell: (params) => (
         <Box m="0 auto" p="5px" display="flex" justifyContent="center">
           <Typography
             color={colors.redAccent[400]}
             sx={{ ml: "5px" }}
             onClick={() => {
-              handleClickOpen(params.id,"blog");
+              handleClickOpen(params.id, "blog");
             }}
           >
             <DeleteOutlineIcon />
@@ -156,18 +163,22 @@ function Blogs() {
   }, [lang]);
   const handleDelete = async () => {
     try {
-      if (deleteType === 'blog') {
+      if (deleteType === "blog") {
         await axios.delete(`${API_URL}/blogs/delete/${lang}/${currentId}`);
-        setBlogs((prevData) => prevData.filter((data) => data.id !== currentId));
-      } else if (deleteType === 'description') {
+        setBlogs((prevData) =>
+          prevData.filter((data) => data.id !== currentId)
+        );
+      } else if (deleteType === "description") {
         await axios.delete(`${API_URL}/blogs/deletedescr/${currentId}`);
         // Optionally, update the descriptions in the specific blog
-        setBlogs((prevData) => 
+        setBlogs((prevData) =>
           prevData.map((blog) => {
             if (blog.descriptions) {
               return {
                 ...blog,
-                descriptions: blog.descriptions.filter(desc => desc.id !== currentId)
+                descriptions: blog.descriptions.filter(
+                  (desc) => desc.id !== currentId
+                ),
               };
             }
             return blog;
@@ -179,12 +190,15 @@ function Blogs() {
       console.error("Error deleting:", error);
     }
   };
-  
-  
 
   const handleClose = () => {
     setOpen(false);
   };
+  const handleEditParagraphClick=(id)=>{
+    navigate(`/${lang}/updateparagraph`, { state: { id } });
+    console.log("first", id);
+  }
+ 
   return (
     <Box m="20px">
       <Header
@@ -235,8 +249,7 @@ function Blogs() {
             color: `${colors.grey[100]} !important`,
           },
         }}
-  dir='ltr'
-
+        dir="ltr"
       >
         <Button
           variant="contained"
@@ -259,27 +272,25 @@ function Blogs() {
           {lang === "ar" ? "اضافة" : "Add"}
         </Button>
         <Box
-    m="20px"
-    sx={{
-        overflowX: 'auto', // Enable horizontal scrolling
-        maxWidth: '100%', // Set maximum width for responsiveness
-    }}
->
-    <DataGrid
-        rows={Blogs} // Ensure this is an array of objects
-        columns={columns}
-        components={{ Toolbar: GridToolbar }}
-        rowHeight={200} // Set the row height here
-        autoHeight // Optional: Add this if you want the grid to adjust height based on the number of rows
-    />
-</Box>
-
+          m="20px"
+          sx={{
+            overflowX: "auto", // Enable horizontal scrolling
+            maxWidth: "100%", // Set maximum width for responsiveness
+          }}
+        >
+          <DataGrid
+            rows={Blogs} // Ensure this is an array of objects
+            columns={columns}
+            components={{ Toolbar: GridToolbar }}
+            rowHeight={200} // Set the row height here
+            autoHeight // Optional: Add this if you want the grid to adjust height based on the number of rows
+          />
+        </Box>
       </Box>
       <DeleteDialog
         open={open}
         onClose={handleClose}
         handleDelete={handleDelete}
-        
       />
     </Box>
   );

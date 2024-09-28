@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField ,Typography} from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -65,18 +65,20 @@ const UpdateBlueTerms = () => {
             "Content-Type": "application/json", // Ensure the correct content type
           },
         }
-      );  
+      );
       setAlert({
         open: true,
         message: lang === "ar" ? "تم التعديل بنجاح" : "Update successful!",
         severity: "success",
       });
-  
+
       setTimeout(() => {
         navigate(`/${lang}/termsandcondition`);
       }, 2000);
     } catch (error) {
-      console.error(`Error in fetch edit data: ${error.response?.data || error.message}`);
+      console.error(
+        `Error in fetch edit data: ${error.response?.data || error.message}`
+      );
       setAlert({
         open: true,
         message: "Update failed. Please try again.",
@@ -84,7 +86,6 @@ const UpdateBlueTerms = () => {
       });
     }
   };
-  
 
   return (
     <Box m="20px">
@@ -151,8 +152,8 @@ const UpdateBlueTerms = () => {
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
-                    right: lang === "ar" ? 15 : 'auto',
-                    left: lang === "ar" ? 'auto' : 0,
+                    right: lang === "ar" ? 15 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
                   },
                 }}
                 onBlur={handleBlur}
@@ -164,7 +165,6 @@ const UpdateBlueTerms = () => {
                 sx={{ gridColumn: "span 2" }}
               />
 
-
               <TextField
                 fullWidth
                 variant="filled"
@@ -173,8 +173,8 @@ const UpdateBlueTerms = () => {
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
-                    right: lang === "ar" ? 15 : 'auto',
-                    left: lang === "ar" ? 'auto' : 0,
+                    right: lang === "ar" ? 15 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
                   },
                 }}
                 onBlur={handleBlur}
@@ -186,7 +186,12 @@ const UpdateBlueTerms = () => {
                 sx={{ gridColumn: "span 2" }}
                 disabled
               />
-              
+              {/* <Typography sx={{ gridColumn: "span 4" }}>
+                {lang === "ar"
+                  ? " إذا كنت تريد إضافة سطر جديد بين الوصف، أضف هذا النص:<br>"
+                  : "if you want to add a new line between description, add this text: &lt;br&gt"}
+              </Typography> */}
+
               <TextField
                 fullWidth
                 variant="filled"
@@ -195,8 +200,8 @@ const UpdateBlueTerms = () => {
                 InputLabelProps={{
                   sx: {
                     textAlign: lang === "ar" ? "right" : "left",
-                    right: lang === "ar" ? 15 : 'auto',
-                    left: lang === "ar" ? 'auto' : 0,
+                    right: lang === "ar" ? 15 : "auto",
+                    left: lang === "ar" ? "auto" : 0,
                   },
                 }}
                 onBlur={handleBlur}

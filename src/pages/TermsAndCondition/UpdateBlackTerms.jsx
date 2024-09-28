@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField,Typography } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -163,7 +163,7 @@ const UpdateBlackTerms = () => {
                 helperText={touched.title && errors.title}
                 sx={{ gridColumn: "span 2" }}
               />
-
+   
               <TextField
                 fullWidth
                 variant="filled"

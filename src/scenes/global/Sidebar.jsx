@@ -17,6 +17,8 @@ import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import MailIcon from '@mui/icons-material/Mail';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation } from "react-router-dom";
 const Item = ({ title, to, icon, selected, setSelected, lang }) => {
   const theme = useTheme();
@@ -156,7 +158,7 @@ const Sidebar = () => {
             <Item
               title={lang === "ar" ? "تسجيل حساب" : "SignUp"}
               to={`/${lang}/users`}
-              icon={<ReceiptOutlinedIcon />}
+              icon={<AccountCircleIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -220,6 +222,13 @@ const Sidebar = () => {
               title={lang === "ar" ? " معلومات التواصل " : " Contact info"}
               to={`/${lang}/infContact`}
               icon={<AddIcCallIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title={lang === "ar" ? " الاشتراكات " : " Subscribe"}
+              to={`/${lang}/subscribe`}
+              icon={<MailIcon />}
               selected={selected}
               setSelected={setSelected}
             />

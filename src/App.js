@@ -59,6 +59,7 @@ import LoginForm from "./pages/Titles/LoginForm";
 import SignUp from "./pages/SignUp/SignUp.jsx";
 import UpdateParagraph from "./pages/Blogs/UpdateParagraph.jsx";
 import AddAdmin from "./pages/SignUp/AddAdmin.jsx";
+import Subscribe from "./pages/Subscribe/Subscribe.jsx";
 const DirectionHandler = () => {
   const location = useLocation();
 
@@ -192,6 +193,7 @@ function App() {
               <Route path="/:lang/addTeam" element={<AddTeam />} />   
               <Route path="/:lang/add" element={<Add />} />
               <Route path="/:lang/teamAbout" element={<TeamAbout />} />
+              <Route path="/:lang/subscribe" element={<Subscribe />} />
               {/* home routes */}
               <Route path="/:lang/home" element={<Home />} />
               <Route path="/:lang/updatemainhome" element={<UpdateMainHome />} />

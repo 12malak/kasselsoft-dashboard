@@ -47,7 +47,6 @@ const BlogUpdateForm = () => {
         setMainDescription(blogData.main_description);
         setTagId(blogData.tag_id);
         setMainImage(blogData.main_img);
-        console.log(blogData.main_img);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -118,7 +117,6 @@ const BlogUpdateForm = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      console.log("Update response:", response.data);
       setAlert({
         open: true,
         message: lang === "ar" ? "تم التعديل بنجاح" : "updated successfully!",

@@ -20,7 +20,6 @@ function FooterContact() {
 
   const handleUpdate = (id) => {
     navigate(`/${lang}/updatefooter`, { state: { id } });
-    console.log("sec", id);
   };
 
   const columns = [
@@ -179,7 +178,6 @@ function FooterContact() {
       try {
         const footerRes = await axios.get(`${API_URL}/footer/${lang}`);
         setfooter(footerRes.data);
-        console.log(footerRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

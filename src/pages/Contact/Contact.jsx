@@ -86,7 +86,6 @@ function Contact() {
       try {
         const contactRes = await axios.get(`${API_URL}/contactForm`);
         setcontact(contactRes.data);
-        console.log(contactRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

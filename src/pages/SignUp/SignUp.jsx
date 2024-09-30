@@ -79,7 +79,6 @@ function SignUp() {
       try {
         const signupRes = await axios.get(`${API_URL}/auth/getusers`);
         setsignup(signupRes.data); // Update the state with fetched data
-        console.log(signupRes.data); // This will show the data in the console
       } catch (err) {
         console.error("Error fetching data:", err);
       }

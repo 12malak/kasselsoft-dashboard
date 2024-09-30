@@ -69,7 +69,6 @@ function ServicesAbout() {
       try {
         const ServicesAboutRes = await axios.get(`${API_URL}/aboutServices/getaboutServicesByLang/${lang}`);
         setServicesAbout(ServicesAboutRes.data);
-        console.log(ServicesAboutRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

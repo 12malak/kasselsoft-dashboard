@@ -28,7 +28,6 @@ function UpdateServicesAbout() {
     useEffect(() => {
         if (location.state && location.state.id) {
             setAboutServicesId(location.state.id);
-            console.log("AboutServicesId:", location.state.id); // Debugging
         } else {
             console.warn("No ID found in location.state");
         }

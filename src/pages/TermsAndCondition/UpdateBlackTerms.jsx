@@ -51,7 +51,6 @@ const UpdateBlackTerms = () => {
   }, [location.state]);
 
   const handleFormSubmit = async (values) => {
-    console.log(values);
     try {
       const response = await axios.put(
         `${API_URL}/termsandconditions/black/update/${lang}/${blacktermsId}`,

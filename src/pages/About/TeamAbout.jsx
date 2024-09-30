@@ -73,7 +73,6 @@ function TeamAbout() {
       try {
         const AboutTemeRes = await axios.get(`${API_URL}/abuteteam/aboutteme/${lang}`);
         setAboutTeme(AboutTemeRes.data);
-        console.log(AboutTemeRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

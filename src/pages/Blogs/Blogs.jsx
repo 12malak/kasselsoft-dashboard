@@ -153,7 +153,6 @@ function Blogs() {
       try {
         const BlogsRes = await axios.get(`${API_URL}/blogs/${lang}`);
         setBlogs(BlogsRes.data);
-        console.log(BlogsRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -196,7 +195,6 @@ function Blogs() {
   };
   const handleEditParagraphClick=(id)=>{
     navigate(`/${lang}/updateparagraph`, { state: { id } });
-    console.log("first", id);
   }
  
   return (

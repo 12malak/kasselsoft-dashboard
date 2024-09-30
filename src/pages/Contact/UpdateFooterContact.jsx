@@ -34,7 +34,6 @@ const UpdateFooterContact = () => {
             `${API_URL}/footer/getbyid/${footercontactId}`
           );
           setfootercontact(response.data[0]);
-          console.log(response.data[0]);
         } catch (err) {
           console.error("Error fetching data:", err);
         }
@@ -47,14 +46,12 @@ const UpdateFooterContact = () => {
   useEffect(() => {
     if (location.state && location.state.id) {
       setfootercontactId(location.state.id);
-      console.log("first", location.state.id);
     } else {
       console.warn("No ID found in location.state");
     }
   }, [location.state]);
 
   const handleFormSubmit = async (values) => {
-    console.log("first");
     try {
       // Prepare the data as a plain object
       const dataToUpdate = {

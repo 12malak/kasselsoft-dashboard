@@ -131,7 +131,6 @@ function ByRoleJobApplication() {
       try {
         const jobapplicationRes = await axios.get(`${API_URL}/jobdescription`);
         setByRoleJobApplication(jobapplicationRes.data);
-        console.log(jobapplicationRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -142,7 +141,6 @@ function ByRoleJobApplication() {
   const handleDelete = async () => {
     try {
       await axios.delete(`${API_URL}/jobdescription/delete/${currentId}`);
-      console.log(`${API_URL}/jobdescription/delete/${currentId}`);
       // Remove the deleted department from state
       setByRoleJobApplication((prevData) =>
         prevData.filter((data) => data.id !== currentId)

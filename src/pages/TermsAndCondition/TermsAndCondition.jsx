@@ -146,10 +146,8 @@ function TermsAndCondition() {
           `${API_URL}/termsandconditions/${lang}`
         );
         settermsandcondition(termsandconditionRes.data);
-        console.log("first term: " + termsandconditionRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
-        console.log(`${API_URL}/termsandcondition/${lang}`);
       }
     };
 

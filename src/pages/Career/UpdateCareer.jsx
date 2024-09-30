@@ -27,8 +27,7 @@ const UpdateCareer = () => {
     useEffect(() => {
       if (location.state && location.state.id) {
         setcareerid(location.state.id);
-        console.log(            `${API_URL}/careers/${lang}/getbyid/${careerid}`
-        )
+        
       } else {
         console.warn("No ID found in location.state");
       }
@@ -42,7 +41,6 @@ const UpdateCareer = () => {
             `${API_URL}/careers/${lang}/getbyid/${careerid}`
           );
           setcareer(response.data[0]);
-          console.log(response.data[0])
         } catch (err) {
           console.error("Error fetching data:", err);
         }

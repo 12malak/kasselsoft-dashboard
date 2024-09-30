@@ -75,7 +75,6 @@ function InfContact() {
       try {
         const infContactRes = await axios.get(`${API_URL}/contactfooter/${lang}`);
         setinfContact(infContactRes.data);
-        console.log(infContactRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

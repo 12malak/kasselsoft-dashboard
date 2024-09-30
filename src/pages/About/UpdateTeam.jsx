@@ -24,7 +24,6 @@ function UpdateTeam() {
     useEffect(() => {
         if (location.state && location.state.id) {
             setAboutTemeId(location.state.id);
-            console.log("AboutTemeId:", location.state.id); // Debugging
         } else {
             console.warn("No ID found in location.state");
         }

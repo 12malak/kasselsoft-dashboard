@@ -47,7 +47,6 @@ const UpdateAbout = () => {
   }, [location.state]);
 
   const handleFormSubmit = async (values) => {
-    console.log(aboutId);
     try {
       const formData = new FormData();
       formData.append("point1", values.point1);

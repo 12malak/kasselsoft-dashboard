@@ -143,7 +143,6 @@ function JobApplication() {
   const handleDelete = async () => {
     try {
       await axios.delete(`${API_URL}/careerform/delete/${currentId}`);
-console.log(`${API_URL}/careerform/delete/${currentId}`)
       // Remove the deleted department from state
       setjobapplication((prevData) =>
         prevData.filter((data) => data.id !== currentId)

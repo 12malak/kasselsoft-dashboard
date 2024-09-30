@@ -23,7 +23,6 @@ window.scrollTo(0,0);
         `${API_URL}/aboutServices/add/${lang}`,
         values
       );
-      console.log(response.data);
       
       setAlert({ open: true, message: lang === 'ar' ? "تم الاضافه بنجاح" : " added successfully!", severity: "success" });
         // Delay navigation after success

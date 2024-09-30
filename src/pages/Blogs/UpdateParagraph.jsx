@@ -82,7 +82,6 @@ const [newaddedimages,setnewaddedimages]=useState([])
   const handleImageChange = (imgId, event) => {
     const file = event.target.files[0]; // Get the selected file
     setSelectedImageId(imgId); // Store the ID of the image to update
-    console.log("imgid", imgId);
     setimg(file); // Store the selected file
   };
   const handleSubmit = async (event) => {
@@ -100,7 +99,6 @@ const [newaddedimages,setnewaddedimages]=useState([])
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      console.log("Update response:", response.data);
       setAlert({
         open: true,
         message:
@@ -162,7 +160,6 @@ const [newaddedimages,setnewaddedimages]=useState([])
   const handleChangeJustImg = (files) => {
     const selectedFiles = Array.from(files); // Convert FileList to an array
     setnewaddedimages((prevImages) => [...prevImages, ...selectedFiles]); // Append new images
-    console.log(selectedFiles);
   };
   
   const handlepostimg = async () => {

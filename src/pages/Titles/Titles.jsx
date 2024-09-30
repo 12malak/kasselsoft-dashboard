@@ -70,7 +70,6 @@ function Titles() {
       try {
         const titlesRes = await axios.get(`${API_URL}/titleshome/${lang}`);
         settitles(titlesRes.data);
-        console.log(titlesRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

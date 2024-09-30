@@ -84,7 +84,6 @@ function WhyChooseUs() {
       try {
         const whychooseusRes = await axios.get(`${API_URL}/homewhychooseus/${lang}`);
         setwhychooseus(whychooseusRes.data);
-        console.log(whychooseusRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

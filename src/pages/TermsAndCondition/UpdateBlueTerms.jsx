@@ -51,7 +51,6 @@ const UpdateBlueTerms = () => {
   }, [location.state]);
 
   const handleFormSubmit = async (values) => {
-    console.log(values);
     try {
       const response = await axios.put(
         `${API_URL}/termsandconditions/blue/update/${lang}/${bluetermsId}`,

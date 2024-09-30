@@ -21,7 +21,6 @@ function AddTeam() {
         `${API_URL}/abuteteam/addteam/${lang}`,
         values
       );
-      console.log(response.data);
       
       setAlert({ open: true, message: lang === 'ar' ? "تم الاضافه بنجاح" : " added successfully!", severity: "success" });
         // Delay navigation after success

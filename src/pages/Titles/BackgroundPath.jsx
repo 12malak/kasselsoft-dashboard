@@ -20,7 +20,6 @@ function BackgroundPath() {
  
   const handleUpdate = (id) => {
     navigate(`/${lang}/updatebackgroundpath`, { state: { id } });
-    console.log("sec", id);
   };
 
   const columns = [
@@ -68,7 +67,6 @@ function BackgroundPath() {
       try {
         const backgroundpathRes = await axios.get(`${API_URL}/backgroundpath/${lang}`);
         setbackgroundpath(backgroundpathRes.data);
-        console.log(backgroundpathRes.data);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

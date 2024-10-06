@@ -19,5 +19,6 @@ Developed a fully responsive, bilingual website (Arabic and English) with an int
 - **MySQL**: To manage and store relational data, including job listings and blog content.
 - **JWT (JSON Web Tokens)**: For secure user authentication and authorization.
 
-[**Live Demo**](https://www.kasselsoft.com/en) - Bilingual job and blog management platform.
+[**Live Site Demo**](https://www.kasselsoft.com/en) 
+[**Link githup**](https://github.com/12malak/kasselsoft_frontend) 
 

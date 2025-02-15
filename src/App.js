@@ -60,6 +60,18 @@ import SignUp from "./pages/SignUp/SignUp.jsx";
 import UpdateParagraph from "./pages/Blogs/UpdateParagraph.jsx";
 import AddAdmin from "./pages/SignUp/AddAdmin.jsx";
 import Subscribe from "./pages/Subscribe/Subscribe.jsx";
+import Phone from "./pages/PhoneNumbers/Phone.jsx";
+import AddPhone from "./pages/PhoneNumbers/AddPhone.jsx";
+import UpdatePhone from "./pages/PhoneNumbers/UpdatePhone.jsx";
+import AddCode from "./pages/PhoneNumbers/AddCode.jsx";
+import UpdateCode from "./pages/PhoneNumbers/UpdateCode.jsx";
+import Portfolio from "./pages/Portfolio/Portfolio.jsx";
+import AddPortfolio from "./pages/Portfolio/AddPortfolio.jsx";
+import UpdatePortfolio from "./pages/Portfolio/UpdatePortfolio.jsx";
+import AddTypeOfPortfolio from "./pages/Portfolio/AddTypeOfPortfolio.jsx";
+import UpdateTypeOfPortfolio from "./pages/Portfolio/UpdateTypeOfPortfolio.jsx";
+import AddServicesPortfolio from "./pages/Portfolio/AddServicesPortfolio.jsx";
+import UpdateServicesPortfolio from "./pages/Portfolio/UpdateServicesPortfolio.jsx";
 const DirectionHandler = () => {
   const location = useLocation();
 
@@ -164,6 +176,11 @@ function App() {
               <Route path="/:lang/updateparagraph" element={<UpdateParagraph />} />
               <Route path="/:lang/users" element={<SignUp />} />
               <Route path="/:lang/addadmin" element={<AddAdmin />} />
+              <Route path="/:lang/phone" element={<Phone />} />
+              <Route path="/:lang/addphonenum" element={<AddPhone />} />
+              <Route path="/:lang/updatephone" element={<UpdatePhone />} />
+              <Route path="/:lang/addcode" element={<AddCode />} />
+              <Route path="/:lang/updatecode" element={<UpdateCode />} />
               {/* pages route */}
               <Route path="/:lang/about" element={<About />} />
               <Route path="/:lang/updateabout" element={<UpdateAbout />} />
@@ -207,7 +224,15 @@ function App() {
               <Route path="/:lang/updateexphome" element={<UpdateExperienceHome />} />
               <Route path="/:lang/addexphome" element={<AddExperienceSlider />} />
 
-            
+             {/* Portfolio routes */}
+             <Route path="/:lang/portfolio" element={<Portfolio />} />
+             <Route path="/:lang/addportfolio" element={<AddPortfolio />} />
+             <Route path="/:lang/updateportfolio" element={<UpdatePortfolio />} />
+             <Route path="/:lang/addtypeofportfolio" element={<AddTypeOfPortfolio />} />
+             <Route path="/:lang/updatetypeofportfolio" element={<UpdateTypeOfPortfolio />} />
+             <Route path="/:lang/addservicesportfolio" element={<AddServicesPortfolio />} />
+             <Route path="/:lang/updateservicesportfolio" element={<UpdateServicesPortfolio />} />
+
             </Routes>
           </main>
         </div>

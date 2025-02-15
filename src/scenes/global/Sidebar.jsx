@@ -155,6 +155,20 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+             <Item
+              title={lang === "ar" ? "المشاريع" : "Portfolio"}
+              to={`/${lang}/portfolio`}
+              icon={<WorkOutlineIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             <Item
+              title={lang === "ar" ? "ارقام الهواتف" : "Phone Numbers"}
+              to={`/${lang}/phone`}
+              icon={<WorkOutlineIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Item
               title={lang === "ar" ? "تسجيل حساب" : "SignUp"}
               to={`/${lang}/users`}

@@ -32,8 +32,8 @@ function DeleteDialog({ open, onClose, handleDelete }) {
       <DialogContent>
         <DialogContentText>
           {lang === "ar"
-            ? "هل انت متأكد من حذف هذا العنصر"
-            : "  Are you sure you want to delete this item? This action cannot be undone."}
+            ? "هل انت متأكد من الحذف "
+            : "  Are you sure you want to delete? This action cannot be undone."}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

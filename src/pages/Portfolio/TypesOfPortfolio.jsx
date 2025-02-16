@@ -161,7 +161,7 @@ function TypesOfPortfolio() {
             fontWeight: "bold", // Font weight
           }}
           onClick={() => {
-            navigate(`/${lang}/addposition`);
+            navigate(`/${lang}/addtypeofportfolio`);
           }}
         >
           {lang === "ar" ? "اضافة" : "Add"}

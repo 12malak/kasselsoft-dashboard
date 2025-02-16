@@ -50,8 +50,8 @@ const AddTypeOfPortfolio = () => {
   return (
     <Box m="20px">
       <Header
-        title={lang === "ar" ? "اضافة المشاريع" : "Add portfolio"}
-        subtitle={lang === "ar" ? "بيانات المشاريع" : "List of portfolio"}
+        title={lang === "ar" ? "اضافة نوع مشروع" : "Add portfolio"}
+        subtitle={lang === "ar" ? "بيانات نوع مشروع" : "List of portfolio"}
       />
 
       {alert.open && (

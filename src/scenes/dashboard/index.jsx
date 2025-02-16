@@ -22,12 +22,14 @@ const Dashboard = () => {
   const [contactform, setContactform] = useState([]);
   const [jobdescr, setJopDescr] = useState([]);
   const [position, setPosition] = useState([]);
+  const [Portfolio, setPortfolio] = useState([]);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
-        const [careersRes, blogsRes, servicesRes, jobapplicationRes,contactforemRes,jobdescrRes,positionRes] =
+        const [careersRes, blogsRes, servicesRes, jobapplicationRes,contactforemRes,jobdescrRes,positionRes,portfolioRes] =
           await Promise.all([
             axios.get(`${API_URL}/careers/${lang}`),
             // axios.get(`${API_URL}/imgsliderhome/`),
@@ -37,6 +39,7 @@ const Dashboard = () => {
             axios.get(`${API_URL}/contactForm`),
             axios.get(`${API_URL}/jobdescription`),
             axios.get(`${API_URL}/position`),
+            axios.get(`${API_URL}/portfolio/${lang}`),
           ]);
 
         setblogs(careersRes.data);
@@ -46,6 +49,7 @@ const Dashboard = () => {
         setContactform(contactforemRes.data)
         setJopDescr(jobdescrRes.data)
         setPosition(positionRes.data)
+        setPortfolio(portfolioRes.data)
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -121,6 +125,23 @@ const Dashboard = () => {
           <StatBox
             title={services.length}
             subtitle={lang === "ar" ? "الخدمات" : "services"}
+            icon={
+              <DesignServicesIcon
+                sx={{ color: colors.lightBlue[600], fontSize: "26px" }}
+              />
+            }
+          />
+        </Box>
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.primary[400]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={Portfolio.length}
+            subtitle={lang === "ar" ? "المشاريع" : "Portfolio"}
             icon={
               <DesignServicesIcon
                 sx={{ color: colors.lightBlue[600], fontSize: "26px" }}

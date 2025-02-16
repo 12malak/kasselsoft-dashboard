@@ -210,8 +210,8 @@ function Career() {
   return (
     <Box m="20px">
       <Header
-        title={lang === "ar" ? "الخدمات" : "careers"}
-        subtitle={lang === "ar" ? "بيانات الخدمات" : "List of careers"}
+        title={lang === "ar" ? "الوظائف" : "careers"}
+        subtitle={lang === "ar" ? "بيانات الوظائف" : "List of careers"}
       />
 
       <Box

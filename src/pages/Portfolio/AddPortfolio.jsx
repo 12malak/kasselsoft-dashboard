@@ -227,7 +227,7 @@ const AddPortfolio = () => {
                 error={!!touched.link && !!errors.link}
                 helperText={touched.link && errors.link}
               />
-              <h3>Select Types</h3>
+              <h3>{lang === 'ar' ? ' اختر نوع المشروع' : 'Select Types of Project '}</h3>
               {getTypes.map((types) => (
                 <label key={types.id}>
                   <input
@@ -239,7 +239,7 @@ const AddPortfolio = () => {
                   {types.type}
                 </label>
               ))}
-              <h3>Select Services Provided </h3>
+              <h3> {lang === 'ar' ? 'اختيار الخدمات المقدمة ' : 'Select Services Provided'}</h3>
               {getServicesProvided.map((service) => (
                 <label key={service.id}>
                   <input
